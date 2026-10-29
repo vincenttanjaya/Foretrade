@@ -1,0 +1,2823 @@
+{
+ "1332.T": {
+  "file": "1332.T.png",
+  "name": "Nissui Corporation"
+ },
+ "1605.T": {
+  "file": "1605.T.png",
+  "name": "Inpex Corporation",
+  "checked": "2026-10-20"
+ },
+ "1721.T": {
+  "file": "1721.T.png",
+  "name": "COMSYS Holdings Corporation"
+ },
+ "1801.T": {
+  "file": "1801.T.png",
+  "name": "Taisei Corporation"
+ },
+ "1802.T": {
+  "file": "1802.T.png",
+  "name": "Obayashi Corporation"
+ },
+ "1803.T": {
+  "file": "1803.T.png",
+  "name": "Shimizu Corporation"
+ },
+ "1808.T": {
+  "file": "1808.T.png",
+  "name": "HASEKO Corporation"
+ },
+ "1812.T": {
+  "file": "1812.T.png",
+  "name": "Kajima Corporation"
+ },
+ "1925.T": {
+  "file": "1925.T.png",
+  "name": "Daiwa House Industry Co., Ltd."
+ },
+ "1928.T": {
+  "file": "1928.T.png",
+  "name": "Sekisui House, Ltd."
+ },
+ "1963.T": {
+  "file": "1963.T.png",
+  "name": "JGC Holdings Corporation"
+ },
+ "2002.T": {
+  "file": "2002.T.png",
+  "name": "Nisshin Seifun Group Inc.",
+  "checked": "2026-10-20"
+ },
+ "2269.T": {
+  "file": "2269.T.png",
+  "name": "Meiji Holdings Co., Ltd."
+ },
+ "2282.T": {
+  "file": "2282.T.png",
+  "name": "NH Foods Ltd."
+ },
+ "2413.T": {
+  "file": "2413.T.png",
+  "name": "M3, Inc.",
+  "checked": "2026-10-20"
+ },
+ "2432.T": {
+  "file": "2432.T.png",
+  "name": "DeNA Co., Ltd."
+ },
+ "2501.T": {
+  "file": "2501.T.png",
+  "name": "Sapporo Breweries Limited"
+ },
+ "2502.T": {
+  "file": "2502.T.png",
+  "name": "Asahi Group Holdings, Ltd."
+ },
+ "2503.T": {
+  "file": "2503.T.png",
+  "name": "Kirin Holdings Company, Limited"
+ },
+ "2768.T": {
+  "file": "2768.T.png",
+  "name": "Sojitz Corporation"
+ },
+ "2801.T": {
+  "file": "2801.T.png",
+  "name": "Kikkoman Corporation",
+  "checked": "2026-10-20"
+ },
+ "2802.T": {
+  "file": "2802.T.png",
+  "name": "Ajinomoto Co., Inc."
+ },
+ "2871.T": {
+  "file": "2871.T.png",
+  "name": "Nichirei Corporation"
+ },
+ "2914.T": {
+  "file": "2914.T.svg",
+  "name": "Japan Tobacco Inc.",
+  "checked": "2026-10-20"
+ },
+ "3086.T": {
+  "file": "3086.T.png",
+  "name": "J. Front Retailing Co., Ltd."
+ },
+ "3092.T": {
+  "file": "3092.T.png",
+  "name": "ZOZO, Inc."
+ },
+ "3099.T": {
+  "file": "3099.T.svg",
+  "name": "Isetan Mitsukoshi Holdings Ltd.",
+  "checked": "2026-10-20"
+ },
+ "3289.T": {
+  "file": "3289.T.png",
+  "name": "Tokyu Fudosan Holdings Corporation",
+  "checked": "2026-10-20"
+ },
+ "3382.T": {
+  "file": "3382.T.png",
+  "name": "Seven & i Holdings Co., Ltd."
+ },
+ "3401.T": {
+  "file": "3401.T.png",
+  "name": "Teijin Limited",
+  "checked": "2026-10-20"
+ },
+ "3402.T": {
+  "file": "3402.T.png",
+  "name": "Toray Industries, Inc.",
+  "checked": "2026-10-20"
+ },
+ "3405.T": {
+  "file": "3405.T.png",
+  "name": "Kuraray Co., Ltd."
+ },
+ "3407.T": {
+  "file": "3407.T.png",
+  "name": "Asahi Kasei Corporation",
+  "checked": "2026-10-20"
+ },
+ "3436.T": {
+  "file": "3436.T.png",
+  "name": "Sumco Corporation"
+ },
+ "3659.T": {
+  "file": "3659.T.png",
+  "name": "NEXON Co., Ltd."
+ },
+ "3697.T": {
+  "file": "3697.T.png",
+  "name": "SHIFT Inc."
+ },
+ "3861.T": {
+  "file": "3861.T.png",
+  "name": "Oji Holdings Corporation"
+ },
+ "4004.T": {
+  "file": "4004.T.png",
+  "name": "Resonac Holdings Corporation",
+  "checked": "2026-10-20"
+ },
+ "4005.T": {
+  "file": "4005.T.png",
+  "name": "Sumitomo Chemical Company, Limited"
+ },
+ "4021.T": {
+  "file": "4021.T.png",
+  "name": "Nissan Chemical Corporation"
+ },
+ "4042.T": {
+  "file": "4042.T.png",
+  "name": "Tosoh Corporation"
+ },
+ "4043.T": {
+  "file": "4043.T.png",
+  "name": "Tokuyama Corporation"
+ },
+ "4061.T": {
+  "file": "4061.T.png",
+  "name": "Denka Company Limited"
+ },
+ "4062.T": {
+  "file": "4062.T.png",
+  "name": "Ibiden Co.,Ltd."
+ },
+ "4063.T": {
+  "file": "4063.T.png",
+  "name": "Shin-Etsu Chemical Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "4151.T": {
+  "file": "4151.T.png",
+  "name": "Kyowa Kirin Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "4183.T": {
+  "file": "4183.T.png",
+  "name": "Mitsui Chemicals, Inc.",
+  "checked": "2026-10-20"
+ },
+ "4188.T": {
+  "file": "4188.T.png",
+  "name": "Mitsubishi Chemical Group Corporation"
+ },
+ "4208.T": {
+  "file": "4208.T.png",
+  "name": "UBE Corporation"
+ },
+ "4307.T": {
+  "file": "4307.T.png",
+  "name": "Nomura Research Institute, Ltd."
+ },
+ "4324.T": {
+  "file": "4324.T.png",
+  "name": "Dentsu Group Inc.",
+  "checked": "2026-10-20"
+ },
+ "4385.T": {
+  "file": "4385.T.png",
+  "name": "Mercari, Inc.",
+  "checked": "2026-10-20"
+ },
+ "4452.T": {
+  "file": "4452.T.png",
+  "name": "Kao Corporation"
+ },
+ "4502.T": {
+  "file": "4502.T.png",
+  "name": "Takeda Pharmaceutical Company Limited"
+ },
+ "4503.T": {
+  "file": "4503.T.png",
+  "name": "Astellas Pharma Inc."
+ },
+ "4506.T": {
+  "file": "4506.T.png",
+  "name": "Sumitomo Pharma Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "4507.T": {
+  "file": "4507.T.png",
+  "name": "Shionogi & Co., Ltd."
+ },
+ "4519.T": {
+  "file": "4519.T.png",
+  "name": "Chugai Pharmaceutical Co., Ltd."
+ },
+ "4523.T": {
+  "file": "4523.T.png",
+  "name": "Eisai Co., Ltd."
+ },
+ "4543.T": {
+  "file": "4543.T.png",
+  "name": "Terumo Corporation",
+  "checked": "2026-10-20"
+ },
+ "4568.T": {
+  "file": "4568.T.png",
+  "name": "Daiichi Sankyo Company, Limited"
+ },
+ "4578.T": {
+  "file": "4578.T.png",
+  "name": "Otsuka Holdings Co., Ltd."
+ },
+ "4661.T": {
+  "file": "4661.T.png",
+  "name": "Oriental Land Co., Ltd."
+ },
+ "4689.T": {
+  "file": "4689.T.svg",
+  "name": "LY Corporation",
+  "checked": "2026-10-20"
+ },
+ "4704.T": {
+  "file": "4704.T.png",
+  "name": "Trend Micro Incorporated"
+ },
+ "4751.T": {
+  "file": "4751.T.png",
+  "name": "CyberAgent, Inc."
+ },
+ "4755.T": {
+  "file": "4755.T.png",
+  "name": "Rakuten Group, Inc."
+ },
+ "4901.T": {
+  "file": "4901.T.svg",
+  "name": "FUJIFILM Holdings Corporation",
+  "checked": "2026-10-20"
+ },
+ "4911.T": {
+  "file": "4911.T.png",
+  "name": "Shiseido Company, Limited",
+  "checked": "2026-10-20"
+ },
+ "5019.T": {
+  "file": "5019.T.png",
+  "name": "Idemitsu Kosan Co.,Ltd."
+ },
+ "5020.T": {
+  "file": "5020.T.png",
+  "name": "ENEOS Holdings, Inc.",
+  "checked": "2026-10-20"
+ },
+ "5101.T": {
+  "file": "5101.T.png",
+  "name": "The Yokohama Rubber Company, Limited"
+ },
+ "5108.T": {
+  "file": "5108.T.png",
+  "name": "Bridgestone Corporation"
+ },
+ "5201.T": {
+  "file": "5201.T.png",
+  "name": "AGC Inc."
+ },
+ "5214.T": {
+  "file": "5214.T.png",
+  "name": "Nippon Electric Glass Co., Ltd."
+ },
+ "5233.T": {
+  "file": "5233.T.png",
+  "name": "Taiheiyo Cement Corporation"
+ },
+ "5301.T": {
+  "file": "5301.T.png",
+  "name": "Tokai Carbon Co., Ltd."
+ },
+ "5332.T": {
+  "file": "5332.T.png",
+  "name": "TOTO LTD."
+ },
+ "5333.T": {
+  "file": "5333.T.png",
+  "name": "NGK Corporation"
+ },
+ "5401.T": {
+  "file": "5401.T.png",
+  "name": "Nippon Steel Corporation"
+ },
+ "5406.T": {
+  "file": "5406.T.png",
+  "name": "Kobe Steel, Ltd.",
+  "checked": "2026-10-20"
+ },
+ "5411.T": {
+  "file": "5411.T.png",
+  "name": "JFE Holdings, Inc."
+ },
+ "5631.T": {
+  "file": "5631.T.png",
+  "name": "The Japan Steel Works, Ltd."
+ },
+ "5706.T": {
+  "file": "5706.T.png",
+  "name": "Mitsui Kinzoku Company, Limited"
+ },
+ "5711.T": {
+  "file": "5711.T.png",
+  "name": "Mitsubishi Materials Corporation"
+ },
+ "5713.T": {
+  "file": "5713.T.png",
+  "name": "Sumitomo Metal Mining Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "5714.T": {
+  "file": "5714.T.png",
+  "name": "Dowa Holdings Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "5801.T": {
+  "file": "5801.T.png",
+  "name": "Furukawa Electric Co., Ltd."
+ },
+ "5802.T": {
+  "file": "5802.T.png",
+  "name": "Sumitomo Electric Industries, Ltd."
+ },
+ "5803.T": {
+  "file": "5803.T.png",
+  "name": "Fujikura Ltd.",
+  "checked": "2026-10-20"
+ },
+ "5831.T": {
+  "file": "5831.T.png",
+  "name": "Shizuoka Financial Group,Inc."
+ },
+ "6098.T": {
+  "file": "6098.T.png",
+  "name": "Recruit Holdings Co., Ltd."
+ },
+ "6103.T": {
+  "file": "6103.T.png",
+  "name": "Okuma Corporation"
+ },
+ "6113.T": {
+  "file": "6113.T.png",
+  "name": "Amada Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6146.T": {
+  "file": "6146.T.png",
+  "name": "Disco Corporation"
+ },
+ "6178.T": {
+  "file": "6178.T.png",
+  "name": "Japan Post Holdings Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6273.T": {
+  "file": "6273.T.png",
+  "name": "SMC Corporation"
+ },
+ "6301.T": {
+  "file": "6301.T.png",
+  "name": "Komatsu Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6302.T": {
+  "file": "6302.T.png",
+  "name": "Sumitomo Heavy Industries, Ltd."
+ },
+ "6305.T": {
+  "file": "6305.T.png",
+  "name": "Hitachi Construction Machinery Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6326.T": {
+  "file": "6326.T.png",
+  "name": "Kubota Corporation",
+  "checked": "2026-10-20"
+ },
+ "6361.T": {
+  "file": "6361.T.png",
+  "name": "Ebara Corporation"
+ },
+ "6367.T": {
+  "file": "6367.T.png",
+  "name": "Daikin Industries,Ltd."
+ },
+ "6471.T": {
+  "file": "6471.T.png",
+  "name": "NSK Ltd."
+ },
+ "6472.T": {
+  "file": "6472.T.png",
+  "name": "NTN Corporation"
+ },
+ "6473.T": {
+  "file": "6473.T.png",
+  "name": "JTEKT Corporation"
+ },
+ "6479.T": {
+  "file": "6479.T.png",
+  "name": "MINEBEA MITSUMI Inc.",
+  "checked": "2026-10-20"
+ },
+ "6501.T": {
+  "file": "6501.T.png",
+  "name": "Hitachi, Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6503.T": {
+  "file": "6503.T.png",
+  "name": "Mitsubishi Electric Corporation"
+ },
+ "6504.T": {
+  "file": "6504.T.png",
+  "name": "Fuji Electric Co., Ltd."
+ },
+ "6506.T": {
+  "file": "6506.T.png",
+  "name": "YASKAWA Electric Corporation",
+  "checked": "2026-10-20"
+ },
+ "6526.T": {
+  "file": "6526.T.png",
+  "name": "Socionext Inc."
+ },
+ "6532.T": {
+  "file": "6532.T.png",
+  "name": "Baycurrent, Inc.",
+  "checked": "2026-10-20"
+ },
+ "6645.T": {
+  "file": "6645.T.png",
+  "name": "OMRON Corporation",
+  "checked": "2026-10-20"
+ },
+ "6701.T": {
+  "file": "6701.T.png",
+  "name": "NEC Corporation"
+ },
+ "6702.T": {
+  "file": "6702.T.png",
+  "name": "Fujitsu Limited"
+ },
+ "6723.T": {
+  "file": "6723.T.png",
+  "name": "Renesas Electronics Corporation",
+  "checked": "2026-10-20"
+ },
+ "6724.T": {
+  "file": "6724.T.png",
+  "name": "Seiko Epson Corporation"
+ },
+ "6752.T": {
+  "file": "6752.T.svg",
+  "name": "Panasonic Holdings Corporation",
+  "checked": "2026-10-20"
+ },
+ "6753.T": {
+  "file": "6753.T.png",
+  "name": "Sharp Corporation",
+  "checked": "2026-10-20"
+ },
+ "6762.T": {
+  "file": "6762.T.png",
+  "name": "TDK Corporation"
+ },
+ "6770.T": {
+  "file": "6770.T.png",
+  "name": "Alps Alpine Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6841.T": {
+  "file": "6841.T.png",
+  "name": "Yokogawa Electric Corporation",
+  "checked": "2026-10-20"
+ },
+ "6902.T": {
+  "file": "6902.T.png",
+  "name": "DENSO Corporation",
+  "checked": "2026-10-20"
+ },
+ "6920.T": {
+  "file": "6920.T.png",
+  "name": "Lasertec Corporation",
+  "checked": "2026-10-20"
+ },
+ "6954.T": {
+  "file": "6954.T.png",
+  "name": "Fanuc Corporation",
+  "checked": "2026-10-20"
+ },
+ "6963.T": {
+  "file": "6963.T.png",
+  "name": "ROHM Co., Ltd."
+ },
+ "6971.T": {
+  "file": "6971.T.png",
+  "name": "Kyocera Corporation"
+ },
+ "6976.T": {
+  "file": "6976.T.png",
+  "name": "Taiyo Yuden Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6981.T": {
+  "file": "6981.T.png",
+  "name": "Murata Manufacturing Co., Ltd."
+ },
+ "6988.T": {
+  "file": "6988.T.png",
+  "name": "Nitto Denko Corporation",
+  "checked": "2026-10-20"
+ },
+ "7011.T": {
+  "file": "7011.T.png",
+  "name": "Mitsubishi Heavy Industries, Ltd."
+ },
+ "7012.T": {
+  "file": "7012.T.png",
+  "name": "Kawasaki Heavy Industries, Ltd."
+ },
+ "7013.T": {
+  "file": "7013.T.png",
+  "name": "IHI Corporation"
+ },
+ "7186.T": {
+  "file": "7186.T.svg",
+  "name": "Yokohama Financial Group, Inc.",
+  "checked": "2026-10-20"
+ },
+ "7201.T": {
+  "file": "7201.T.svg",
+  "name": "Nissan Motor Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "7202.T": {
+  "file": "7202.T.png",
+  "name": "Isuzu Motors Limited",
+  "checked": "2026-10-20"
+ },
+ "7211.T": {
+  "file": "7211.T.png",
+  "name": "Mitsubishi Motors Corporation"
+ },
+ "7261.T": {
+  "file": "7261.T.svg",
+  "name": "Mazda Motor Corporation",
+  "checked": "2026-10-20"
+ },
+ "7269.T": {
+  "file": "7269.T.png",
+  "name": "Suzuki Motor Corporation"
+ },
+ "7270.T": {
+  "file": "7270.T.png",
+  "name": "Subaru Corporation"
+ },
+ "7272.T": {
+  "file": "7272.T.svg",
+  "name": "Yamaha Motor Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "7453.T": {
+  "file": "7453.T.png",
+  "name": "Ryohin Keikaku Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "7532.T": {
+  "file": "7532.T.png",
+  "name": "Pan Pacific International Holdings Corporation"
+ },
+ "7731.T": {
+  "file": "7731.T.png",
+  "name": "Nikon Corporation"
+ },
+ "7733.T": {
+  "file": "7733.T.png",
+  "name": "Olympus Corporation",
+  "checked": "2026-10-20"
+ },
+ "7735.T": {
+  "file": "7735.T.png",
+  "name": "SCREEN Holdings Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "7741.T": {
+  "file": "7741.T.png",
+  "name": "HOYA Corporation",
+  "checked": "2026-10-20"
+ },
+ "7751.T": {
+  "file": "7751.T.png",
+  "name": "Canon Inc.",
+  "checked": "2026-10-20"
+ },
+ "7752.T": {
+  "file": "7752.T.png",
+  "name": "Ricoh Company, Ltd.",
+  "checked": "2026-10-20"
+ },
+ "7832.T": {
+  "file": "7832.T.png",
+  "name": "BANDAI NAMCO Holdings Inc."
+ },
+ "7911.T": {
+  "file": "7911.T.png",
+  "name": "TOPPAN Holdings Inc.",
+  "checked": "2026-10-20"
+ },
+ "7912.T": {
+  "file": "7912.T.png",
+  "name": "Dai Nippon Printing Co., Ltd."
+ },
+ "7951.T": {
+  "file": "7951.T.png",
+  "name": "Yamaha Corporation"
+ },
+ "8001.T": {
+  "file": "8001.T.png",
+  "name": "ITOCHU Corporation"
+ },
+ "8002.T": {
+  "file": "8002.T.png",
+  "name": "Marubeni Corporation",
+  "checked": "2026-10-20"
+ },
+ "8015.T": {
+  "file": "8015.T.png",
+  "name": "Toyota Tsusho Corporation"
+ },
+ "8031.T": {
+  "file": "8031.T.png",
+  "name": "Mitsui & Co., Ltd."
+ },
+ "8053.T": {
+  "file": "8053.T.png",
+  "name": "Sumitomo Corporation",
+  "checked": "2026-10-20"
+ },
+ "8058.T": {
+  "file": "8058.T.png",
+  "name": "Mitsubishi Corporation"
+ },
+ "8233.T": {
+  "file": "8233.T.png",
+  "name": "Takashimaya Company, Limited"
+ },
+ "8252.T": {
+  "file": "8252.T.png",
+  "name": "Marui Group Co., Ltd."
+ },
+ "8253.T": {
+  "file": "8253.T.png",
+  "name": "Credit Saison Co., Ltd."
+ },
+ "8267.T": {
+  "file": "8267.T.png",
+  "name": "Aeon Co., Ltd."
+ },
+ "8304.T": {
+  "file": "8304.T.png",
+  "name": "Aozora Bank, Ltd."
+ },
+ "8308.T": {
+  "file": "8308.T.png",
+  "name": "Resona Holdings, Inc."
+ },
+ "8309.T": {
+  "file": "8309.T.png",
+  "name": "Sumitomo Mitsui Trust Group, Inc."
+ },
+ "8331.T": {
+  "file": "8331.T.png",
+  "name": "The Chiba Bank, Ltd."
+ },
+ "8354.T": {
+  "file": "8354.T.png",
+  "name": "Fukuoka Financial Group, Inc."
+ },
+ "8411.T": {
+  "file": "8411.T.png",
+  "name": "Mizuho Financial Group, Inc.",
+  "checked": "2026-10-20"
+ },
+ "8591.T": {
+  "file": "8591.T.png",
+  "name": "ORIX Corporation",
+  "checked": "2026-10-20"
+ },
+ "8601.T": {
+  "file": "8601.T.png",
+  "name": "Daiwa Securities Group Inc."
+ },
+ "8604.T": {
+  "file": "8604.T.png",
+  "name": "Nomura Holdings, Inc.",
+  "checked": "2026-10-20"
+ },
+ "8630.T": {
+  "file": "8630.T.png",
+  "name": "Sompo Holdings, Inc."
+ },
+ "8697.T": {
+  "file": "8697.T.png",
+  "name": "Japan Exchange Group, Inc."
+ },
+ "8725.T": {
+  "file": "8725.T.png",
+  "name": "MS&AD Insurance Group Holdings, Inc.",
+  "checked": "2026-10-20"
+ },
+ "8750.T": {
+  "file": "8750.T.png",
+  "name": "Daiichi Life Group, Inc.",
+  "checked": "2026-10-20"
+ },
+ "8766.T": {
+  "file": "8766.T.png",
+  "name": "Tokio Marine Holdings, Inc."
+ },
+ "8795.T": {
+  "file": "8795.T.png",
+  "name": "T&D Holdings, Inc."
+ },
+ "8801.T": {
+  "file": "8801.T.png",
+  "name": "Mitsui Fudosan Co., Ltd."
+ },
+ "8802.T": {
+  "file": "8802.T.png",
+  "name": "Mitsubishi Estate Co., Ltd."
+ },
+ "8804.T": {
+  "file": "8804.T.png",
+  "name": "Tokyo Tatemono Co., Ltd."
+ },
+ "8830.T": {
+  "file": "8830.T.png",
+  "name": "Sumitomo Realty & Development Co., Ltd."
+ },
+ "9001.T": {
+  "file": "9001.T.png",
+  "name": "Tobu Railway Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "9005.T": {
+  "file": "9005.T.png",
+  "name": "Tokyu Corporation",
+  "checked": "2026-10-20"
+ },
+ "9007.T": {
+  "file": "9007.T.png",
+  "name": "Odakyu Electric Railway Co., Ltd."
+ },
+ "9008.T": {
+  "file": "9008.T.png",
+  "name": "Keio Corporation"
+ },
+ "9009.T": {
+  "file": "9009.T.png",
+  "name": "Keisei Electric Railway Co., Ltd."
+ },
+ "9020.T": {
+  "file": "9020.T.png",
+  "name": "East Japan Railway Company"
+ },
+ "9021.T": {
+  "file": "9021.T.png",
+  "name": "West Japan Railway Company"
+ },
+ "9022.T": {
+  "file": "9022.T.png",
+  "name": "Central Japan Railway Company"
+ },
+ "9064.T": {
+  "file": "9064.T.png",
+  "name": "Yamato Holdings Co., Ltd."
+ },
+ "9101.T": {
+  "file": "9101.T.png",
+  "name": "Nippon Yusen Kabushiki Kaisha"
+ },
+ "9104.T": {
+  "file": "9104.T.png",
+  "name": "Mitsui O.S.K. Lines, Ltd."
+ },
+ "9107.T": {
+  "file": "9107.T.png",
+  "name": "Kawasaki Kisen Kaisha, Ltd."
+ },
+ "9147.T": {
+  "file": "9147.T.png",
+  "name": "Nippon Express Holdings, Inc."
+ },
+ "9201.T": {
+  "file": "9201.T.png",
+  "name": "Japan Airlines Co., Ltd."
+ },
+ "9202.T": {
+  "file": "9202.T.png",
+  "name": "ANA Holdings Inc."
+ },
+ "9432.T": {
+  "file": "9432.T.png",
+  "name": "NTT, Inc.",
+  "checked": "2026-10-20"
+ },
+ "9433.T": {
+  "file": "9433.T.png",
+  "name": "KDDI Corporation"
+ },
+ "9434.T": {
+  "file": "9434.T.svg",
+  "name": "SoftBank Corp.",
+  "checked": "2026-10-20"
+ },
+ "9501.T": {
+  "file": "9501.T.png",
+  "name": "Tokyo Electric Power Company Holdings, Incorporated",
+  "checked": "2026-10-20"
+ },
+ "9502.T": {
+  "file": "9502.T.png",
+  "name": "Chubu Electric Power Company, Incorporated"
+ },
+ "9503.T": {
+  "file": "9503.T.png",
+  "name": "The Kansai Electric Power Company, Incorporated"
+ },
+ "9531.T": {
+  "file": "9531.T.png",
+  "name": "Tokyo Gas Co.,Ltd."
+ },
+ "9532.T": {
+  "file": "9532.T.png",
+  "name": "Osaka Gas Co., Ltd."
+ },
+ "9602.T": {
+  "file": "9602.T.png",
+  "name": "Toho Co., Ltd."
+ },
+ "9735.T": {
+  "file": "9735.T.png",
+  "name": "SECOM CO., LTD."
+ },
+ "9766.T": {
+  "file": "9766.T.svg",
+  "name": "Konami Group Corporation",
+  "checked": "2026-10-20"
+ },
+ "9843.T": {
+  "file": "9843.T.png",
+  "name": "Nitori Holdings Co., Ltd."
+ },
+ "5016.T": {
+  "file": "5016.T.png",
+  "name": "JX Advanced Metals Corporation",
+  "checked": "2026-10-20"
+ },
+ "6525.T": {
+  "file": "6525.T.png",
+  "name": "Kokusai Electric Corporation"
+ },
+ "9697.T": {
+  "file": "9697.T.png",
+  "name": "Capcom Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "090430.KS": {
+  "file": "090430.KS.png",
+  "name": "Amorepacific Corporation",
+  "checked": "2026-10-20"
+ },
+ "002790.KS": {
+  "file": "002790.KS.png",
+  "name": "AMOREPACIFIC Holdings Corp.",
+  "checked": "2026-10-20"
+ },
+ "278470.KS": {
+  "file": "278470.KS.png",
+  "name": "APR Co., Ltd."
+ },
+ "282330.KS": {
+  "file": "282330.KS.png",
+  "name": "BGF Retail Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "138930.KS": {
+  "file": "138930.KS.png",
+  "name": "BNK Financial Group Inc."
+ },
+ "030000.KS": {
+  "file": "030000.KS.png",
+  "name": "Cheil Worldwide Inc."
+ },
+ "001040.KS": {
+  "file": "001040.KS.png",
+  "name": "CJ Corporation"
+ },
+ "097950.KS": {
+  "file": "097950.KS.png",
+  "name": "CJ Cheiljedang Corporation"
+ },
+ "000120.KS": {
+  "file": "000120.KS.png",
+  "name": "CJ Logistics Corporation"
+ },
+ "192820.KS": {
+  "file": "192820.KS.png",
+  "name": "Cosmax, Inc.",
+  "checked": "2026-10-20"
+ },
+ "021240.KS": {
+  "file": "021240.KS.png",
+  "name": "COWAY Co., Ltd."
+ },
+ "112610.KS": {
+  "file": "112610.KS.svg",
+  "name": "CS Wind Corporation",
+  "checked": "2026-10-20"
+ },
+ "483650.KS": {
+  "file": "483650.KS.svg",
+  "name": "d'Alba Global Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "047040.KS": {
+  "file": "047040.KS.png",
+  "name": "Daewoo Engineering & Construction Co., Ltd."
+ },
+ "069620.KS": {
+  "file": "069620.KS.svg",
+  "name": "Daewoong Pharmaceutical Co., Ltd",
+  "checked": "2026-10-20"
+ },
+ "000990.KS": {
+  "file": "000990.KS.png",
+  "name": "DB HiTek CO., LTD."
+ },
+ "005830.KS": {
+  "file": "005830.KS.png",
+  "name": "DB Insurance Co., Ltd."
+ },
+ "000210.KS": {
+  "file": "000210.KS.png",
+  "name": "DL Holdings CO., LTD.",
+  "checked": "2026-10-20"
+ },
+ "375500.KS": {
+  "file": "375500.KS.png",
+  "name": "DL E&C Co.,Ltd."
+ },
+ "007340.KS": {
+  "file": "007340.KS.png",
+  "name": "DN Automotive Corporation",
+  "checked": "2026-10-20"
+ },
+ "026960.KS": {
+  "file": "026960.KS.png",
+  "name": "Dong Suh Companies Inc.",
+  "checked": "2026-10-20"
+ },
+ "000150.KS": {
+  "file": "000150.KS.png",
+  "name": "Doosan Corporation",
+  "checked": "2026-10-20"
+ },
+ "241560.KS": {
+  "file": "241560.KS.png",
+  "name": "Doosan Bobcat Inc.",
+  "checked": "2026-10-20"
+ },
+ "454910.KS": {
+  "file": "454910.KS.png",
+  "name": "Doosan Robotics Inc.",
+  "checked": "2026-10-20"
+ },
+ "192080.KS": {
+  "file": "192080.KS.png",
+  "name": "DoubleUGames Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "450080.KS": {
+  "file": "450080.KS.png",
+  "name": "Ecopro Materials Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "139480.KS": {
+  "file": "139480.KS.svg",
+  "name": "E-MART Inc.",
+  "checked": "2026-10-20"
+ },
+ "383220.KS": {
+  "file": "383220.KS.png",
+  "name": "F&F Co., Ltd"
+ },
+ "093370.KS": {
+  "file": "093370.KS.png",
+  "name": "Foosung Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "006280.KS": {
+  "file": "006280.KS.png",
+  "name": "GC Biopharma Corp.",
+  "checked": "2026-10-20"
+ },
+ "078930.KS": {
+  "file": "078930.KS.png",
+  "name": "GS Holdings Corp."
+ },
+ "007070.KS": {
+  "file": "007070.KS.png",
+  "name": "GS Retail Co., Ltd."
+ },
+ "009420.KS": {
+  "file": "009420.KS.png",
+  "name": "Hanall Biopharma Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "180640.KS": {
+  "file": "180640.KS.png",
+  "name": "Hanjin Kal"
+ },
+ "161390.KS": {
+  "file": "161390.KS.png",
+  "name": "Hankook Tire & Technology Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "000240.KS": {
+  "file": "000240.KS.svg",
+  "name": "Hankook & Company Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "128940.KS": {
+  "file": "128940.KS.png",
+  "name": "Hanmi Pharm. Co., Ltd."
+ },
+ "008930.KS": {
+  "file": "008930.KS.png",
+  "name": "Hanmi Science Co., Ltd."
+ },
+ "042700.KS": {
+  "file": "042700.KS.png",
+  "name": "HANMI Semiconductor Co., Ltd."
+ },
+ "018880.KS": {
+  "file": "018880.KS.png",
+  "name": "Hanon Systems",
+  "checked": "2026-10-20"
+ },
+ "014680.KS": {
+  "file": "014680.KS.png",
+  "name": "Hansol Chemical Co., Ltd."
+ },
+ "000880.KS": {
+  "file": "000880.KS.png",
+  "name": "Hanwha Corporation",
+  "checked": "2026-10-20"
+ },
+ "082740.KS": {
+  "file": "082740.KS.png",
+  "name": "Hanwha Engine Co., Ltd."
+ },
+ "088350.KS": {
+  "file": "088350.KS.png",
+  "name": "Hanwha Life Insurance Co., Ltd."
+ },
+ "009830.KS": {
+  "file": "009830.KS.png",
+  "name": "Hanwha Solutions Corporation"
+ },
+ "272210.KS": {
+  "file": "272210.KS.png",
+  "name": "Hanwha Systems Co., Ltd."
+ },
+ "267270.KS": {
+  "file": "267270.KS.png",
+  "name": "HD Construction Equipment Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "267250.KS": {
+  "file": "267250.KS.png",
+  "name": "HD Hyundai Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "267260.KS": {
+  "file": "267260.KS.png",
+  "name": "HD Hyundai Electric Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "071970.KS": {
+  "file": "071970.KS.png",
+  "name": "HD-Hyundai Marine Engine Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "443060.KS": {
+  "file": "443060.KS.png",
+  "name": "HD Hyundai Marine Solution CO.,LTD."
+ },
+ "017960.KS": {
+  "file": "017960.KS.svg",
+  "name": "Hankuk Carbon Co., Ltd."
+ },
+ "204320.KS": {
+  "file": "204320.KS.svg",
+  "name": "HL Mando Corporation",
+  "checked": "2026-10-20"
+ },
+ "011200.KS": {
+  "file": "011200.KS.png",
+  "name": "HMM Co.,Ltd",
+  "checked": "2026-10-20"
+ },
+ "008770.KS": {
+  "file": "008770.KS.png",
+  "name": "Hotel Shilla Co.,Ltd",
+  "checked": "2026-10-20"
+ },
+ "298040.KS": {
+  "file": "298040.KS.png",
+  "name": "Hyosung Heavy Industries Corporation",
+  "checked": "2026-10-20"
+ },
+ "298020.KS": {
+  "file": "298020.KS.png",
+  "name": "Hyosung TNC Corporation",
+  "checked": "2026-10-20"
+ },
+ "307950.KS": {
+  "file": "307950.KS.png",
+  "name": "Hyundai Autoever Corporation"
+ },
+ "069960.KS": {
+  "file": "069960.KS.png",
+  "name": "Hyundai Department Store Co. Ltd.",
+  "checked": "2026-10-20"
+ },
+ "000720.KS": {
+  "file": "000720.KS.png",
+  "name": "Hyundai Engineering & Construction Co.,Ltd.",
+  "checked": "2026-10-20"
+ },
+ "017800.KS": {
+  "file": "017800.KS.svg",
+  "name": "Hyundai Elevator Co., Ltd",
+  "checked": "2026-10-20"
+ },
+ "086280.KS": {
+  "file": "086280.KS.png",
+  "name": "Hyundai Glovis Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "001450.KS": {
+  "file": "001450.KS.png",
+  "name": "Hyundai Marine & Fire Insurance Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "064350.KS": {
+  "file": "064350.KS.png",
+  "name": "Hyundai Rotem Company",
+  "checked": "2026-10-20"
+ },
+ "004020.KS": {
+  "file": "004020.KS.svg",
+  "name": "Hyundai Steel Company",
+  "checked": "2026-10-20"
+ },
+ "011210.KS": {
+  "file": "011210.KS.svg",
+  "name": "Hyundai Wia Corporation",
+  "checked": "2026-10-20"
+ },
+ "139130.KS": {
+  "file": "139130.KS.png",
+  "name": "iM Financial Group Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "024110.KS": {
+  "file": "024110.KS.png",
+  "name": "Industrial Bank of Korea"
+ },
+ "007660.KS": {
+  "file": "007660.KS.png",
+  "name": "ISU Petasys Co., Ltd."
+ },
+ "457190.KS": {
+  "file": "457190.KS.png",
+  "name": "ISU Specialty Chemical Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "175330.KS": {
+  "file": "175330.KS.png",
+  "name": "JB Financial Group Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "323410.KS": {
+  "file": "323410.KS.png",
+  "name": "KakaoBank Corp.",
+  "checked": "2026-10-20"
+ },
+ "377300.KS": {
+  "file": "377300.KS.png",
+  "name": "Kakao Pay Corp.",
+  "checked": "2026-10-20"
+ },
+ "035250.KS": {
+  "file": "035250.KS.png",
+  "name": "Kangwon Land, Inc."
+ },
+ "002380.KS": {
+  "file": "002380.KS.png",
+  "name": "KCC Corporation"
+ },
+ "052690.KS": {
+  "file": "052690.KS.png",
+  "name": "KEPCO Engineering & Construction Company, Inc.",
+  "checked": "2026-10-20"
+ },
+ "051600.KS": {
+  "file": "051600.KS.png",
+  "name": "KEPCO Plant Service & Engineering Co.,Ltd.",
+  "checked": "2026-10-20"
+ },
+ "039490.KS": {
+  "file": "039490.KS.png",
+  "name": "Kiwoom Securities Co., Ltd."
+ },
+ "161890.KS": {
+  "file": "161890.KS.png",
+  "name": "Kolmar Korea Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "120110.KS": {
+  "file": "120110.KS.svg",
+  "name": "Kolon Industries, Inc.",
+  "checked": "2026-10-20"
+ },
+ "047810.KS": {
+  "file": "047810.KS.png",
+  "name": "Korea Aerospace Industries, Ltd.",
+  "checked": "2026-10-20"
+ },
+ "036460.KS": {
+  "file": "036460.KS.png",
+  "name": "Korea Gas Corporation"
+ },
+ "071050.KS": {
+  "file": "071050.KS.png",
+  "name": "Korea Investment Holdings Co., Ltd."
+ },
+ "006650.KS": {
+  "file": "006650.KS.png",
+  "name": "Korea Petrochemical Ind. Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "003490.KS": {
+  "file": "003490.KS.png",
+  "name": "Korean Airlines Co.,Ltd."
+ },
+ "033780.KS": {
+  "file": "033780.KS.png",
+  "name": "KT&G Corporation"
+ },
+ "011780.KS": {
+  "file": "011780.KS.png",
+  "name": "Kumho Petro Chemical Co.,Ltd",
+  "checked": "2026-10-20"
+ },
+ "073240.KS": {
+  "file": "073240.KS.png",
+  "name": "Kumho Tire Co., Inc."
+ },
+ "066970.KS": {
+  "file": "066970.KS.png",
+  "name": "L&F Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "003550.KS": {
+  "file": "003550.KS.svg",
+  "name": "LG Corp.",
+  "checked": "2026-10-20"
+ },
+ "064400.KS": {
+  "file": "064400.KS.png",
+  "name": "LG CNS Co., Ltd."
+ },
+ "051900.KS": {
+  "file": "051900.KS.svg",
+  "name": "LG H&H Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "011070.KS": {
+  "file": "011070.KS.png",
+  "name": "LG Innotek Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "032640.KS": {
+  "file": "032640.KS.svg",
+  "name": "LG Uplus Corp."
+ },
+ "079550.KS": {
+  "file": "079550.KS.svg",
+  "name": "LIG Defense&Aerospace Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "004990.KS": {
+  "file": "004990.KS.png",
+  "name": "LOTTE Corporation"
+ },
+ "011170.KS": {
+  "file": "011170.KS.png",
+  "name": "Lotte Chemical Corporation"
+ },
+ "004000.KS": {
+  "file": "004000.KS.png",
+  "name": "LOTTE Fine Chemical Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "023530.KS": {
+  "file": "023530.KS.png",
+  "name": "Lotte Shopping Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "280360.KS": {
+  "file": "280360.KS.svg",
+  "name": "Lotte Wellfood Co.,Ltd",
+  "checked": "2026-10-20"
+ },
+ "006260.KS": {
+  "file": "006260.KS.png",
+  "name": "LS Corp."
+ },
+ "010120.KS": {
+  "file": "010120.KS.png",
+  "name": "LS ELECTRIC Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "138040.KS": {
+  "file": "138040.KS.png",
+  "name": "Meritz Financial Group Inc.",
+  "checked": "2026-10-20"
+ },
+ "006800.KS": {
+  "file": "006800.KS.png",
+  "name": "Mirae Asset Securities Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "081660.KS": {
+  "file": "081660.KS.png",
+  "name": "Misto Holdings Corp.",
+  "checked": "2026-10-20"
+ },
+ "036570.KS": {
+  "file": "036570.KS.png",
+  "name": "NC Corporation"
+ },
+ "251270.KS": {
+  "file": "251270.KS.png",
+  "name": "Netmarble Corporation"
+ },
+ "005940.KS": {
+  "file": "005940.KS.png",
+  "name": "NH Investment & Securities Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "004370.KS": {
+  "file": "004370.KS.png",
+  "name": "Nongshim Co., Ltd."
+ },
+ "456040.KS": {
+  "file": "456040.KS.png",
+  "name": "OCI Company Ltd.",
+  "checked": "2026-10-20"
+ },
+ "010060.KS": {
+  "file": "010060.KS.png",
+  "name": "OCI Holdings Company Ltd.",
+  "checked": "2026-10-20"
+ },
+ "271560.KS": {
+  "file": "271560.KS.png",
+  "name": "ORION Corp.",
+  "checked": "2026-10-20"
+ },
+ "001800.KS": {
+  "file": "001800.KS.png",
+  "name": "ORION Holdings Corp.",
+  "checked": "2026-10-20"
+ },
+ "028670.KS": {
+  "file": "028670.KS.png",
+  "name": "Pan Ocean Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "034230.KS": {
+  "file": "034230.KS.png",
+  "name": "Paradise Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "103140.KS": {
+  "file": "103140.KS.png",
+  "name": "Poongsan Corporation",
+  "checked": "2026-10-20"
+ },
+ "022100.KS": {
+  "file": "022100.KS.svg",
+  "name": "Posco Dx Company Ltd.",
+  "checked": "2026-10-20"
+ },
+ "003670.KS": {
+  "file": "003670.KS.png",
+  "name": "Posco Future M Co., Ltd."
+ },
+ "047050.KS": {
+  "file": "047050.KS.png",
+  "name": "Posco International Corporation"
+ },
+ "012750.KS": {
+  "file": "012750.KS.png",
+  "name": "S-1 Corporation",
+  "checked": "2026-10-20"
+ },
+ "062040.KS": {
+  "file": "062040.KS.png",
+  "name": "Sanil Electric Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "029780.KS": {
+  "file": "029780.KS.png",
+  "name": "Samsung Card Co., Ltd."
+ },
+ "028050.KS": {
+  "file": "028050.KS.png",
+  "name": "Samsung E&A Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "000810.KS": {
+  "file": "000810.KS.png",
+  "name": "Samsung Fire & Marine Insurance Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "010140.KS": {
+  "file": "010140.KS.png",
+  "name": "Samsung Heavy Industries Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "018260.KS": {
+  "file": "018260.KS.png",
+  "name": "Samsung SDS Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "016360.KS": {
+  "file": "016360.KS.png",
+  "name": "Samsung Securities Co.,Ltd.",
+  "checked": "2026-10-20"
+ },
+ "003230.KS": {
+  "file": "003230.KS.png",
+  "name": "Samyang Foods Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "001430.KS": {
+  "file": "001430.KS.png",
+  "name": "SeAH Besteel Holdings Corporation",
+  "checked": "2026-10-20"
+ },
+ "003030.KS": {
+  "file": "003030.KS.svg",
+  "name": "SeAH Steel Holdings Corporation",
+  "checked": "2026-10-20"
+ },
+ "004170.KS": {
+  "file": "004170.KS.png",
+  "name": "SHINSEGAE Inc.",
+  "checked": "2026-10-20"
+ },
+ "326030.KS": {
+  "file": "326030.KS.png",
+  "name": "SK Biopharmaceuticals Co., Ltd."
+ },
+ "302440.KS": {
+  "file": "302440.KS.svg",
+  "name": "SK bioscience Co.,Ltd.",
+  "checked": "2026-10-20"
+ },
+ "285130.KS": {
+  "file": "285130.KS.png",
+  "name": "SK Chemicals Co.,Ltd",
+  "checked": "2026-10-20"
+ },
+ "361610.KS": {
+  "file": "361610.KS.png",
+  "name": "SK IE Technology Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "402340.KS": {
+  "file": "402340.KS.png",
+  "name": "SK Square Co., Ltd."
+ },
+ "011790.KS": {
+  "file": "011790.KS.png",
+  "name": "SKC Co., Ltd."
+ },
+ "005850.KS": {
+  "file": "005850.KS.png",
+  "name": "SL Corporation",
+  "checked": "2026-10-20"
+ },
+ "010950.KS": {
+  "file": "010950.KS.png",
+  "name": "S-Oil Corporation",
+  "checked": "2026-10-20"
+ },
+ "001440.KS": {
+  "file": "001440.KS.png",
+  "name": "Taihan Cable & Solution Co., Ltd."
+ },
+ "316140.KS": {
+  "file": "316140.KS.png",
+  "name": "Woori Financial Group Inc.",
+  "checked": "2026-10-20"
+ },
+ "000670.KS": {
+  "file": "000670.KS.png",
+  "name": "Young Poong Corporation",
+  "checked": "2026-10-20"
+ },
+ "111770.KS": {
+  "file": "111770.KS.png",
+  "name": "Youngone Corporation",
+  "checked": "2026-10-20"
+ },
+ "009970.KS": {
+  "file": "009970.KS.png",
+  "name": "Youngone Holdings Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "000100.KS": {
+  "file": "000100.KS.png",
+  "name": "Yuhan Corporation"
+ },
+ "3017.TW": {
+  "file": "3017.TW.png",
+  "name": "Asia Vital Components Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "3665.TW": {
+  "file": "3665.TW.png",
+  "name": "BizLink Holding Inc.",
+  "checked": "2026-10-20"
+ },
+ "2360.TW": {
+  "file": "2360.TW.png",
+  "name": "Chroma ATE Inc.",
+  "checked": "2026-10-20"
+ },
+ "4904.TW": {
+  "file": "4904.TW.png",
+  "name": "Far EasTone Telecommunications Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2892.TW": {
+  "file": "2892.TW.png",
+  "name": "First Financial Holding Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6505.TW": {
+  "file": "6505.TW.png",
+  "name": "Formosa Petrochemical Corporation",
+  "checked": "2026-10-20"
+ },
+ "3443.TW": {
+  "file": "3443.TW.png",
+  "name": "Global Unichip Corp.",
+  "checked": "2026-10-20"
+ },
+ "2368.TW": {
+  "file": "2368.TW.png",
+  "name": "Gold Circuit Electronics Ltd.",
+  "checked": "2026-10-20"
+ },
+ "7769.TW": {
+  "file": "7769.TW.png",
+  "name": "Hon. Precision, Inc.",
+  "checked": "2026-10-20"
+ },
+ "2880.TW": {
+  "file": "2880.TW.png",
+  "name": "Hua Nan Financial Holdings Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "3653.TW": {
+  "file": "3653.TW.png",
+  "name": "Jentech Precision Industrial Co., Ltd",
+  "checked": "2026-10-20"
+ },
+ "2883.TW": {
+  "file": "2883.TW.png",
+  "name": "KGI Financial Holding Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2059.TW": {
+  "file": "2059.TW.svg",
+  "name": "King Slide Works Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2449.TW": {
+  "file": "2449.TW.png",
+  "name": "King Yuan Electronics Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2301.TW": {
+  "file": "2301.TW.svg",
+  "name": "Lite-On Technology Corporation",
+  "checked": "2026-10-20"
+ },
+ "8046.TW": {
+  "file": "8046.TW.png",
+  "name": "Nan Ya Printed Circuit Board Corporation",
+  "checked": "2026-10-20"
+ },
+ "2890.TW": {
+  "file": "2890.TW.png",
+  "name": "SinoPac Financial Holdings Company Limited",
+  "checked": "2026-10-20"
+ },
+ "5880.TW": {
+  "file": "5880.TW.png",
+  "name": "Taiwan Cooperative Financial Holding Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "3045.TW": {
+  "file": "3045.TW.png",
+  "name": "Taiwan Mobile Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2887.TW": {
+  "file": "2887.TW.svg",
+  "name": "TS Financial Holding Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "1216.TW": {
+  "file": "1216.TW.png",
+  "name": "Uni-President Enterprises Corp.",
+  "checked": "2026-10-20"
+ },
+ "2344.TW": {
+  "file": "2344.TW.png",
+  "name": "Winbond Electronics Corporation",
+  "checked": "2026-10-20"
+ },
+ "2327.TW": {
+  "file": "2327.TW.png",
+  "name": "Yageo Corporation",
+  "checked": "2026-10-20"
+ },
+ "2885.TW": {
+  "file": "2885.TW.png",
+  "name": "Yuanta Financial Holding Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "4958.TW": {
+  "file": "4958.TW.png",
+  "name": "Zhen Ding Technology Holding Limited",
+  "checked": "2026-10-20"
+ },
+ "6446.TW": {
+  "file": "6446.TW.png",
+  "name": "PharmaEssentia Corporation",
+  "checked": "2026-10-20"
+ },
+ "0001.HK": {
+  "file": "0001.HK.png",
+  "name": "CK Hutchison Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "0002.HK": {
+  "file": "0002.HK.png",
+  "name": "CLP Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "0003.HK": {
+  "file": "0003.HK.png",
+  "name": "The Hong Kong and China Gas Company Limited",
+  "checked": "2026-10-20"
+ },
+ "0005.HK": {
+  "file": "0005.HK.png",
+  "name": "HSBC Holdings plc",
+  "checked": "2026-10-20"
+ },
+ "0006.HK": {
+  "file": "0006.HK.png",
+  "name": "Power Assets Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "0012.HK": {
+  "file": "0012.HK.png",
+  "name": "Henderson Land Development Company Limited",
+  "checked": "2026-10-20"
+ },
+ "0016.HK": {
+  "file": "0016.HK.svg",
+  "name": "Sun Hung Kai Properties Limited"
+ },
+ "0027.HK": {
+  "file": "0027.HK.png",
+  "name": "Galaxy Entertainment Group Limited",
+  "checked": "2026-10-20"
+ },
+ "0066.HK": {
+  "file": "0066.HK.png",
+  "name": "MTR Corporation Limited",
+  "checked": "2026-10-20"
+ },
+ "0101.HK": {
+  "file": "0101.HK.png",
+  "name": "Hang Lung Properties Limited",
+  "checked": "2026-10-20"
+ },
+ "0175.HK": {
+  "file": "0175.HK.png",
+  "name": "Geely Automobile Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "0241.HK": {
+  "file": "0241.HK.png",
+  "name": "Alibaba Health Information Technology Limited",
+  "checked": "2026-10-20"
+ },
+ "0267.HK": {
+  "file": "0267.HK.png",
+  "name": "CITIC Limited",
+  "checked": "2026-10-20"
+ },
+ "0285.HK": {
+  "file": "0285.HK.svg",
+  "name": "BYD Electronic (International) Company Limited",
+  "checked": "2026-10-20"
+ },
+ "0288.HK": {
+  "file": "0288.HK.png",
+  "name": "WH Group Limited",
+  "checked": "2026-10-20"
+ },
+ "0291.HK": {
+  "file": "0291.HK.png",
+  "name": "China Resources Beer (Holdings) Company Limited",
+  "checked": "2026-10-20"
+ },
+ "0300.HK": {
+  "file": "0300.HK.png",
+  "name": "Midea Group Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "0316.HK": {
+  "file": "0316.HK.png",
+  "name": "Orient Overseas (International) Limited"
+ },
+ "0322.HK": {
+  "file": "0322.HK.png",
+  "name": "Tingyi (Cayman Islands) Holding Corp.",
+  "checked": "2026-10-20"
+ },
+ "0386.HK": {
+  "file": "0386.HK.png",
+  "name": "China Petroleum & Chemical Corporation",
+  "checked": "2026-10-20"
+ },
+ "0388.HK": {
+  "file": "0388.HK.png",
+  "name": "Hong Kong Exchanges and Clearing Limited",
+  "checked": "2026-10-20"
+ },
+ "0669.HK": {
+  "file": "0669.HK.png",
+  "name": "Techtronic Industries Company Limited",
+  "checked": "2026-10-20"
+ },
+ "0688.HK": {
+  "file": "0688.HK.png",
+  "name": "China Overseas Land & Investment Limited",
+  "checked": "2026-10-20"
+ },
+ "0728.HK": {
+  "file": "0728.HK.png",
+  "name": "China Telecom Corporation Limited",
+  "checked": "2026-10-20"
+ },
+ "0762.HK": {
+  "file": "0762.HK.png",
+  "name": "China Unicom (Hong Kong) Limited",
+  "checked": "2026-10-20"
+ },
+ "0823.HK": {
+  "file": "0823.HK.png",
+  "name": "Link Real Estate Investment Trust",
+  "checked": "2026-10-20"
+ },
+ "0836.HK": {
+  "file": "0836.HK.png",
+  "name": "China Resources Power Holdings Company Limited",
+  "checked": "2026-10-20"
+ },
+ "0857.HK": {
+  "file": "0857.HK.png",
+  "name": "PetroChina Company Limited",
+  "checked": "2026-10-20"
+ },
+ "0868.HK": {
+  "file": "0868.HK.png",
+  "name": "Xinyi Glass Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "0883.HK": {
+  "file": "0883.HK.png",
+  "name": "CNOOC Limited"
+ },
+ "0939.HK": {
+  "file": "0939.HK.png",
+  "name": "China Construction Bank Corporation",
+  "checked": "2026-10-20"
+ },
+ "0941.HK": {
+  "file": "0941.HK.png",
+  "name": "China Mobile Limited",
+  "checked": "2026-10-20"
+ },
+ "0960.HK": {
+  "file": "0960.HK.png",
+  "name": "Longfor Group Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "0968.HK": {
+  "file": "0968.HK.png",
+  "name": "Xinyi Solar Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "0981.HK": {
+  "file": "0981.HK.png",
+  "name": "Semiconductor Manufacturing International Corporation",
+  "checked": "2026-10-20"
+ },
+ "0992.HK": {
+  "file": "0992.HK.png",
+  "name": "Lenovo Group Limited",
+  "checked": "2026-10-20"
+ },
+ "1024.HK": {
+  "file": "1024.HK.png",
+  "name": "Kuaishou Technology",
+  "checked": "2026-10-20"
+ },
+ "1038.HK": {
+  "file": "1038.HK.png",
+  "name": "CK Infrastructure Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "1044.HK": {
+  "file": "1044.HK.png",
+  "name": "Hengan International Group Company Limited",
+  "checked": "2026-10-20"
+ },
+ "1088.HK": {
+  "file": "1088.HK.png",
+  "name": "China Shenhua Energy Company Limited",
+  "checked": "2026-10-20"
+ },
+ "1093.HK": {
+  "file": "1093.HK.png",
+  "name": "CSPC Pharmaceutical Group Limited",
+  "checked": "2026-10-20"
+ },
+ "1099.HK": {
+  "file": "1099.HK.png",
+  "name": "Sinopharm Group Co. Ltd.",
+  "checked": "2026-10-20"
+ },
+ "1109.HK": {
+  "file": "1109.HK.png",
+  "name": "China Resources Land Limited",
+  "checked": "2026-10-20"
+ },
+ "1113.HK": {
+  "file": "1113.HK.png",
+  "name": "CK Asset Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "1177.HK": {
+  "file": "1177.HK.png",
+  "name": "Sino Biopharmaceutical Limited",
+  "checked": "2026-10-20"
+ },
+ "1209.HK": {
+  "file": "1209.HK.png",
+  "name": "China Resources Mixc Lifestyle Services Limited",
+  "checked": "2026-10-20"
+ },
+ "1347.HK": {
+  "file": "1347.HK.png",
+  "name": "Hua Hong Grace Semiconductor Limited",
+  "checked": "2026-10-20"
+ },
+ "1378.HK": {
+  "file": "1378.HK.png",
+  "name": "China Hongqiao Group Limited",
+  "checked": "2026-10-20"
+ },
+ "1398.HK": {
+  "file": "1398.HK.png",
+  "name": "Industrial and Commercial Bank of China Limited",
+  "checked": "2026-10-20"
+ },
+ "1519.HK": {
+  "file": "1519.HK.png",
+  "name": "J&T Global Express Limited",
+  "checked": "2026-10-20"
+ },
+ "1801.HK": {
+  "file": "1801.HK.png",
+  "name": "Innovent Biologics, Inc.",
+  "checked": "2026-10-20"
+ },
+ "1876.HK": {
+  "file": "1876.HK.png",
+  "name": "Budweiser Brewing Company APAC Limited",
+  "checked": "2026-10-20"
+ },
+ "1928.HK": {
+  "file": "1928.HK.png",
+  "name": "Sands China Ltd.",
+  "checked": "2026-10-20"
+ },
+ "1929.HK": {
+  "file": "1929.HK.png",
+  "name": "Chow Tai Fook Jewellery Group Limited",
+  "checked": "2026-10-20"
+ },
+ "1997.HK": {
+  "file": "1997.HK.png",
+  "name": "Wharf Real Estate Investment Company Limited",
+  "checked": "2026-10-20"
+ },
+ "2020.HK": {
+  "file": "2020.HK.png",
+  "name": "ANTA Sports Products Limited",
+  "checked": "2026-10-20"
+ },
+ "2269.HK": {
+  "file": "2269.HK.png",
+  "name": "WuXi Biologics (Cayman) Inc.",
+  "checked": "2026-10-20"
+ },
+ "2313.HK": {
+  "file": "2313.HK.png",
+  "name": "Shenzhou International Group Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "2318.HK": {
+  "file": "2318.HK.png",
+  "name": "Ping An Insurance (Group) Company of China, Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2319.HK": {
+  "file": "2319.HK.png",
+  "name": "China Mengniu Dairy Company Limited",
+  "checked": "2026-10-20"
+ },
+ "2331.HK": {
+  "file": "2331.HK.png",
+  "name": "Li Ning Company Limited",
+  "checked": "2026-10-20"
+ },
+ "2338.HK": {
+  "file": "2338.HK.png",
+  "name": "Weichai Power Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2359.HK": {
+  "file": "2359.HK.png",
+  "name": "WuXi AppTec Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "2382.HK": {
+  "file": "2382.HK.png",
+  "name": "Sunny Optical Technology (Group) Company Limited",
+  "checked": "2026-10-20"
+ },
+ "2388.HK": {
+  "file": "2388.HK.png",
+  "name": "BOC Hong Kong (Holdings) Limited",
+  "checked": "2026-10-20"
+ },
+ "2600.HK": {
+  "file": "2600.HK.png",
+  "name": "Aluminum Corporation of China Limited",
+  "checked": "2026-10-20"
+ },
+ "2618.HK": {
+  "file": "2618.HK.png",
+  "name": "JD Logistics, Inc.",
+  "checked": "2026-10-20"
+ },
+ "2628.HK": {
+  "file": "2628.HK.png",
+  "name": "China Life Insurance Company Limited",
+  "checked": "2026-10-20"
+ },
+ "2688.HK": {
+  "file": "2688.HK.png",
+  "name": "ENN Energy Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "2899.HK": {
+  "file": "2899.HK.png",
+  "name": "Zijin Mining Group Company Limited",
+  "checked": "2026-10-20"
+ },
+ "3692.HK": {
+  "file": "3692.HK.png",
+  "name": "Hansoh Pharmaceutical Group Company Limited",
+  "checked": "2026-10-20"
+ },
+ "3750.HK": {
+  "file": "3750.HK.svg",
+  "name": "Contemporary Amperex Technology Co., Limited",
+  "checked": "2026-10-20"
+ },
+ "3968.HK": {
+  "file": "3968.HK.png",
+  "name": "China Merchants Bank Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "3988.HK": {
+  "file": "3988.HK.png",
+  "name": "Bank of China Limited",
+  "checked": "2026-10-20"
+ },
+ "3993.HK": {
+  "file": "3993.HK.png",
+  "name": "CMOC Group Limited",
+  "checked": "2026-10-20"
+ },
+ "6160.HK": {
+  "file": "6160.HK.svg",
+  "name": "BeOne Medicines AG",
+  "checked": "2026-10-20"
+ },
+ "6181.HK": {
+  "file": "6181.HK.png",
+  "name": "Laopu Gold Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6618.HK": {
+  "file": "6618.HK.png",
+  "name": "JD Health International Inc.",
+  "checked": "2026-10-20"
+ },
+ "6690.HK": {
+  "file": "6690.HK.png",
+  "name": "Haier Smart Home Co., Ltd.",
+  "checked": "2026-10-20"
+ },
+ "6862.HK": {
+  "file": "6862.HK.png",
+  "name": "Haidilao International Holding Ltd.",
+  "checked": "2026-10-20"
+ },
+ "9633.HK": {
+  "file": "9633.HK.svg",
+  "name": "Nongfu Spring Co., Ltd."
+ },
+ "9901.HK": {
+  "file": "9901.HK.png",
+  "name": "New Oriental Education & Technology Group Inc.",
+  "checked": "2026-10-20"
+ },
+ "9992.HK": {
+  "file": "9992.HK.png",
+  "name": "Pop Mart International Group Limited",
+  "checked": "2026-10-20"
+ },
+ "A17U.SI": {
+  "file": "A17U.SI.png",
+  "name": "CapitaLand Ascendas REIT",
+  "checked": "2026-10-20"
+ },
+ "C38U.SI": {
+  "file": "C38U.SI.png",
+  "name": "CapitaLand Integrated Commercial Trust",
+  "checked": "2026-10-20"
+ },
+ "D01.SI": {
+  "file": "D01.SI.png",
+  "name": "DFI Retail Group Holdings Limited",
+  "checked": "2026-10-20"
+ },
+ "J69U.SI": {
+  "file": "J69U.SI.svg",
+  "name": "Frasers Centrepoint Trust",
+  "checked": "2026-10-20"
+ },
+ "BUOU.SI": {
+  "file": "BUOU.SI.png",
+  "name": "Frasers Logistics & Commercial Trust",
+  "checked": "2026-10-20"
+ },
+ "AJBU.SI": {
+  "file": "AJBU.SI.png",
+  "name": "Keppel DC REIT",
+  "checked": "2026-10-20"
+ },
+ "ME8U.SI": {
+  "file": "ME8U.SI.png",
+  "name": "Mapletree Industrial Trust",
+  "checked": "2026-10-20"
+ },
+ "M44U.SI": {
+  "file": "M44U.SI.png",
+  "name": "Mapletree Logistics Trust",
+  "checked": "2026-10-20"
+ },
+ "N2IU.SI": {
+  "file": "N2IU.SI.svg",
+  "name": "Mapletree Pan Asia Commercial Trust",
+  "checked": "2026-10-20"
+ },
+ "AADI.JK": {
+  "file": "AADI.JK.png",
+  "name": "PT Adaro Andalan Indonesia Tbk",
+  "checked": "2026-10-20"
+ },
+ "ADMR.JK": {
+  "file": "ADMR.JK.png",
+  "name": "PT Alamtri Minerals Indonesia Tbk",
+  "checked": "2026-10-20"
+ },
+ "ADRO.JK": {
+  "file": "ADRO.JK.png",
+  "name": "PT Alamtri Resources Indonesia Tbk",
+  "checked": "2026-10-20"
+ },
+ "AKRA.JK": {
+  "file": "AKRA.JK.png",
+  "name": "PT AKR Corporindo Tbk"
+ },
+ "AMMN.JK": {
+  "file": "AMMN.JK.png",
+  "name": "PT Amman Mineral Internasional Tbk",
+  "checked": "2026-10-20"
+ },
+ "AMRT.JK": {
+  "file": "AMRT.JK.png",
+  "name": "PT Sumber Alfaria Trijaya Tbk",
+  "checked": "2026-10-20"
+ },
+ "ANTM.JK": {
+  "file": "ANTM.JK.png",
+  "name": "PT Antam (Persero) Tbk",
+  "checked": "2026-10-20"
+ },
+ "ASII.JK": {
+  "file": "ASII.JK.png",
+  "name": "PT Astra International Tbk",
+  "checked": "2026-10-20"
+ },
+ "BBNI.JK": {
+  "file": "BBNI.JK.png",
+  "name": "PT Bank Negara Indonesia (Persero) Tbk",
+  "checked": "2026-10-20"
+ },
+ "BRPT.JK": {
+  "file": "BRPT.JK.png",
+  "name": "PT Barito Pacific Tbk",
+  "checked": "2026-10-20"
+ },
+ "BUMI.JK": {
+  "file": "BUMI.JK.png",
+  "name": "PT Bumi Resources Tbk",
+  "checked": "2026-10-20"
+ },
+ "CPIN.JK": {
+  "file": "CPIN.JK.png",
+  "name": "PT Charoen Pokphand Indonesia Tbk",
+  "checked": "2026-10-20"
+ },
+ "CUAN.JK": {
+  "file": "CUAN.JK.png",
+  "name": "PT Petrindo Jaya Kreasi Tbk",
+  "checked": "2026-10-20"
+ },
+ "DEWA.JK": {
+  "file": "DEWA.JK.png",
+  "name": "PT Darma Henwa Tbk",
+  "checked": "2026-10-20"
+ },
+ "ESSA.JK": {
+  "file": "ESSA.JK.png",
+  "name": "PT ESSA Industries Indonesia Tbk.",
+  "checked": "2026-10-20"
+ },
+ "EXCL.JK": {
+  "file": "EXCL.JK.png",
+  "name": "PT XLSMART Telecom Sejahtera Tbk",
+  "checked": "2026-10-20"
+ },
+ "GOTO.JK": {
+  "file": "GOTO.JK.svg",
+  "name": "PT GoTo Gojek Tokopedia Tbk",
+  "checked": "2026-10-20"
+ },
+ "ICBP.JK": {
+  "file": "ICBP.JK.png",
+  "name": "PT Indofood CBP Sukses Makmur Tbk",
+  "checked": "2026-10-20"
+ },
+ "INCO.JK": {
+  "file": "INCO.JK.png",
+  "name": "PT Vale Indonesia Tbk",
+  "checked": "2026-10-20"
+ },
+ "INDF.JK": {
+  "file": "INDF.JK.png",
+  "name": "PT Indofood Sukses Makmur Tbk",
+  "checked": "2026-10-20"
+ },
+ "INDY.JK": {
+  "file": "INDY.JK.png",
+  "name": "PT. Indika Energy Tbk",
+  "checked": "2026-10-20"
+ },
+ "INKP.JK": {
+  "file": "INKP.JK.png",
+  "name": "PT Indah Kiat Pulp & Paper Tbk",
+  "checked": "2026-10-20"
+ },
+ "ISAT.JK": {
+  "file": "ISAT.JK.svg",
+  "name": "PT Indosat Tbk",
+  "checked": "2026-10-20"
+ },
+ "ITMG.JK": {
+  "file": "ITMG.JK.png",
+  "name": "PT Indo Tambangraya Megah Tbk",
+  "checked": "2026-10-20"
+ },
+ "JPFA.JK": {
+  "file": "JPFA.JK.png",
+  "name": "PT Japfa Comfeed Indonesia Tbk",
+  "checked": "2026-10-20"
+ },
+ "KLBF.JK": {
+  "file": "KLBF.JK.png",
+  "name": "PT Kalbe Farma Tbk.",
+  "checked": "2026-10-20"
+ },
+ "MBMA.JK": {
+  "file": "MBMA.JK.png",
+  "name": "PT Merdeka Battery Materials Tbk.",
+  "checked": "2026-10-20"
+ },
+ "MDKA.JK": {
+  "file": "MDKA.JK.png",
+  "name": "PT Merdeka Copper Gold Tbk",
+  "checked": "2026-10-20"
+ },
+ "MEDC.JK": {
+  "file": "MEDC.JK.png",
+  "name": "PT Medco Energi Internasional Tbk",
+  "checked": "2026-10-20"
+ },
+ "NCKL.JK": {
+  "file": "NCKL.JK.png",
+  "name": "PT Trimegah Bangun Persada Tbk",
+  "checked": "2026-10-20"
+ },
+ "PGAS.JK": {
+  "file": "PGAS.JK.png",
+  "name": "PT Perusahaan Gas Negara (Persero) Tbk",
+  "checked": "2026-10-20"
+ },
+ "PTBA.JK": {
+  "file": "PTBA.JK.png",
+  "name": "PT Bukit Asam (Persero) Tbk",
+  "checked": "2026-10-20"
+ },
+ "UNTR.JK": {
+  "file": "UNTR.JK.png",
+  "name": "PT United Tractors Tbk",
+  "checked": "2026-10-20"
+ },
+ "UNVR.JK": {
+  "file": "UNVR.JK.png",
+  "name": "PT Unilever Indonesia Tbk",
+  "checked": "2026-10-20"
+ },
+ "WIFI.JK": {
+  "file": "WIFI.JK.png",
+  "name": "PT Solusi Sinergi Digital Tbk",
+  "checked": "2026-10-20"
+ },
+ "AWC.BK": {
+  "file": "AWC.BK.png",
+  "name": "Asset World Corp Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "BBL.BK": {
+  "file": "BBL.BK.png",
+  "name": "Bangkok Bank Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "BCP.BK": {
+  "file": "BCP.BK.png",
+  "name": "Bangchak Corporation Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "BDMS.BK": {
+  "file": "BDMS.BK.png",
+  "name": "Bangkok Dusit Medical Services Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "BEM.BK": {
+  "file": "BEM.BK.png",
+  "name": "Bangkok Expressway and Metro Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "BH.BK": {
+  "file": "BH.BK.png",
+  "name": "Bumrungrad Hospital Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "BJC.BK": {
+  "file": "BJC.BK.png",
+  "name": "Berli Jucker Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "CCET.BK": {
+  "file": "CCET.BK.png",
+  "name": "Cal-Comp Electronics (Thailand) Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "COM7.BK": {
+  "file": "COM7.BK.png",
+  "name": "Com7 Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "CPF.BK": {
+  "file": "CPF.BK.png",
+  "name": "Charoen Pokphand Foods Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "CPN.BK": {
+  "file": "CPN.BK.png",
+  "name": "Central Pattana Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "CRC.BK": {
+  "file": "CRC.BK.png",
+  "name": "Central Retail Corporation Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "DELTA.BK": {
+  "file": "DELTA.BK.png",
+  "name": "Delta Electronics (Thailand) Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "EGCO.BK": {
+  "file": "EGCO.BK.png",
+  "name": "Electricity Generating Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "GPSC.BK": {
+  "file": "GPSC.BK.png",
+  "name": "Global Power Synergy Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "GULF.BK": {
+  "file": "GULF.BK.png",
+  "name": "Gulf Development Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "HMPRO.BK": {
+  "file": "HMPRO.BK.png",
+  "name": "Home Product Center Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "IVL.BK": {
+  "file": "IVL.BK.png",
+  "name": "Indorama Ventures Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "KBANK.BK": {
+  "file": "KBANK.BK.png",
+  "name": "Kasikornbank Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "KKP.BK": {
+  "file": "KKP.BK.png",
+  "name": "Kiatnakin Phatra Bank Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "KTB.BK": {
+  "file": "KTB.BK.png",
+  "name": "Krung Thai Bank Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "KTC.BK": {
+  "file": "KTC.BK.png",
+  "name": "Krungthai Card Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "LH.BK": {
+  "file": "LH.BK.png",
+  "name": "Land and Houses Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "MINT.BK": {
+  "file": "MINT.BK.png",
+  "name": "Minor International Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "MTC.BK": {
+  "file": "MTC.BK.png",
+  "name": "Muangthai Capital Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "OR.BK": {
+  "file": "OR.BK.png",
+  "name": "PTT Oil and Retail Business Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "OSP.BK": {
+  "file": "OSP.BK.png",
+  "name": "Osotspa Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "PTTEP.BK": {
+  "file": "PTTEP.BK.png",
+  "name": "PTT Exploration and Production Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "PTTGC.BK": {
+  "file": "PTTGC.BK.svg",
+  "name": "PTT Global Chemical Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "RATCH.BK": {
+  "file": "RATCH.BK.png",
+  "name": "Ratch Group Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "SCB.BK": {
+  "file": "SCB.BK.png",
+  "name": "SCB X Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "SCC.BK": {
+  "file": "SCC.BK.png",
+  "name": "The Siam Cement Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "SCGP.BK": {
+  "file": "SCGP.BK.png",
+  "name": "SCG Packaging Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TCAP.BK": {
+  "file": "TCAP.BK.png",
+  "name": "Thanachart Capital Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TFG.BK": {
+  "file": "TFG.BK.png",
+  "name": "Thaifoods Group Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "THAI.BK": {
+  "file": "THAI.BK.png",
+  "name": "Thai Airways International Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TIDLOR.BK": {
+  "file": "TIDLOR.BK.png",
+  "name": "Tidlor Holdings Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TISCO.BK": {
+  "file": "TISCO.BK.png",
+  "name": "TISCO Financial Group Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TLI.BK": {
+  "file": "TLI.BK.png",
+  "name": "Thai Life Insurance Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TOP.BK": {
+  "file": "TOP.BK.png",
+  "name": "Thai Oil Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TRUE.BK": {
+  "file": "TRUE.BK.png",
+  "name": "True Corporation Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TTB.BK": {
+  "file": "TTB.BK.png",
+  "name": "TMBThanachart Bank Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "TU.BK": {
+  "file": "TU.BK.png",
+  "name": "Thai Union Group Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "WHA.BK": {
+  "file": "WHA.BK.png",
+  "name": "WHA Corporation Public Company Limited",
+  "checked": "2026-10-20"
+ },
+ "5326.KL": {
+  "file": "5326.KL.png",
+  "name": "99 Speed Mart Retail Holdings Berhad",
+  "checked": "2026-10-20"
+ },
+ "1015.KL": {
+  "file": "1015.KL.png",
+  "name": "AMMB Holdings Berhad",
+  "checked": "2026-10-20"
+ },
+ "6888.KL": {
+  "file": "6888.KL.png",
+  "name": "Axiata Group Berhad",
+  "checked": "2026-10-20"
+ },
+ "6947.KL": {
+  "file": "6947.KL.png",
+  "name": "Celcomdigi Berhad",
+  "checked": "2026-10-20"
+ },
+ "1023.KL": {
+  "file": "1023.KL.png",
+  "name": "CIMB Group Holdings Berhad",
+  "checked": "2026-10-20"
+ },
+ "5398.KL": {
+  "file": "5398.KL.png",
+  "name": "Gamuda Berhad",
+  "checked": "2026-10-20"
+ },
+ "5819.KL": {
+  "file": "5819.KL.png",
+  "name": "Hong Leong Bank Berhad",
+  "checked": "2026-10-20"
+ },
+ "5225.KL": {
+  "file": "5225.KL.svg",
+  "name": "IHH Healthcare Berhad",
+  "checked": "2026-10-20"
+ },
+ "1961.KL": {
+  "file": "1961.KL.png",
+  "name": "IOI Corporation Berhad",
+  "checked": "2026-10-20"
+ },
+ "5249.KL": {
+  "file": "5249.KL.png",
+  "name": "IOI Properties Group Berhad",
+  "checked": "2026-10-20"
+ },
+ "2445.KL": {
+  "file": "2445.KL.png",
+  "name": "Kuala Lumpur Kepong Berhad",
+  "checked": "2026-10-20"
+ },
+ "6012.KL": {
+  "file": "6012.KL.png",
+  "name": "Maxis Berhad",
+  "checked": "2026-10-20"
+ },
+ "3816.KL": {
+  "file": "3816.KL.png",
+  "name": "MISC Berhad",
+  "checked": "2026-10-20"
+ },
+ "5296.KL": {
+  "file": "5296.KL.png",
+  "name": "Mr D.I.Y. Group (M) Berhad",
+  "checked": "2026-10-20"
+ },
+ "4707.KL": {
+  "file": "4707.KL.png",
+  "name": "Nestlé (Malaysia) Berhad",
+  "checked": "2026-10-20"
+ },
+ "5183.KL": {
+  "file": "5183.KL.svg",
+  "name": "PETRONAS Chemicals Group Berhad",
+  "checked": "2026-10-20"
+ },
+ "5681.KL": {
+  "file": "5681.KL.svg",
+  "name": "PETRONAS Dagangan Berhad",
+  "checked": "2026-10-20"
+ },
+ "6033.KL": {
+  "file": "6033.KL.svg",
+  "name": "PETRONAS Gas Berhad"
+ },
+ "4065.KL": {
+  "file": "4065.KL.png",
+  "name": "PPB Group Berhad",
+  "checked": "2026-10-20"
+ },
+ "8869.KL": {
+  "file": "8869.KL.png",
+  "name": "Press Metal Aluminium Holdings Berhad",
+  "checked": "2026-10-20"
+ },
+ "1066.KL": {
+  "file": "1066.KL.png",
+  "name": "RHB Bank Berhad",
+  "checked": "2026-10-20"
+ },
+ "5285.KL": {
+  "file": "5285.KL.png",
+  "name": "SD Guthrie Berhad",
+  "checked": "2026-10-20"
+ },
+ "5211.KL": {
+  "file": "5211.KL.png",
+  "name": "Sunway Berhad",
+  "checked": "2026-10-20"
+ },
+ "4863.KL": {
+  "file": "4863.KL.png",
+  "name": "Telekom Malaysia Berhad",
+  "checked": "2026-10-20"
+ },
+ "4677.KL": {
+  "file": "4677.KL.png",
+  "name": "YTL Corporation Berhad",
+  "checked": "2026-10-20"
+ },
+ "6742.KL": {
+  "file": "6742.KL.png",
+  "name": "YTL Power International Berhad",
+  "checked": "2026-10-20"
+ },
+ "ACB.VN": {
+  "file": "ACB.VN.svg",
+  "name": "Asia Commercial Joint Stock Bank"
+ },
+ "BID.VN": {
+  "file": "BID.VN.png",
+  "name": "Joint Stock Commercial Bank for Investment and Development of Vietnam",
+  "checked": "2026-10-20"
+ },
+ "BSR.VN": {
+  "file": "BSR.VN.png",
+  "name": "Petrovietnam Refining and Petrochemical Corporation",
+  "checked": "2026-10-20"
+ },
+ "CTG.VN": {
+  "file": "CTG.VN.svg",
+  "name": "Vietnam Joint Stock Commercial Bank for Industry and Trade",
+  "checked": "2026-10-20"
+ },
+ "GAS.VN": {
+  "file": "GAS.VN.png",
+  "name": "Petrovietnam Gas Joint Stock Corporation",
+  "checked": "2026-10-20"
+ },
+ "GVR.VN": {
+  "file": "GVR.VN.png",
+  "name": "Vietnam Rubber Group - Joint Stock Company",
+  "checked": "2026-10-20"
+ },
+ "HDB.VN": {
+  "file": "HDB.VN.png",
+  "name": "Ho Chi Minh City Development Joint Stock Commercial Bank",
+  "checked": "2026-10-20"
+ },
+ "HPG.VN": {
+  "file": "HPG.VN.png",
+  "name": "Hoa Phat Group Joint Stock Company",
+  "checked": "2026-10-20"
+ },
+ "LPB.VN": {
+  "file": "LPB.VN.png",
+  "name": "Fortune Vietnam Joint Stock Commercial Bank",
+  "checked": "2026-10-20"
+ },
+ "MBB.VN": {
+  "file": "MBB.VN.png",
+  "name": "Military Commercial Joint Stock Bank",
+  "checked": "2026-10-20"
+ },
+ "MSN.VN": {
+  "file": "MSN.VN.png",
+  "name": "Masan Group Corporation",
+  "checked": "2026-10-20"
+ },
+ "MWG.VN": {
+  "file": "MWG.VN.png",
+  "name": "Mobile World Investment Corporation",
+  "checked": "2026-10-20"
+ },
+ "SHB.VN": {
+  "file": "SHB.VN.png",
+  "name": "Saigon - Hanoi Commercial Joint Stock Bank",
+  "checked": "2026-10-20"
+ },
+ "SSB.VN": {
+  "file": "SSB.VN.png",
+  "name": "Southeast Asia Commercial Joint Stock Bank",
+  "checked": "2026-10-20"
+ },
+ "SSI.VN": {
+  "file": "SSI.VN.png",
+  "name": "SSI Securities Corporation",
+  "checked": "2026-10-20"
+ },
+ "STB.VN": {
+  "file": "STB.VN.svg",
+  "name": "Saigon Treasure Commercial Joint Stock Bank",
+  "checked": "2026-10-20"
+ },
+ "TCB.VN": {
+  "file": "TCB.VN.svg",
+  "name": "Vietnam Technological and Commercial Joint Stock Bank",
+  "checked": "2026-10-20"
+ },
+ "VIB.VN": {
+  "file": "VIB.VN.png",
+  "name": "Vietnam International Commercial Joint Stock Bank",
+  "checked": "2026-10-20"
+ },
+ "VIC.VN": {
+  "file": "VIC.VN.png",
+  "name": "Vingroup Joint Stock Company",
+  "checked": "2026-10-20"
+ },
+ "VJC.VN": {
+  "file": "VJC.VN.png",
+  "name": "VietJet Aviation Joint Stock Company",
+  "checked": "2026-10-20"
+ },
+ "VNM.VN": {
+  "file": "VNM.VN.svg",
+  "name": "Vietnam Dairy Products Joint Stock Company",
+  "checked": "2026-10-20"
+ },
+ "VPB.VN": {
+  "file": "VPB.VN.png",
+  "name": "Vietnam Prosperity Joint Stock Commercial Bank",
+  "checked": "2026-10-20"
+ },
+ "VRE.VN": {
+  "file": "VRE.VN.png",
+  "name": "Vincom Retail Joint Stock Company",
+  "checked": "2026-10-20"
+ }
+}

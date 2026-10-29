@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  image:
+    name: Publish ghcr.io/vincenttanjaya/foretrade
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    env:
+      IMAGE: ghcr.io/vincenttanjaya/foretrade
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Log in to GHCR
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "$TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+      - name: Build and push linux/amd64 and linux/arm64
+        # The Dockerfile's build stages run natively and cross-compile, so no QEMU. A pre-release
+        # tag (v1.2.0-rc.1) is published under its version only; a release also moves latest.
+        # The first push creates the package as private: make it public once in its settings.
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          tags=(-t "$IMAGE:$version")
+          [[ $version == *-* ]] || tags+=(-t "$IMAGE:latest")
+          docker buildx create --use
+          docker buildx build --platform linux/amd64,linux/arm64 --build-arg COMMIT="$GITHUB_SHA" \
+            --label org.opencontainers.image.version="$version" --label org.opencontainers.image.revision="$GITHUB_SHA" \
+            "${tags[@]}" --push .

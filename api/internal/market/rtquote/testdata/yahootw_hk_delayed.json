@@ -1,0 +1,5 @@
+[
+{"symbol":"0700.HK","exchange":"HKG","currency":"HKD","exchangeDataDelayedBy":15,"marketStatus":null,"regularMarketTime":"2026-10-14T03:59:55Z","volume":"8532198","turnoverM":null,"price":{"raw":"425"},"limitUpPrice":{"raw":"-"},"limitDownPrice":{"raw":"-"}},
+{"symbol":"9988.HK","exchange":"HKG","currency":"HKD","exchangeDataDelayedBy":15,"marketStatus":null,"regularMarketTime":"2026-10-14T03:59:59Z","volume":"39022648","turnoverM":null,"price":{"raw":"110.9"},"limitUpPrice":{"raw":"-"},"limitDownPrice":{"raw":"-"}},
+{"symbol":"0005.HK","exchange":"HKG","currency":"HKD","exchangeDataDelayedBy":15,"marketStatus":null,"regularMarketTime":"2026-10-14T03:59:57Z","volume":"3071759","turnoverM":null,"price":{"raw":"149"},"limitUpPrice":{"raw":"-"},"limitDownPrice":{"raw":"-"}}
+]

@@ -1,0 +1,817 @@
+{
+  "forecast": {
+    "shape": "ordered",
+    "question": "What will be the NYSE closing price of TSM ADR on 2031-10-08?",
+    "outcomes": [
+      "\u003c $300",
+      "$300 – $450",
+      "$450 – $600",
+      "$600 – $800",
+      "$800 – $1,100",
+      "≥ $1,100"
+    ],
+    "resolutionCriteria": "The NYSE official closing price of TSM on the date.",
+    "resolutionDate": "2031-10-08",
+    "category": "markets",
+    "priceRule": null,
+    "context": "",
+    "id": "bdbd5337-7e9e-4d27-8dc6-4d3953c4a00f",
+    "status": "completed",
+    "archivedFromStatus": null,
+    "error": null,
+    "result": {
+      "probabilities": [
+        {
+          "outcome": "\u003c $300",
+          "p": 0.17
+        },
+        {
+          "outcome": "$300 – $450",
+          "p": 0.17
+        },
+        {
+          "outcome": "$450 – $600",
+          "p": 0.15
+        },
+        {
+          "outcome": "$600 – $800",
+          "p": 0.16
+        },
+        {
+          "outcome": "$800 – $1,100",
+          "p": 0.15
+        },
+        {
+          "outcome": "≥ $1,100",
+          "p": 0.2
+        }
+      ],
+      "ensemble": [
+        {
+          "outcome": "\u003c $300",
+          "p": 0.17492773892773894
+        },
+        {
+          "outcome": "$300 – $450",
+          "p": 0.17693672993672993
+        },
+        {
+          "outcome": "$450 – $600",
+          "p": 0.1536147186147186
+        },
+        {
+          "outcome": "$600 – $800",
+          "p": 0.1542840492840493
+        },
+        {
+          "outcome": "$800 – $1,100",
+          "p": 0.1452900432900433
+        },
+        {
+          "outcome": "≥ $1,100",
+          "p": 0.19494671994671994
+        }
+      ],
+      "specialists": [
+        {
+          "role": "base_rate",
+          "name": "Base-rate statistician",
+          "probabilities": [
+            {
+              "outcome": "\u003c $300",
+              "p": 0.173
+            },
+            {
+              "outcome": "$300 – $450",
+              "p": 0.185
+            },
+            {
+              "outcome": "$450 – $600",
+              "p": 0.161
+            },
+            {
+              "outcome": "$600 – $800",
+              "p": 0.158
+            },
+            {
+              "outcome": "$800 – $1,100",
+              "p": 0.143
+            },
+            {
+              "outcome": "≥ $1,100",
+              "p": 0.18
+            }
+          ],
+          "reasoning": "From my method's numbers (H1).",
+          "keyFactors": [
+            "H1"
+          ],
+          "confidence": "medium",
+          "method": "history",
+          "anchor": [
+            {
+              "outcome": "\u003c $300",
+              "p": 0.06733311513587009
+            },
+            {
+              "outcome": "$300 – $450",
+              "p": 0.07740333735476256
+            },
+            {
+              "outcome": "$450 – $600",
+              "p": 0.08604330163839333
+            },
+            {
+              "outcome": "$600 – $800",
+              "p": 0.14732173030984824
+            },
+            {
+              "outcome": "$800 – $1,100",
+              "p": 0.23241234344495337
+            },
+            {
+              "outcome": "≥ $1,100",
+              "p": 0.3894861721161724
+            }
+          ],
+          "stats": {
+            "median": {
+              "value": 579.9718668752236
+            },
+            "p10": {
+              "value": 243.7039581539778,
+              "approx": true
+            },
+            "p90": {
+              "value": 1392.2553194805016,
+              "approx": true
+            },
+            "pAbove": {
+              "value": 0.5999433621390802
+            },
+            "statedMedian": 580
+          }
+        },
+        {
+          "role": "quant",
+          "name": "Market \u0026 quant analyst",
+          "probabilities": [
+            {
+              "outcome": "\u003c $300",
+              "p": 0.135
+            },
+            {
+              "outcome": "$300 – $450",
+              "p": 0.156
+            },
+            {
+              "outcome": "$450 – $600",
+              "p": 0.144
+            },
+            {
+              "outcome": "$600 – $800",
+              "p": 0.157
+            },
+            {
+              "outcome": "$800 – $1,100",
+              "p": 0.163
+            },
+            {
+              "outcome": "≥ $1,100",
+              "p": 0.245
+            }
+          ],
+          "reasoning": "From my method's numbers (H1).",
+          "keyFactors": [
+            "H1"
+          ],
+          "confidence": "medium",
+          "method": "fundamentals",
+          "anchor": [
+            {
+              "outcome": "\u003c $300",
+              "p": 0.17496351736449714
+            },
+            {
+              "outcome": "$300 – $450",
+              "p": 0.14593773288226072
+            },
+            {
+              "outcome": "$450 – $600",
+              "p": 0.1264216625173179
+            },
+            {
+              "outcome": "$600 – $800",
+              "p": 0.1330236345682969
+            },
+            {
+              "outcome": "$800 – $1,100",
+              "p": 0.13823717157367987
+            },
+            {
+              "outcome": "≥ $1,100",
+              "p": 0.28141628109394745
+            }
+          ],
+          "stats": {
+            "median": {
+              "value": 675.8922689950145
+            },
+            "p10": {
+              "value": 270.0158861677771,
+              "approx": true
+            },
+            "p90": {
+              "value": 1689.1566612486758,
+              "approx": true
+            },
+            "pAbove": {
+              "value": 0.6713841251430281
+            },
+            "statedMedian": 677
+          },
+          "model": [
+            {
+              "name": "AI capex digestion",
+              "kind": "bear",
+              "p": 0.3,
+              "price": 346.18242406746594,
+              "vsRefPct": -28.639836727517743,
+              "inputs": [
+                {
+                  "field": "eps",
+                  "value": 21.33,
+                  "year": 2027,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                },
+                {
+                  "field": "growthPct",
+                  "value": 3,
+                  "year": 2032,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                },
+                {
+                  "field": "pe",
+                  "value": 14,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                }
+              ]
+            },
+            {
+              "name": "Compounding foundry leader",
+              "kind": "base",
+              "p": 0.5,
+              "price": 751.8149620531201,
+              "vsRefPct": 54.97504989551454,
+              "inputs": [
+                {
+                  "field": "eps",
+                  "value": 21.33,
+                  "year": 2027,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                },
+                {
+                  "field": "growthPct",
+                  "value": 12,
+                  "year": 2032,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                },
+                {
+                  "field": "pe",
+                  "value": 20,
+                  "basis": "model knowledge, as of 2025-06",
+                  "kind": "model_knowledge",
+                  "verified": false
+                }
+              ]
+            },
+            {
+              "name": "AI supercycle",
+              "kind": "bull",
+              "p": 0.2,
+              "price": 1326.89664,
+              "vsRefPct": 173.5192612137203,
+              "inputs": [
+                {
+                  "field": "eps",
+                  "value": 21.33,
+                  "year": 2027,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                },
+                {
+                  "field": "growthPct",
+                  "value": 20,
+                  "year": 2032,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                },
+                {
+                  "field": "pe",
+                  "value": 25,
+                  "basis": "assumption",
+                  "kind": "assumption",
+                  "verified": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "role": "skeptic",
+          "name": "Narrative \u0026 macro skeptic",
+          "probabilities": [
+            {
+              "outcome": "\u003c $300",
+              "p": 0.21678321678321677
+            },
+            {
+              "outcome": "$300 – $450",
+              "p": 0.1898101898101898
+            },
+            {
+              "outcome": "$450 – $600",
+              "p": 0.1558441558441558
+            },
+            {
+              "outcome": "$600 – $800",
+              "p": 0.14785214785214784
+            },
+            {
+              "outcome": "$800 – $1,100",
+              "p": 0.12987012987012986
+            },
+            {
+              "outcome": "≥ $1,100",
+              "p": 0.1598401598401598
+            }
+          ],
+          "reasoning": "From my method's numbers (H1).",
+          "keyFactors": [
+            "H1"
+          ],
+          "confidence": "medium",
+          "method": "regime",
+          "anchor": [
+            {
+              "outcome": "\u003c $300",
+              "p": 0.16672653073426286
+            },
+            {
+              "outcome": "$300 – $450",
+              "p": 0.13904452708272075
+            },
+            {
+              "outcome": "$450 – $600",
+              "p": 0.12301270878542542
+            },
+            {
+              "outcome": "$600 – $800",
+              "p": 0.13111517156237928
+            },
+            {
+              "outcome": "$800 – $1,100",
+              "p": 0.13786722239139437
+            },
+            {
+              "outcome": "≥ $1,100",
+              "p": 0.3022338394438173
+            }
+          ],
+          "stats": {
+            "median": {
+              "value": 534.6821267191965
+            },
+            "p10": {
+              "value": 209.6588529587589,
+              "approx": true
+            },
+            "p90": {
+              "value": 1321.9832752873758,
+              "approx": true
+            },
+            "pAbove": {
+              "value": 0.5526967721328142
+            },
+            "statedMedian": 536
+          }
+        }
+      ],
+      "summary": "We expect TSM to compound with earnings rather than with its multiple. The main risk is a capex digestion or a Taiwan shock.",
+      "drivers": [],
+      "evidence": [
+        {
+          "claim": "TSM's measured history since its listing.",
+          "source": "Yahoo Finance daily closes (NYSE: TSM)",
+          "stance": "neutral",
+          "asOf": "2026-10-05",
+          "url": "https://finance.yahoo.com/quote/TSM/history"
+        }
+      ],
+      "flags": [
+        {
+          "type": "low_information",
+          "note": "Live search found no usable sources and the stored wire had nothing on this question."
+        }
+      ],
+      "whatWouldChange": [],
+      "confidence": "high",
+      "knowledgeNote": "Model knowledge (training data) + Yahoo daily history (TSM since 1997) as of 2026-10-08 07:19 UTC; no live news feed.",
+      "sources": [],
+      "research": {
+        "queries": [],
+        "status": "none",
+        "note": "Live search found no usable sources and the stored wire had nothing on this question."
+      },
+      "findings": [],
+      "market": null,
+      "reference": null,
+      "view": {
+        "scale": "log",
+        "unit": {
+          "prefix": "$",
+          "suffix": ""
+        },
+        "horizonDays": 1826,
+        "reference": {
+          "value": 485.12,
+          "label": "TSM, NYSE regular-market price",
+          "asOf": "2026-10-05T13:30:00Z",
+          "source": "Yahoo Finance (delayed)"
+        },
+        "median": {
+          "value": 610.8856471272738
+        },
+        "p10": {
+          "value": 241.92584013610596,
+          "approx": true
+        },
+        "p25": {
+          "value": 363.0677966127341
+        },
+        "p75": {
+          "value": 989.2174886497396
+        },
+        "p90": {
+          "value": 1476.4254367930055,
+          "approx": true
+        },
+        "pAbove": {
+          "value": 0.6208167970239876
+        },
+        "changePct": 25.924646917726314,
+        "change": null,
+        "annualPct": 4.715551255197825,
+        "flat": true,
+        "headline": "view",
+        "edges": [
+          {
+            "value": 300,
+            "vsRefPct": -38.15963060686016
+          },
+          {
+            "value": 450,
+            "vsRefPct": -7.239445910290243
+          },
+          {
+            "value": 600,
+            "vsRefPct": 23.680738786279676
+          },
+          {
+            "value": 800,
+            "vsRefPct": 64.90765171503958
+          },
+          {
+            "value": 1100,
+            "vsRefPct": 126.74802110817942
+          }
+        ],
+        "lead": "Our median is $611 for Oct 8, 2031, +26% from today's $485 (about +4.7% a year); 50% range $363–$989, 80% range ≈$242–≈$1,480; 62% chance it closes at or above $485.",
+        "basis": {
+          "kind": "capped_drift",
+          "label": "Measured TSM history since 1997; drift +9.4%/yr (half the history's own CAGR, under the cap of +10.0%/yr: an assumption)"
+        }
+      },
+      "scenarios": [
+        {
+          "kind": "tail",
+          "name": "Taiwan blockade or conflict",
+          "p": 0.203272672637321,
+          "modelP": 0.05,
+          "lo": null,
+          "hi": 324.77763750769697,
+          "level": 304.6963291369304,
+          "vsRefPct": -37.19155484479503,
+          "annualPct": -8.877477967013725,
+          "inputs": [
+            {
+              "field": "eventP",
+              "value": 0.05,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            },
+            {
+              "field": "movePct",
+              "value": -60,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            }
+          ],
+          "thesis": "A blockade halts the fabs.",
+          "mustBeTrue": [
+            "A blockade before the date (assumption)"
+          ],
+          "sourceIds": []
+        },
+        {
+          "kind": "bear",
+          "name": "AI capex digestion",
+          "p": 0.20215396436449592,
+          "modelP": 0.3,
+          "lo": 324.77763750769697,
+          "hi": 510.16186256298994,
+          "level": 346.18242406746594,
+          "vsRefPct": -28.639836727517743,
+          "annualPct": -6.522472251588374,
+          "inputs": [
+            {
+              "field": "eps",
+              "value": 21.33,
+              "year": 2027,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            },
+            {
+              "field": "growthPct",
+              "value": 3,
+              "year": 2032,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            },
+            {
+              "field": "pe",
+              "value": 14,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            }
+          ],
+          "thesis": "",
+          "mustBeTrue": [],
+          "sourceIds": []
+        },
+        {
+          "kind": "base",
+          "name": "Compounding foundry leader",
+          "p": 0.34910933051502246,
+          "modelP": 0.5,
+          "lo": 510.16186256298994,
+          "hi": 998.7896410406009,
+          "level": 751.8149620531201,
+          "vsRefPct": 54.97504989551454,
+          "annualPct": 9.151954774000416,
+          "inputs": [
+            {
+              "field": "eps",
+              "value": 21.33,
+              "year": 2027,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            },
+            {
+              "field": "growthPct",
+              "value": 12,
+              "year": 2032,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            },
+            {
+              "field": "pe",
+              "value": 20,
+              "basis": "model knowledge, as of 2025-06",
+              "kind": "model_knowledge",
+              "verified": false
+            }
+          ],
+          "thesis": "EPS compounds near 12% a year (H1, F9).",
+          "mustBeTrue": [
+            "FY2032 EPS near $38 at about 20x"
+          ],
+          "sourceIds": [
+            "H1"
+          ]
+        },
+        {
+          "kind": "bull",
+          "name": "AI supercycle",
+          "p": 0.24546403248316062,
+          "modelP": 0.2,
+          "lo": 998.7896410406009,
+          "hi": null,
+          "level": 1326.89664,
+          "vsRefPct": 173.5192612137203,
+          "annualPct": 22.27839231204154,
+          "inputs": [
+            {
+              "field": "eps",
+              "value": 21.33,
+              "year": 2027,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            },
+            {
+              "field": "growthPct",
+              "value": 20,
+              "year": 2032,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            },
+            {
+              "field": "pe",
+              "value": 25,
+              "basis": "assumption",
+              "kind": "assumption",
+              "verified": false
+            }
+          ],
+          "thesis": "",
+          "mustBeTrue": [],
+          "sourceIds": []
+        }
+      ],
+      "methods": {
+        "plan": "long_stock",
+        "weights": [
+          {
+            "role": "base_rate",
+            "method": "history",
+            "weight": 0.3,
+            "why": "The reference class."
+          },
+          {
+            "role": "quant",
+            "method": "fundamentals",
+            "weight": 0.45,
+            "why": "Earnings drive the price."
+          },
+          {
+            "role": "skeptic",
+            "method": "regime",
+            "weight": 0.25,
+            "why": "Tails."
+          }
+        ],
+        "weightsFrom": "desk",
+        "pool": [
+          {
+            "outcome": "\u003c $300",
+            "p": 0.1668458041958042
+          },
+          {
+            "outcome": "$300 – $450",
+            "p": 0.17315254745254746
+          },
+          {
+            "outcome": "$450 – $600",
+            "p": 0.15206103896103895
+          },
+          {
+            "outcome": "$600 – $800",
+            "p": 0.15501303696303698
+          },
+          {
+            "outcome": "$800 – $1,100",
+            "p": 0.14871753246753244
+          },
+          {
+            "outcome": "≥ $1,100",
+            "p": 0.20421003996003995
+          }
+        ],
+        "agreement": "diverse",
+        "guard": null,
+        "note": "We trusted the fundamentals model for the centre and the history for the width."
+      },
+      "measured": {
+        "symbol": "TSM",
+        "name": "TSMC (Taiwan Semiconductor)",
+        "source": "Yahoo Finance daily closes (NYSE: TSM)",
+        "currency": "USD",
+        "from": "1997-10-01",
+        "to": "2026-10-05",
+        "sessions": 7569,
+        "volAnnPct": {
+          "y1": 36.121732549674675,
+          "y5": 37.570044195273624,
+          "all": 37.7158938816662
+        },
+        "cagrPct": {
+          "y5": 14.674773989162816,
+          "y10": 29.169100415686966,
+          "all": 19.767861256469388
+        },
+        "maxDrawdown": {
+          "pct": -62.680516848239165,
+          "peak": "2009-01-23",
+          "trough": "2009-12-18",
+          "recovered": "2013-03-01"
+        },
+        "window": {
+          "days": 1826,
+          "n": 6265,
+          "independent": 5,
+          "p10": 1.3301316405145331,
+          "p50": 2.124961920428928,
+          "p90": 4.863763745468946,
+          "pUp": 0.9693535514764565
+        },
+        "url": "https://finance.yahoo.com/quote/TSM/history"
+      }
+    },
+    "createdAt": "2026-10-08T07:19:41.103882Z",
+    "completedAt": "2026-10-08T07:19:41.146593Z",
+    "resolution": null,
+    "replay": null,
+    "parentId": null,
+    "history": [
+      {
+        "id": "bdbd5337-7e9e-4d27-8dc6-4d3953c4a00f",
+        "outcome": "≥ $1,100",
+        "p": 0.2,
+        "at": "2026-10-08T07:19:41.146593Z",
+        "median": 610.8856471272738
+      }
+    ],
+    "progress": {
+      "research": {
+        "status": "done",
+        "queries": [],
+        "found": 0,
+        "read": 0,
+        "mode": "none",
+        "depth": null,
+        "angles": [],
+        "searches": 0,
+        "findings": 0,
+        "steps": []
+      },
+      "specialists": [
+        {
+          "role": "base_rate",
+          "status": "done",
+          "top": {
+            "outcome": "$300 – $450",
+            "p": 0.185
+          }
+        },
+        {
+          "role": "quant",
+          "status": "done",
+          "top": {
+            "outcome": "≥ $1,100",
+            "p": 0.245
+          }
+        },
+        {
+          "role": "skeptic",
+          "status": "done",
+          "top": {
+            "outcome": "\u003c $300",
+            "p": 0.21678321678321677
+          }
+        }
+      ],
+      "aggregator": {
+        "status": "done"
+      },
+      "market": {
+        "status": "skipped",
+        "matched": false
+      },
+      "materials": null,
+      "updatedAt": "2026-10-08T07:19:41.145582646Z"
+    },
+    "materials": []
+  }
+}
+

@@ -1,0 +1,185 @@
+@import 'tailwindcss';
+
+/* `dark:` follows the app theme (data-theme on <html>), not the OS setting. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Design tokens — FRONTEND-LAYOUT.md. index.html sets data-theme before first paint. */
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --surface-2: #f1eee6;
+  --border: #e6e1d6;
+  --text: #14161b;
+  --muted: #62666f; /* ≥ 4.5:1 on every light surface, incl. surface-2 and accent-soft */
+  --ink: #0f1b2d;
+  --ink-fg: #ffffff;
+  --accent: #c8962e;
+  --accent-soft: #f6ecd6;
+  /* Gold that passes AA as small text on light surfaces; use for accent-coloured text and links. */
+  --accent-ink: #8a6516;
+  --up: #15803d;
+  --down: #dc2626;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #0b0d12;
+  --surface: #12151c;
+  --surface-2: #181c25;
+  --border: #252a35;
+  --text: #ecedef;
+  --muted: #8b91a0;
+  --ink: #ecedef;
+  --ink-fg: #0b0d12;
+  --accent: #e0b252;
+  --accent-soft: #2a2414;
+  --accent-ink: #e0b252;
+  --up: #22c55e;
+  --down: #ef4444;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-ink: var(--ink);
+  --color-ink-fg: var(--ink-fg);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-up: var(--up);
+  --color-down: var(--down);
+}
+
+@theme {
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --animate-fade-up: fade-up 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-bar: bar-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  @keyframes bar-in {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  button:not(:disabled),
+  [role='button'],
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent-ink); /* --accent is under 3:1 on light surfaces */
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Surface card: 1px hairline, soft radius. No padding — add p-5 or CardHeader + a px-5 pb-5 body. */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgb(15 27 45 / 0.04);
+  }
+  [data-theme='dark'] .card {
+    box-shadow: none;
+  }
+
+  /* Mono uppercase micro-label: CREDIT BALANCE · DAILY */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Data tables: mono micro-label header on surface-2, hairline rows, tabular numbers. */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .data-table thead th {
+    background: var(--surface-2);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .data-table th,
+  .data-table td {
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

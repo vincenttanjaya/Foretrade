@@ -1,0 +1,7 @@
+[
+{"symbol":"2303.TW","exchange":"TAI","currency":"TWD","exchangeDataDelayedBy":0,"marketStatus":"close","regularMarketTime":"2026-10-14T06:30:00Z","volume":"108734000","turnoverM":"15414.11","price":{"raw":"142"},"limitUpPrice":{"raw":"155.5"},"limitDownPrice":{"raw":"127.5"}},
+{"symbol":"2412.TW","exchange":"TAI","currency":"TWD","exchangeDataDelayedBy":0,"marketStatus":"close","regularMarketTime":"2026-10-14T06:30:00Z","volume":"9083000","turnoverM":"1347.96","price":{"raw":"148.5"},"limitUpPrice":{"raw":"162.5"},"limitDownPrice":{"raw":"133.5"}},
+{"symbol":"3711.TW","exchange":"TAI","currency":"TWD","exchangeDataDelayedBy":0,"marketStatus":"close","regularMarketTime":"2026-10-14T06:30:00Z","volume":"12572000","turnoverM":"9437.83","price":{"raw":"747"},"limitUpPrice":{"raw":"814"},"limitDownPrice":{"raw":"666"}},
+{"symbol":"2327.TW","exchange":"TAI","currency":"TWD","exchangeDataDelayedBy":0,"marketStatus":"close","regularMarketTime":"2026-10-14T06:30:00Z","volume":"46403000","turnoverM":"28678.43","price":{"raw":"627"},"limitUpPrice":{"raw":"658"},"limitDownPrice":{"raw":"540"}},
+{"symbol":"2454.TW","exchange":"TAI","currency":"TWD","exchangeDataDelayedBy":0,"marketStatus":"close","regularMarketTime":"2026-10-14T06:30:00Z","volume":"6587000","turnoverM":"29797.63","price":{"raw":"4475"},"limitUpPrice":{"raw":"4975"},"limitDownPrice":{"raw":"4075"}}
+]

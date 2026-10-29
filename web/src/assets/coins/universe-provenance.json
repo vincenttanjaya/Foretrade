@@ -1,0 +1,292 @@
+[
+  {
+    "symbol": "ZEC",
+    "file": "zec.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/coin/zec.svg",
+    "sourceSha256": "d25f3d632b9998357a3946f24a6f8ecd9fb3d84972450d778eb8ada6240308cb",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "d25f3d632b9998357a3946f24a6f8ecd9fb3d84972450d778eb8ada6240308cb"
+  },
+  {
+    "symbol": "QNT",
+    "file": "qnt.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/QNT.svg",
+    "sourceSha256": "97efde1e2893d2db9a69d033c7e0739ae1489c58e1bcbfa051b6a6139339ea08",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "159b9f18a5eba986bb24a09b541ab34ad835c5bf9c98872548cb6430e689a747"
+  },
+  {
+    "symbol": "SAND",
+    "file": "sand.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/SAND.svg",
+    "sourceSha256": "a464e87b27330476a0291d86f285b4ae8ead8b6d4cef49e3f9859e6741a171dc",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "57dbc9a1898e59e5094e92da1a3a1f3d91ead6ef05b3f8a9d4fa4fce92a02d8c"
+  },
+  {
+    "symbol": "MUBARAK",
+    "file": "mubarak.png",
+    "source": "https://github.com/ErikThiart/cryptocurrency-icons/blob/8dcc316d95f0bbdf6f3b220745ae05f1ef00e79e/128/mubarak.png",
+    "sourceSha256": "ec47348d912b913139a97c71e9f4a09e68a6c55f8b4ac5921e8e07cd89963243",
+    "license": "MIT",
+    "credit": "Copyright (c) 2018 Erik Thiart",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "ec47348d912b913139a97c71e9f4a09e68a6c55f8b4ac5921e8e07cd89963243"
+  },
+  {
+    "symbol": "STRK",
+    "file": "strk.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/chain/starknet.circle.svg",
+    "sourceSha256": "6d25b75399782fb39ce16a1cb35f683ec9c1135c14a411d3f5dc3a9764dedc38",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "17f9e6b5b4161f9fca7a44f45973fc1127e34b93cb82bd2240a262a67b601c98"
+  },
+  {
+    "symbol": "AXS",
+    "file": "axs.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/AXS.svg",
+    "sourceSha256": "044782eeaa9373793289656f30c4065433ea50ec988e25cf81320e51e17c1360",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "e5b4859d2596f4b7b588eecf8fcd12e81b3d563dd0f1a9a21c205c5877d0077d"
+  },
+  {
+    "symbol": "TRUMP",
+    "file": "trump.png",
+    "source": "https://github.com/ErikThiart/cryptocurrency-icons/blob/8dcc316d95f0bbdf6f3b220745ae05f1ef00e79e/128/official-trump.png",
+    "sourceSha256": "ebb222b7ff62c75267eba92c2d58dfd6f8f0e3802814ea481c81dc1d07705275",
+    "license": "MIT",
+    "credit": "Copyright (c) 2018 Erik Thiart",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "ebb222b7ff62c75267eba92c2d58dfd6f8f0e3802814ea481c81dc1d07705275"
+  },
+  {
+    "symbol": "ZRO",
+    "file": "zro.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/bridge/layer-zero.svg",
+    "sourceSha256": "69d8788e04940f5e9fed457b6069bb9d8dbeae70ea0c35dfc67fde27d8c57064",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Black LayerZero source geometry unchanged; proportionally inset on an explicit white disc for legibility in both themes.",
+    "sha256": "35edef0b1156b81edb6a2ac9e871c68b01693d350df486cfb2ade49c712936d1"
+  },
+  {
+    "symbol": "ACE",
+    "file": "ace.png",
+    "source": "https://github.com/ErikThiart/cryptocurrency-icons/blob/8dcc316d95f0bbdf6f3b220745ae05f1ef00e79e/128/fusionist.png",
+    "sourceSha256": "299edf84095c796b37d069f4c6112b8228fae2f21f5774f483a00735ba18ef36",
+    "license": "MIT",
+    "credit": "Copyright (c) 2018 Erik Thiart",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "299edf84095c796b37d069f4c6112b8228fae2f21f5774f483a00735ba18ef36"
+  },
+  {
+    "symbol": "VIRTUAL",
+    "file": "virtual.svg",
+    "source": "https://github.com/SmolDapp/tokenAssets/blob/e25ff0eb173f24098842b285cef02976dc2f2cf0/tokens/8453/0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b/logo.svg",
+    "sourceSha256": "33b56a09dec2d02be2b2045d6ec220445240119f36f2d07ad4ee37280ab631d9",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 Smol",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "61a9ca6eb02eaa31bf3eaf3b204c234b8f1355be1109d97bef56f16625c2e3b1"
+  },
+  {
+    "symbol": "ORCA",
+    "file": "orca.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/dex/orca.svg",
+    "sourceSha256": "4ceaad3814d9ab3c838d646f8b5cafd3903dcc959516b3150bb5928361199e16",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "4ceaad3814d9ab3c838d646f8b5cafd3903dcc959516b3150bb5928361199e16"
+  },
+  {
+    "symbol": "RUNE",
+    "file": "rune.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/RUNE.svg",
+    "sourceSha256": "c27bd4532fa44a49d9da0c137eddbf97fbd2424ad4829c345318d21d03eefa91",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "0619f80c2cc3ef3443887ff338a9e8f4bb437b77649383d9730cc79c6ebc9095"
+  },
+  {
+    "symbol": "RAY",
+    "file": "ray.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/dex/raydium.svg",
+    "sourceSha256": "e9700922f38e93a65ed128368f1d0b29476c13b46c54c0ddad00a734d83c7cb1",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "62f935251f0d66098d55f6a833ada1e52eadb3cc47aab153ffe4bcc5cb24e370"
+  },
+  {
+    "symbol": "NIL",
+    "file": "nil.png",
+    "source": "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/8dcc316d95f0bbdf6f3b220745ae05f1ef00e79e/128/nillion.png",
+    "sourceSha256": "8a7e4f12dd84d2612e3656f24e11df04b6a56fac9c1ca58a0d754675cf82e46c",
+    "license": "MIT",
+    "credit": "Copyright (c) 2018 Erik Thiart",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "8a7e4f12dd84d2612e3656f24e11df04b6a56fac9c1ca58a0d754675cf82e46c"
+  },
+  {
+    "symbol": "MOVR",
+    "file": "movr.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/MOVR.svg",
+    "sourceSha256": "4020e3785e6d94d4e33d2118758d54f43f60b99f5622674bef9547601f34d40e",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "82ea0e3c8144a307798d978509c99ab3cc5aa12128d781b160b43aaac7e73364"
+  },
+  {
+    "symbol": "PHA",
+    "file": "pha.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/PHA.svg",
+    "sourceSha256": "48ae3c2bdc76fac554a68a82a2db637251fd6132fcaaa588ab0c2cd910b6e7ec",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Changed lime ground to dark ground for white Phala mark contrast; unchanged source geometry.",
+    "sha256": "1865334ab964798e6a04e59b7e7a08efdfe0043f1d3d6a4bf6fcebae51a08ae0"
+  },
+  {
+    "symbol": "DASH",
+    "file": "dash.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/DASH.svg",
+    "sourceSha256": "d42480c00a5b89a49094f35571ea907ed7daf86874390d88013844ef0b7f3560",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "35136727c5fdb2745a01ef0e9d32478a42f8551f3eb93f412168a61dfd10f386"
+  },
+  {
+    "symbol": "JST",
+    "file": "jst.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/JST.svg",
+    "sourceSha256": "d3ce62097377bace7b56aea4080bf4f282ddad1d6cfd2095601822dea692bef5",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "3a2fb16cc4a588f08fa0b1c652d70a44b43a79817665f06ecd73945d4c86d014"
+  },
+  {
+    "symbol": "ETHFI",
+    "file": "ethfi.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/defi/ether-fi.svg",
+    "sourceSha256": "8e0e91da76926c7ab81f11121c96365cef8969400d53cd5bcb45c79234cb5aaa",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "c7383cdb5600aa2cdece8d34771681994f9d2567aa2675187dc2a6fc4a4446c0"
+  },
+  {
+    "symbol": "NMR",
+    "file": "nmr.svg",
+    "source": "https://github.com/0xa3k5/web3icons/blob/ad3cbe05229db54931cd8b2c2a86662288a0ce50/raw-svgs/tokens/background/NMR.svg",
+    "sourceSha256": "de3d1f00b8cded08139a9ef74332ace63978133bd83acb8d8ddb643d4e4d0679",
+    "license": "MIT",
+    "credit": "Copyright (c) 2024 0xa3k5",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "095b477a0b98fddf08f32d0dcbc616025f2e6108e178fe509e30eb46d2940626"
+  },
+  {
+    "symbol": "WLFI",
+    "file": "wlfi.svg",
+    "source": "https://static.worldlibertyfinancial.com/assets/brand/wlfi.svg",
+    "sourceSha256": "b568731216fc78c7e647ddd8d9132b3a08c40646c392f7be17e41ffac43a40bd",
+    "license": "Official representation guidance; no permissive drawing grant verified",
+    "credit": "World Liberty Financial",
+    "modifications": "Official path geometry unchanged; white circular ground and proportional inset provide clearspace. Official representation guidance only, no MIT/CC0 claim.",
+    "sha256": "09b6ce31bb7aefb1d03f163c6c62d370576e6e293dcc87498970c7dc15d4c855"
+  },
+  {
+    "symbol": "JTO",
+    "file": "jto.png",
+    "source": "https://github.com/ErikThiart/cryptocurrency-icons/blob/8dcc316d95f0bbdf6f3b220745ae05f1ef00e79e/128/jito.png",
+    "sourceSha256": "38457d1fb08d00a09d5bd821d9c4807cca04e39796ea68ca500fc505e438e4d8",
+    "license": "MIT",
+    "credit": "Copyright (c) 2018 Erik Thiart",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "38457d1fb08d00a09d5bd821d9c4807cca04e39796ea68ca500fc505e438e4d8"
+  },
+  {
+    "symbol": "POL",
+    "file": "pol.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/chain/polygon.circle.svg",
+    "sourceSha256": "496f965ddb54be17a933d56421ba146d86c166345939253b4942ee60d08cef1e",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "496f965ddb54be17a933d56421ba146d86c166345939253b4942ee60d08cef1e"
+  },
+  {
+    "symbol": "CAKE",
+    "file": "cake.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/coin/cake.svg",
+    "sourceSha256": "0d9adfb2c20bc459b1a35eb24f40d3b282eb8862d599ca603910e78dc6fa2439",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "037585d7e064e6ef6bb60db417d81614d39394f7717527f69b6fd01770eff357"
+  },
+  {
+    "symbol": "JUP",
+    "file": "jup.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/dex/jupiter.circle.svg",
+    "sourceSha256": "c59464a609dcdee0403dad68d2ab98035047b06f40cdc2cb4948545157220307",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition.",
+    "sha256": "4be6a7fd090c317aa1dcd88b5146fd17de349fc82609f6cb8288dc1e52062ed4"
+  },
+  {
+    "symbol": "AR",
+    "file": "ar.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/storage/arweave.svg",
+    "sourceSha256": "cc555164c0f1df2ceadf5e972488448ee4866e47b25f7d1721dad3b62914a293",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Added white circular ground and clearspace; unchanged source geometry.",
+    "sha256": "d58808691134e1b09b4890ad3090f19958a42ca4e6d896325afd8d3ee97b93f4"
+  },
+  {
+    "symbol": "SAGA",
+    "file": "saga.png",
+    "source": "https://github.com/ErikThiart/cryptocurrency-icons/blob/8dcc316d95f0bbdf6f3b220745ae05f1ef00e79e/128/saga.png",
+    "sourceSha256": "8ae8ff4f8d98db818ec81bdfa2eb8d8ee6e95fd45d68647169f4721c63bb20ef",
+    "license": "MIT",
+    "credit": "Copyright (c) 2018 Erik Thiart",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "8ae8ff4f8d98db818ec81bdfa2eb8d8ee6e95fd45d68647169f4721c63bb20ef"
+  },
+  {
+    "symbol": "CRV",
+    "file": "crv.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/coin/crv.svg",
+    "sourceSha256": "84437effd1ecf46b3dfd82ce214bd95e799d543636869f9f1665f53d3ceecf9a",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Source path geometry and colors retained; fragment IDs namespaced for bundled composition. Repaired two over-prefixed fill references to resolve to the declared crv-crv-a/b gradients; other valid prefixes retained.",
+    "sha256": "cbfcca95fb9645c5dd2e377becf96de4eb80d2787c3c0afbc098f9a4e853df1f"
+  },
+  {
+    "symbol": "PENDLE",
+    "file": "pendle.svg",
+    "source": "https://github.com/derodero24/react-web3-icons/blob/fccbb69b46a6482c3f23b50c5b0a81c4598af225/icons/defi/pendle.svg",
+    "sourceSha256": "0da3431d13748b9e0538f79b5eece88459edc2562e221d58237284b31e47b421",
+    "license": "MIT",
+    "credit": "Copyright (c) 2023 derodero24",
+    "modifications": "Exact source bytes; displayed in a circular image box.",
+    "sha256": "0da3431d13748b9e0538f79b5eece88459edc2562e221d58237284b31e47b421"
+  }
+]

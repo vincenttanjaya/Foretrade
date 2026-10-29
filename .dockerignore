@@ -1,0 +1,16 @@
+.git
+.github
+**/.env
+**/.env.*
+**/node_modules
+**/dist
+**/dist-e2e
+**/coverage
+**/coverage.out
+**/playwright-report
+**/test-results
+**/*.tsbuildinfo
+**/.DS_Store
+docs
+scripts
+compose.yaml

@@ -1,0 +1,11 @@
+/trade-api
+/bin/
+*.test
+.env
+.env.*
+!.env.example
+coverage.out
+.DS_Store
+
+.superpowers/
+__pycache__/

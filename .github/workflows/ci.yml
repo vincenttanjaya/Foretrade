@@ -1,0 +1,207 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    # Two runners, as the integration suite needs one to itself: it boots the server per test.
+    name: API ${{ matrix.suite }} tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [unit, integration]
+    defaults:
+      run:
+        shell: bash
+        working-directory: api
+    env:
+      # Disposable service credentials, never production configuration.
+      DATABASE_URL_TEST: postgres://trade:trade_ci@127.0.0.1:5432/trade_test?sslmode=disable
+      AWS_EC2_METADATA_DISABLED: 'true'
+    services:
+      postgres:
+        image: postgres:18-alpine # compose.yaml's
+        env:
+          POSTGRES_USER: trade
+          POSTGRES_PASSWORD: trade_ci
+          POSTGRES_DB: trade_test
+        ports:
+          - 127.0.0.1:5432:5432
+        options: >-
+          --health-cmd "pg_isready -h 127.0.0.1 -U trade -d trade_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: api/go.mod
+          cache-dependency-path: api/go.sum
+      - name: Check formatting
+        if: matrix.suite == 'unit'
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then echo "::error::gofmt needed:"; echo "$unformatted"; exit 1; fi
+      - name: Vet
+        if: matrix.suite == 'unit'
+        run: go vet ./...
+      - name: Unit tests with race detection
+        # Without INTEGRATION_DATABASE_URL the integration suite skips; the other job runs it.
+        if: matrix.suite == 'unit'
+        run: go test -race -count=1 -timeout=10m -coverprofile=coverage.out ./...
+      - name: Coverage gate
+        if: matrix.suite == 'unit'
+        env:
+          MIN_COVERAGE: '75'
+        run: |
+          total=$(go tool cover -func=coverage.out | awk '/^total:/ { sub("%", "", $NF); print $NF }')
+          echo "## API coverage: ${total}% of statements (gate: ${MIN_COVERAGE}%)" >> "$GITHUB_STEP_SUMMARY"
+          if ! awk -v t="$total" -v min="$MIN_COVERAGE" 'BEGIN { exit !(t + 0 >= min + 0) }'; then
+            echo "::error::total coverage ${total}% is below ${MIN_COVERAGE}%"
+            exit 1
+          fi
+      - name: Test the results checker
+        if: matrix.suite == 'integration'
+        run: python3 -m unittest discover -s ci -p 'test_*.py'
+      - name: Integration suite with race detection
+        if: matrix.suite == 'integration'
+        env:
+          INTEGRATION_DATABASE_URL: postgres://trade:trade_ci@127.0.0.1:5432/trade_test?sslmode=disable
+        run: |
+          set -o pipefail
+          go test -race -count=1 -timeout=10m -json ./cmd/api/ | tee go-tests.jsonl | jq -rj 'select(.Action == "output") | .Output'
+      - name: Require every integration test, none skipped
+        # A green run alone does not prove the suite ran: it skips without INTEGRATION_DATABASE_URL.
+        if: matrix.suite == 'integration'
+        run: python3 ci/check_go_results.py go-tests.jsonl | tee -a "$GITHUB_STEP_SUMMARY"
+
+  spa:
+    name: ${{ matrix.app }} (typecheck, unit tests, build)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [web, admin]
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.app }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: ${{ matrix.app }}/.node-version
+          cache: npm
+          cache-dependency-path: ${{ matrix.app }}/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests with coverage thresholds
+        # vite.config.ts fails the run under 70% lines overall or 80% in src/lib and src/components.
+        run: npm run test:coverage
+      - name: Build
+        run: npm run build
+
+  e2e:
+    # The production build against each app's e2e/mock-api.ts. web's suite runs in two shards:
+    # one runner took 16.6 of its 20 minutes.
+    name: ${{ matrix.app }} end-to-end (Playwright, shard ${{ matrix.shard }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { app: web, shard: 1/2 }
+          - { app: web, shard: 2/2 }
+          - { app: admin, shard: 1/1 }
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.app }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: ${{ matrix.app }}/.node-version
+          cache: npm
+          cache-dependency-path: ${{ matrix.app }}/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build against the mock API
+        run: npm run e2e:build
+      - name: End-to-end tests
+        run: npx playwright test --shard=${{ matrix.shard }}
+      - name: Upload the HTML report and traces
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-report-${{ matrix.app }}-${{ strategy.job-index }} # a name can't hold the shard's "/"
+          path: |
+            ${{ matrix.app }}/playwright-report/
+            ${{ matrix.app }}/test-results/
+          retention-days: 14
+
+  docker:
+    name: Docker image (the compose quickstart)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Write .env
+        run: scripts/setup.sh > /dev/null
+      - name: Build and start, waiting for healthy
+        run: docker compose up -d --build --wait --wait-timeout 180
+      - name: Both listeners serve; the console's API only on its own
+        run: |
+          set -euo pipefail # grep without -q reads to the end: curl never sees a closed pipe
+          val() { sed -n "s/^$1=//p" .env; }
+          code() { curl -s -o /dev/null -w '%{http_code}' "$@"; }
+          curl -fsS localhost:8080/healthz && curl -fsS localhost:8081/healthz
+          curl -fsS localhost:8080/portfolio | grep -F '<div id="root">' > /dev/null
+          curl -fsS localhost:8081/users | grep -F '<div id="root">' > /dev/null
+          test "$(code localhost:8080/api/admin/overview)" = 404
+          test "$(code localhost:8081/api/admin/overview)" = 401
+          curl -fsS -c jar -H 'Origin: http://localhost:8081' -H 'Content-Type: application/json' \
+            -d "{\"email\":\"$(val ADMIN_EMAIL)\",\"password\":\"$(val ADMIN_PASSWORD)\"}" localhost:8081/api/auth/login | grep -F '"role":"admin"' > /dev/null
+          test "$(code -b jar -H 'Origin: http://localhost:8081' localhost:8081/api/admin/overview)" = 200
+          test "$(code -b jar localhost:8080/api/admin/overview)" = 404
+      - name: Logs
+        if: failure()
+        run: docker compose logs

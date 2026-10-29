@@ -1,0 +1,54 @@
+# Foretrade: run scripts/setup.sh once (it writes .env), then `docker compose up -d --build`.
+# Web app: http://localhost:8080. Admin console: http://localhost:8081, on this machine only
+# (from elsewhere: ssh -L 8081:127.0.0.1:8081 your-server).
+name: foretrade
+
+services:
+  db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: trade
+      POSTGRES_DB: trade
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?run scripts/setup.sh first}"
+    volumes:
+      - db:/var/lib/postgresql # Postgres 18's layout: the data lives in a versioned directory below it
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U trade -d trade"] # over TCP: the init-time server listens on the socket only
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  app:
+    # Pulled when published, else built from this checkout (`docker compose up -d --build` always builds).
+    image: ghcr.io/vincenttanjaya/foretrade:${APP_VERSION:-latest}
+    build:
+      context: .
+      args:
+        APP_URL: ${APP_URL:-http://localhost:${WEB_PORT:-8080}}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      # The container's own ports: WEB_PORT and ADMIN_PORT in .env are the host's.
+      PORT: "8080"
+      ADMIN_PORT: "8081"
+      DATABASE_URL: postgres://trade:${POSTGRES_PASSWORD}@db:5432/trade?sslmode=disable
+      SECRET_KEY: "${SECRET_KEY:?run scripts/setup.sh first}"
+      ADMIN_EMAIL: "${ADMIN_EMAIL:?run scripts/setup.sh first}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:?run scripts/setup.sh first}"
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:${WEB_PORT:-8080},http://127.0.0.1:${WEB_PORT:-8080},http://localhost:${ADMIN_PORT:-8081},http://127.0.0.1:${ADMIN_PORT:-8081}}
+      ADMIN_ORIGINS: ${ADMIN_ORIGINS:-http://localhost:${ADMIN_PORT:-8081},http://127.0.0.1:${ADMIN_PORT:-8081}}
+      APP_URL: ${APP_URL:-http://localhost:${WEB_PORT:-8080}}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      LIVE_ARENA: ${LIVE_ARENA:-off}
+    extra_hosts:
+      - host.docker.internal:host-gateway # Ollama / LM Studio on this machine; on Linux they must listen beyond 127.0.0.1 (.env.example)
+    ports:
+      - ${WEB_PORT:-8080}:8080
+      - 127.0.0.1:${ADMIN_PORT:-8081}:8081 # the admin console and the ChatGPT sign-in callback: loopback only
+
+volumes:
+  db: {}
