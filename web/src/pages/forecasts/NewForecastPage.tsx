@@ -72,7 +72,7 @@ export function NewForecastPage() {
   const { toast } = useToast()
   const [idea, setIdea] = useState(typeof entry?.idea === 'string' ? entry.idea.slice(0, MAX_IDEA) : '')
   const [draft, setDraft] = useState<ForecastDraft | null>(entry?.draft ? normalizeDraft(entry.draft) : null)
-  // Round 9b: today's level a long-horizon stock draft's ranges are cut around (AI drafts only).
+  // Today's level a long-horizon stock draft's ranges are cut around (AI drafts only).
   const [reference, setReference] = useState<DeskReference | null>(null)
   const [origin, setOrigin] = useState<Origin>(entry?.draft?.linkedMarket ? 'market' : entry?.draft && entry.origin !== 'ai' ? 'edit' : 'ai')
   const [drafting, setDrafting] = useState(false)
@@ -889,7 +889,7 @@ function OutcomesEditor({
     if (k) seen.set(k, (seen.get(k) ?? 0) + 1)
   }
   const isDup = (o: string) => (seen.get(o.trim().toLowerCase()) ?? 0) > 1
-  // Round 9b: ranges cut at multiples of today's level show how far each is from it, while they still parse.
+  // Ranges cut at multiples of today's level show how far each is from it, while they still parse.
   const bounds = reference && shape === 'ordered' ? bucketBoundsTs(outcomes) : null
   const vs = (x: number) => (Number.isFinite(x) && reference ? (x / reference.value - 1) * 100 : null)
 

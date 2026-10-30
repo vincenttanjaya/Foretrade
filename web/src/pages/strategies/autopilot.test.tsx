@@ -178,7 +178,7 @@ describe('AutopilotCard', () => {
     expect(within(card).getByRole('meter', { name: 'Drawdown against the cap' })).toHaveAttribute('aria-valuenow', '2.5')
     expect(within(card).getByText('Next check 12:00 UTC')).toBeInTheDocument()
     expect(within(card).getByText('Deployed with $5,000; checks every closed 4h bar.')).toBeInTheDocument()
-    expect(within(card).queryByText(/^stop /)).toBeNull() // an autopilot from before round 5 has no levels
+    expect(within(card).queryByText(/^stop /)).toBeNull() // an older autopilot has no levels
     expect(get).toHaveBeenCalledWith('ap1')
     expect(await within(card).findByText('0.42 SOL @ $142.10')).toBeInTheDocument() // the fill
   })

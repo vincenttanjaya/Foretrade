@@ -8,7 +8,7 @@ import (
 )
 
 // loadFixtureView reads testdata/run-tsm-numeric.json: a GET
-// /api/forecasts/{id} body dumped against the fakes in slice 2 (synthetic
+// /api/forecasts/{id} body dumped against the fakes (synthetic
 // prices), TSM 5 years with a capped-drift view.
 func loadFixtureView(t *testing.T) *DeskView {
 	t.Helper()
@@ -100,7 +100,7 @@ func TestChanceWords(t *testing.T) {
 	}
 }
 
-// An event summary keeps its call (gap round G20): over the 24 stored
+// An event summary keeps its call: over the 24 stored
 // binary and categorical replay summaries the summary step changes none,
 // though answerFirst would cut 5 of them; a numeric one still loses its
 // process sentences.

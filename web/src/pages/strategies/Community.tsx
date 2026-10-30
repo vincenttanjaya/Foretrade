@@ -1,4 +1,4 @@
-// Community strategies (round 6): the board under Top strategies → Community, and the publish / star / copy controls
+// Community strategies: the board under Top strategies → Community, and the publish / star / copy controls
 // the strategy page uses. 0 credits, no model call anywhere.
 import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router'

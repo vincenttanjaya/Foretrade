@@ -103,7 +103,7 @@ function Detail({ id }: { id: string }) {
         if (lastStatus.current === 'running' && f.status === 'failed') toast('The forecast run failed.', 'error')
         // A failed run refunds its credits on the server; re-read them so the top-bar pill catches up.
         if (lastStatus.current !== 'failed' && f.status === 'failed') refresh().catch(() => {})
-        // A completed run refunds 1 credit for each new file the desk could not read (round 9): the same catch-up.
+        // A completed run refunds 1 credit for each new file the desk could not read: the same catch-up.
         else if (lastStatus.current === 'running' && f.status === 'completed' && materialsOf(f).some((m) => m.status === 'failed' && !m.reusedFrom))
           refresh().catch(() => {})
         lastStatus.current = f.status
@@ -486,7 +486,7 @@ function Report({ f, r, onChange }: { f: Forecast; r: ForecastResult; onChange: 
   const findings = findingsOf(r, materials).length
   const deep = status === 'live' && r.research?.depth === 'deep'
   const angles = deep && Array.isArray(r.research?.angles) ? r.research.angles.filter((a) => a && typeof a.id === 'string') : []
-  // Round 9b: a numeric report reads its buckets as numbers. Older results, binary and categorical ones have no view.
+  // A numeric report reads its buckets as numbers. Older results, binary and categorical ones have no view.
   const view = f.shape === 'ordered' ? viewOf(r) : null
   const scenarios = view ? scenariosOf(r) : []
   const methods = view ? methodsOf(r) : null
@@ -673,7 +673,7 @@ function ResultHero({ f, r, final, view }: { f: Forecast; r: ForecastResult; fin
   const ti = topIndex(final)
   const top = final[ti]
   const days = daysUntil(f.resolutionDate)
-  // Round 9b: when the view leads, the server's numbers line comes first and the summary is the thesis under it.
+  // When the view leads, the server's numbers line comes first and the summary is the thesis under it.
   const lead = view?.headline === 'view' ? view.lead : ''
   const viewChange = typeof r.viewChange === 'string' ? r.viewChange.trim() : ''
 
@@ -807,7 +807,7 @@ function SpecialistCard({
   const head = binary ? Math.max(0, items.findIndex((o) => o.outcome.trim().toLowerCase() === 'yes')) : topIndex(items) // yesP's pick
   const top = items[topIndex(items)]
   const factors = Array.isArray(s.keyFactors) ? s.keyFactors : []
-  // Round 9b, numeric reports: the method the server saw it use and, for a member that ran its method's tool, its median
+  // Numeric reports: the method the server saw it use and, for a member that ran its method's tool, its median
   // and where that tool started it. A judgment or fallback member (and an older run's, with no method) keeps its top
   // range: its median would rest on no evidence.
   // A view no evidence anchors (basis none) states no median, so neither does its member: the top range line instead.
@@ -987,7 +987,7 @@ function weightNames(weights: DeskMethods['weights']) {
 }
 
 /**
- * Round 9b: the weighted pool the aggregator started from (each specialist weighted by its method for this horizon),
+ * The weighted pool the aggregator started from (each specialist weighted by its method for this horizon),
  * against the final; whether the methods agreed, the server's guard, and each member's median on the hero's axis.
  */
 function PoolVsFinal({ final, methods, outcomes, view, specialists }: { final: OutcomeP[]; methods: DeskMethods; outcomes: string[]; view: DeskView; specialists: Specialist[] }) {

@@ -65,7 +65,8 @@ func TestPriceOutlookLongHorizon(t *testing.T) {
 	}
 
 	for in, want := range map[string]string{`{"symbol":"btc","horizon_days":7}`: "Modeling BTC 7-day price range",
-		`{"symbol":"btc","horizon_days":400}`:   "Modeling BTC 1.1-year price range", // never a bare day count past a year (G18) `{"symbol":"btc","horizon_days":3650}`: "Modeling BTC 10-year price range",
+		`{"symbol":"btc","horizon_days":400}`:   "Modeling BTC 1.1-year price range", // never a bare day count past a year
+		`{"symbol":"btc","horizon_days":3650}`:  "Modeling BTC 10-year price range",
 		`{"symbol":"tsm","target_multiple":10}`: "Modeling TSM odds of 10x by year", `{"symbol":"tsm","horizon_days":7300}`: "Modeling TSM 20-year price range", `{"symbol":"tsm","horizon_days":1826}`: "Modeling TSM 5-year price range",
 		`{"symbol":"TSM"}`: "Modeling TSM price outlook", `{"symbol":"TSM","target_multiple":10}`: "Modeling TSM odds of 10x by year"} {
 		if got := label("price_outlook", json.RawMessage(in)); got != want {
@@ -76,7 +77,7 @@ func TestPriceOutlookLongHorizon(t *testing.T) {
 	// range), the question's own timeframe over horizon_days, and no odds for a multiple the asset already made.
 	for _, c := range []struct{ in, text, want string }{
 		{`{"symbol":"nvda"}`, "can NVDA double?", "Modeling NVDA odds of 2x by year"},
-		{`{"symbol":"btc"}`, "Can BTC double this year?", "Modeling BTC price range to Dec 31, 2026"}, // a named date (G18)
+		{`{"symbol":"btc"}`, "Can BTC double this year?", "Modeling BTC price range to Dec 31, 2026"}, // a named date
 		{`{"symbol":"tsm","horizon_days":365}`, "Where could TSM be in 5 years?", "Modeling TSM 5-year price range"},
 		{`{"symbol":"tsm"}`, "TSM doubled this year. What's the outlook?", "Modeling TSM price outlook"},
 		{`{"symbol":"tsm","horizon_days":0}`, "", "Modeling TSM price outlook"},
@@ -153,7 +154,7 @@ func outlook(t *testing.T, a *agentRun, input string) (market.PriceOutlook, erro
 }
 
 // outlookNotes is outlook, and the notes for the model the result string
-// carries after the card's JSON (gap round G19).
+// carries after the card's JSON.
 func outlookNotes(t *testing.T, a *agentRun, input string) (market.PriceOutlook, []string, error) {
 	t.Helper()
 	out, err := a.priceOutlook(context.Background(), json.RawMessage(input))
@@ -177,7 +178,7 @@ const tsmScenarios = `[
 	{"name":"Compounding foundry leader","kind":"base","p":0.5,"eps":21.33,"eps_year":2027,"eps_basis":"[1]","growth_pct":12,"growth_basis":"assumption","pe":20,"pe_basis":"[1]"},
 	{"name":"AI supercycle","kind":"bull","p":0.2,"eps":21.33,"eps_year":2027,"eps_basis":"[1]","growth_pct":20,"growth_basis":"model knowledge, as of 2025-06","pe":25,"pe_basis":"assumption"}]`
 
-// noModelHints fails on a card note written for the model (gap round G19):
+// noModelHints fails on a card note written for the model:
 // those go only in the tool result's "Notes for you".
 func noModelHints(t *testing.T, warns []string) {
 	t.Helper()
@@ -221,7 +222,7 @@ func TestPriceOutlookView(t *testing.T) {
 		o.Scenarios[2].Inputs[1].Kind != "model_knowledge" || o.Scenarios[2].Inputs[1].Basis != "model knowledge, as of 2025-06" {
 		t.Errorf("inputs %+v", o.Scenarios[1].Inputs)
 	}
-	// The card says it in words; the model's note keeps the parameter (gap round G19).
+	// The card says it in words; the model's note keeps the parameter.
 	if !slices.Contains(o.Warnings, "P/E 20× is not stated in source [1]: shown as an assumption") || !slices.Contains(hints, "pe 20 cited [1] not found in [1]: labelled assumption") {
 		t.Errorf("warnings %q hints %q", o.Warnings, hints)
 	}
@@ -297,7 +298,7 @@ func TestPriceOutlookView(t *testing.T) {
 		}) {
 		t.Errorf("missing reason: %v %+v %q %q", err, o.Horizon, o.Warnings, hints)
 	}
-	// Under a year the line gives the days once (gap round G19): never "180 days (180 days)".
+	// Under a year the line gives the days once: never "180 days (180 days)".
 	if o, err := outlook(t, a, `{"symbol":"SOL","horizon_days":180}`); err != nil || o.Horizon.Reason != "Horizon chosen by the agent: 180 days" {
 		t.Errorf("180 days: %v %+v", err, o.Horizon)
 	}
@@ -529,7 +530,7 @@ func TestOutlookHelpers(t *testing.T) {
 	if _, ok, _ := a.cited("level", 42e9, "[1] TSMC guidance"); !ok {
 		t.Error("$42bn cited [1]")
 	}
-	if _, ok, why := a.cited("pe", 2026, "[1]"); ok || why != "not found in [1]" { // a year is never a measurement (G16)
+	if _, ok, why := a.cited("pe", 2026, "[1]"); ok || why != "not found in [1]" { // a year is never a measurement
 		t.Errorf("a year as a P/E: %v %q", ok, why)
 	}
 	if b, _ := json.Marshal(a.src.items[0]); strings.Contains(string(b), "Capex") {
@@ -593,7 +594,7 @@ func compounding(symbol, ccy string, years int, last, g float64) yahoo.Chart {
 	return c
 }
 
-// A non-USD listing's card is measured in USD (gap round G3): Samsung's KRW
+// A non-USD listing's card is measured in USD: Samsung's KRW
 // closes compound +10%/yr while the won falls 5%/yr against the dollar, so a
 // dollar holder made about 4.5%/yr. The drift, the CAGRs, ownCagrPct and the
 // cap's benchmark are all the USD figures; an FX failure falls back to KRW,
@@ -659,7 +660,7 @@ func TestPriceOutlookUSDHistory(t *testing.T) {
 	}
 }
 
-// Every scenario mode is held to spot/50..spot×200 (gap round G8): Samsung's
+// Every scenario mode is held to spot/50..spot×200: Samsung's
 // KRW EPS on a $202.50 card, or 150%/yr for 10 years, is the model's to fix.
 func TestPriceOutlookScenarioBounds(t *testing.T) {
 	a, _, _ := outlookRun(t, "Samsung in 10 years")

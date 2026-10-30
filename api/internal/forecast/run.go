@@ -108,8 +108,8 @@ Reply with only this JSON object:
 }
 Give 3-6 drivers and 3-8 evidence items: the findings and figures the forecast rests on most. Probabilities cover exactly the listed outcomes, once each, summing to 1.`
 
-// The aggregator's combining rules: from the ensemble, or, with R1 (round 8b,
-// reference.go), from R1 and the quant's tool numbers.
+// The aggregator's combining rules: from the ensemble, or, with R1
+// (reference.go), from R1 and the quant's tool numbers.
 const (
 	combineEnsemble = `- Start from the ensemble and move from it, in either direction, for a stated reason: one specialist has clearly better evidence (for price questions, the quant's tool-computed lognormal probabilities are the anchor), fresh and specific evidence in the web sources that the panel under-weighted, a specialist leaning on a stale or weak source, two specialists double-counting one signal, or an error in a specialist's reasoning.
 - Do not go beyond the most extreme specialist unless they rely on independent, strong evidence pointing the same way.
@@ -133,10 +133,10 @@ type prior struct {
 	probs   []OutcomeP
 	summary string
 	sources []Source // the previous pack: the research fallback when nothing fresh is found
-	// round 8: the previous ledger and plan, carried with the pack
+	// the previous ledger and plan, carried with the pack
 	findings []Finding
 	angles   []Angle
-	view     *DeskView // round 9b: the previous desk view (derived for older rows); nil for other shapes
+	view     *DeskView // the previous desk view (derived for older rows); nil for other shapes
 }
 
 // run executes the panel and stores the outcome. It runs detached from the
@@ -384,7 +384,7 @@ func (h *handler) forecast(ctx context.Context, d Draft, asOf time.Time, p *prio
 	if fr.numeric() {
 		kit.finish(&res, ext, ag) // weights, pool, guard, volatility floor, duplicate flag: before the view, which reads the final number
 	}
-	if asOf.IsZero() { // a replay stores round 8b's output byte for byte (GET derives an ordered row's view)
+	if asOf.IsZero() { // a replay stores the aggregator's output byte for byte (GET derives an ordered row's view)
 		res.View = deskView(d, res.Probabilities, kit.reference(), horizonOf(d, today), kit.basis(panel, res.Probabilities))
 		lead := ""
 		if fr.numeric() && res.View != nil {
@@ -611,7 +611,7 @@ type aggReply struct {
 
 // aggregate asks the aggregator for the final answer. views is a numeric
 // frame's Methods block ("" otherwise), after the ensemble. Event frames
-// decode exactly as before round 9b.
+// decode straight into a Result.
 func (h *handler) aggregate(ctx context.Context, d Draft, fr frame, q, views string, panel []Specialist, ensemble []OutcomeP, missing []string, p *prior, r1 bool) (Result, aggExtras, error) {
 	shown := panel
 	if fr.numeric() { // the Methods block carries the anchors and the server's reading of each forecast
@@ -638,8 +638,8 @@ func (h *handler) aggregate(ctx context.Context, d Draft, fr frame, q, views str
 
 // summaryStep is a live run's summary lint: a numeric frame's summary leads
 // with the view and loses its process sentences (answerFirst); an event
-// frame's keeps its call and its reason, which its prompt asks for (gap round
-// G20: the lint dropped "We put the chance … at 55%, close to the
+// frame's keeps its call and its reason, which its prompt asks for (the
+// lint once dropped "We put the chance … at 55%, close to the
 // specialists' average.").
 func summaryStep(fr frame, summary, lead string) string {
 	if !fr.numeric() {

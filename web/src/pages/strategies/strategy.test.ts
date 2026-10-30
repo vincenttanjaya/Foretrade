@@ -179,7 +179,7 @@ describe('formatting', () => {
     expect([SYMBOLS[40][0], SYMBOLS[68][0], SYMBOLS[69][0], SYMBOLS[77][0]]).toEqual(['ZEC', 'PENDLE', 'NVDA', 'XYZ100'])
     expect([assetName('SP500'), assetName('XYZ100')]).toEqual(['S&P 500 perp', 'XYZ100 perp'])
     expect([SYMBOLS[78][0], SYMBOLS[87][0], assetName('TSM')]).toEqual(['TSM', 'EWY', 'TSMC (Taiwan Semiconductor)'])
-    // Wave 2 appends twelve US stocks, then seven Asia perps; nothing before them moves.
+    // The second batch appends twelve US stocks, then seven Asia perps; nothing before them moves.
     expect([SYMBOLS[88][0], SYMBOLS[99][0], SYMBOLS[100][0], SYMBOLS[106][0]]).toEqual(['PLTR', 'CRWV', 'SKHY', 'KSTR'])
     expect([assetName('MSTR'), assetName('KIOXIA'), assetName('CXMT')]).toEqual(['Strategy Inc (MicroStrategy)', 'Kioxia Holdings', 'CXMT (ChangXin Memory)'])
     expect([SYMBOLS[107][0], SYMBOLS[174][0], SYMBOLS[244][0], assetName('DBS')]).toEqual(['HSDT', 'KEPPEL', 'LPL', 'DBS Group'])
@@ -216,7 +216,7 @@ describe('markets by region', () => {
     expect(SYMBOLS.filter(([s]) => symbolGroup(s) === 'asia').map(([s]) => s)).toEqual([...ASIA_PERPS, ...QUOTE_FEED_SYMBOLS.slice(1).map(([s]) => s)])
     expect([symbolGroup('HSDT'), marketGroup(a('HSDT', 'stock')), marketGroup(a('DBS', 'stock')), marketGroup(a('KARO', 'stock'))]).toEqual(['us', 'us', 'asia', 'asia'])
     expect([symbolGroup('BTC'), symbolGroup('XYZ100'), isStockPerp('SMSN'), isStockPerp('AAPL'), isStockPerp('SOL')]).toEqual(['crypto', 'us', true, true, false])
-    // Wave 2: US names under US stocks, Asia names under Asia, also for an API without `region`.
+    // The second batch: US names under US stocks, Asia names under Asia, also for an API without `region`.
     expect(SYMBOLS.slice(88, 100).map(([s]) => symbolGroup(s))).toEqual(Array(12).fill('us'))
     expect(SYMBOLS.slice(100, 107).map(([s]) => symbolGroup(s))).toEqual(Array(7).fill('asia'))
     expect([marketGroup(a('KIOXIA', 'stock')), marketGroup(a('PLTR', 'stock')), marketGroup(a('CXMT', 'stock', { region: 'asia' }))]).toEqual(['asia', 'us', 'asia'])

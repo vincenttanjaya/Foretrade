@@ -1,7 +1,7 @@
 package forecast
 
-// Fresh odds (round 5): POST /api/forecasts/{id}/market re-prices a completed
-// report's matched market (round 6: or its strike ladder) from Gamma, or
+// Fresh odds: POST /api/forecasts/{id}/market re-prices a completed
+// report's matched market (or its strike ladder) from Gamma, or
 // searches again when it has none (or the caller asks). 0 credits.
 
 import (

@@ -1,4 +1,4 @@
--- Round 6: prediction-market odds triggers (notify only) on a forecast's matched Polymarket market.
+-- Prediction-market odds triggers (notify only) on a forecast's matched Polymarket market.
 -- symbol stays '' for them; price is the Yes-probability level (0..1) and fired_price the Yes price that fired it.
 alter table alerts
   add column forecast_id uuid references forecasts on delete cascade,

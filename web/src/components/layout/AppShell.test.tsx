@@ -124,6 +124,15 @@ describe('AppShell', () => {
     await screen.findByText('$100,194.00')
   })
 
+  it('draws an empty credits bar when the daily limit is 0', async () => {
+    stubSession()
+    vi.spyOn(api, 'me').mockResolvedValue({ user: fx.user, credits: { ...fx.credits, limit: 0, used: 0 } })
+    renderPage(shell, { route: '/' })
+    expect(await screen.findByText('0 / 0')).toBeInTheDocument()
+    expect(screen.getByText('0 / 0').closest('.rounded-lg')!.querySelector<HTMLElement>('.bg-accent')!.style.width).toBe('0%')
+    await screen.findByText('$100,194.00')
+  })
+
   it('shows placeholders until the portfolio and credits load', () => {
     vi.spyOn(api, 'me').mockReturnValue(new Promise(() => {}))
     vi.spyOn(api, 'portfolio').mockReturnValue(new Promise(() => {}))

@@ -1,6 +1,6 @@
 package forecast
 
-// Panel views (round 9b): in a numeric frame the server reads each member's
+// Panel views: in a numeric frame the server reads each member's
 // method from its tool record, says whether the members agree independently,
 // differ, or duplicate one view, pools them with prior (or the desk's)
 // weights, and keeps the final distribution from being sharper than the
@@ -80,8 +80,8 @@ var dupMethods = []string{"judgment", "fallback", "volatility"}
 // (judgment, fallback, volatility) or both lack an anchor; with fewer than two
 // anchored members, a panel all within dupTV is one view. Members with
 // anchors from different methods that are all within agreeTV agree
-// independently, even within dupTV of each other, but only across inputs
-// (gap round G20): their anchors must rest on at least two input families
+// independently, even within dupTV of each other, but only across inputs:
+// their anchors must rest on at least two input families
 // (inputFamily). The history and regime anchors both rest on H1, so their
 // agreement alone is diverse and the guard runs. Otherwise diverse.
 func agree(panel []Specialist) agreement {
@@ -169,7 +169,7 @@ func inputFamily(s Specialist) string {
 // data: a group can hold an anchored member (one anchor, all within dupTV) or
 // two of one kind of model (two volatility members). On a level frame
 // (CPI, a rate), which gives the members no tools by design, it says they
-// worked from the same research with no model of their own (gap round G21).
+// worked from the same research with no model of their own.
 func duplicateFlag(panel []Specialist, g []int, level bool) Flag {
 	var names, bare []string
 	gap := 0.0
@@ -732,8 +732,8 @@ const (
 // basis never changes, and that lognormal's chance is at or under the drift
 // lognormal's, so the chance bound is reachable. A lognormal at H1's σ, at
 // any centre, is its own reference and is never widened: reading both on the
-// same ranges cancels the reading's error (the drift-centred reference of
-// round 5 read a final at H1's σ but under the drift up to 4% narrower, and
+// same ranges cancels the reading's error (an earlier drift-centred reference
+// read a final at H1's σ but under the drift up to 4% narrower, and
 // moved it up). Every readout then comes from one distribution: the 50%
 // range, the bars and P(≥ today) agree, and the chance hold (deskView) does
 // not bind.

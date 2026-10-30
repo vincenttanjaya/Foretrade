@@ -117,9 +117,9 @@ export const EXIT_REASON: Partial<Record<RemovedPick['reason'], string>> = {
 }
 
 /**
- * How a pick of a board stored before steady-v1 left (gap round G22's reasons, as that board recorded them): outranked,
+ * How a pick of a board stored before steady-v1 left (the reasons that board recorded): outranked,
  * it still cleared the threshold but stronger picks filled its side; no_data, no fresh analysis or bar at the refresh;
- * left, the board recorded no reason (stored before gap round 2, or the switch to the current rule).
+ * left, the board recorded no reason (stored before reasons were recorded, or the switch to the current rule).
  */
 export const LEGACY_REASON: Partial<Record<RemovedPick['reason'], string>> = {
   target_hit: 'Target hit',

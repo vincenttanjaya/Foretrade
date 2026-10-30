@@ -5,6 +5,7 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  workflow_call: # release.yml runs the whole suite before it publishes an image
 
 permissions:
   contents: read
@@ -63,6 +64,10 @@ jobs:
       - name: Vet
         if: matrix.suite == 'unit'
         run: go vet ./...
+      - name: Vulnerability check
+        # Fails on a known vulnerability the code reaches, in a module or in the Go release (go.mod's toolchain).
+        if: matrix.suite == 'unit'
+        run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
       - name: Unit tests with race detection
         # Without INTEGRATION_DATABASE_URL the integration suite skips; the other job runs it.
         if: matrix.suite == 'unit'

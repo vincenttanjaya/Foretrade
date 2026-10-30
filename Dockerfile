@@ -4,7 +4,7 @@
 # Build stages run on the build host's platform and cross-compile, so a
 # multi-arch build needs no emulation.
 
-FROM --platform=$BUILDPLATFORM node:20.20.2-alpine AS spa
+FROM --platform=$BUILDPLATFORM node:24.22.2-alpine AS spa
 WORKDIR /src
 COPY web/package.json web/package-lock.json web/
 COPY admin/package.json admin/package-lock.json admin/

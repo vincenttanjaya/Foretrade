@@ -1,4 +1,4 @@
-// H1 on a numeric report (API contract round 9b): the subject's own measured daily history the specialists saw, from
+// H1 on a numeric report (API contract): the subject's own measured daily history the specialists saw, from
 // the market data source (never from model or web text). Scenario conditions that cite H1 link here.
 import type { ReactNode } from 'react'
 import { Card } from '../../components/ui/Card'

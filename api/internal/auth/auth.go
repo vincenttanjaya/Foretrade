@@ -14,6 +14,7 @@ import (
 	"net"
 	"net/http"
 	"net/netip"
+	"slices"
 	"strings"
 	"sync"
 	"time"
@@ -58,6 +59,10 @@ type Service struct {
 	secure  bool
 	limiter *limiter // logins per client IP
 	admin   *limiter // admin mutations per admin
+
+	// TrustedProxies are the reverse proxies, besides loopback, whose
+	// X-Forwarded-For names the client (config TRUSTED_PROXIES). Set before serving.
+	TrustedProxies []netip.Prefix
 }
 
 func NewService(db *pgxpool.Pool, meter *usage.Meter, cookieSecure bool) *Service {
@@ -244,7 +249,7 @@ func (s *Service) Register(mux *http.ServeMux) {
 }
 
 func (s *Service) handleLogin(w http.ResponseWriter, r *http.Request) {
-	if !s.limiter.allow(clientIP(r), time.Now()) {
+	if !s.limiter.allow(clientIP(r, s.TrustedProxies), time.Now()) {
 		httpx.Error(w, http.StatusTooManyRequests, "rate_limited", "Too many sign-in attempts. Try again in a few minutes.")
 		return
 	}
@@ -321,16 +326,25 @@ func (s *Service) cookie(token string, ttl time.Duration) *http.Cookie {
 
 func normalizeEmail(email string) string { return strings.ToLower(strings.TrimSpace(email)) }
 
-// clientIP trusts X-Forwarded-For's first hop only from the local reverse
-// proxy (Caddy on the same host); otherwise it is the TCP peer.
-func clientIP(r *http.Request) string {
+// clientIP is the TCP peer, unless the peer is a trusted proxy (loopback or in
+// trusted): then it is the rightmost X-Forwarded-For hop that is not itself a
+// trusted proxy, since every hop left of it was written by the client.
+func clientIP(r *http.Request, trusted []netip.Prefix) string {
 	host, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
 		host = r.RemoteAddr
 	}
-	if addr, err := netip.ParseAddr(host); err == nil && addr.IsLoopback() {
-		if first, _, _ := strings.Cut(r.Header.Get("X-Forwarded-For"), ","); strings.TrimSpace(first) != "" {
-			return strings.TrimSpace(first)
+	proxy := func(a netip.Addr) bool {
+		a = a.Unmap()
+		return a.IsLoopback() || slices.ContainsFunc(trusted, func(p netip.Prefix) bool { return p.Contains(a) })
+	}
+	if peer, err := netip.ParseAddr(host); err != nil || !proxy(peer) {
+		return host
+	}
+	hops := strings.Split(strings.Join(r.Header.Values("X-Forwarded-For"), ","), ",")
+	for i := len(hops) - 1; i >= 0; i-- {
+		if a, err := netip.ParseAddr(strings.TrimSpace(hops[i])); err == nil && !proxy(a) {
+			return a.String()
 		}
 	}
 	return host

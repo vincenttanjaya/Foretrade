@@ -160,7 +160,7 @@ func (h handler) plan(w http.ResponseWriter, r *http.Request) {
 	}
 	var m modelPlan
 	if err := h.d.LLM.CompleteJSON(ctx, systemPrompt, prompt(info, req.Style, st, bias, a, daily, o, pf, desk, headlines, sentiment), llm.Low, &m); err != nil {
-		if ctx.Err() == nil { // a client that hung up mid-call still pays: Bedrock already billed
+		if ctx.Err() == nil { // a client that hung up mid-call still pays: the provider already billed
 			h.d.Usage.Refund(ctx, user, usage.CostCopilot)
 		}
 		app.WriteError(w, err)

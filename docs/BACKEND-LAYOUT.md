@@ -2,7 +2,7 @@
 
 A map of the Go API for contributors: where each package lives, what it owns, and the internal Go API the packages
 share. Paths below are relative to `api/`. Module `github.com/vincenttanjaya/Foretrade/api`, Go 1.27 (`api/go.mod`;
-the root `.tool-versions` pins `golang 1.27.0`). HTTP contract: [API-CONTRACT.md](API-CONTRACT.md).
+its `toolchain` line and the root `.tool-versions` pin `go1.27.3`). HTTP contract: [API-CONTRACT.md](API-CONTRACT.md).
 
 Dependencies: `github.com/jackc/pgx/v5` (Postgres), `github.com/aws/aws-sdk-go-v2` (`config`,
 `service/bedrockruntime` for the Bedrock provider, `service/sesv2` for email notifications) with `smithy-go`,

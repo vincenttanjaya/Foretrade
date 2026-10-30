@@ -1,7 +1,9 @@
 package config
 
 import (
+	"net/netip"
 	"os"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -130,6 +132,52 @@ func TestFromEnvDefaults(t *testing.T) {
 		c.BinanceBase != "http://127.0.0.1:9" {
 		t.Fatalf("overrides: %+v", c)
 	}
+	// 0 turns AI off for users without their own limit; a negative is junk.
+	for v, want := range map[string]int{"0": 0, " 0 ": 0, "-1": 500, "abc": 500, "200": 200} {
+		t.Setenv("AI_DAILY_CREDITS", v)
+		if got := FromEnv().AIDailyCredits; got != want {
+			t.Errorf("AI_DAILY_CREDITS=%q: %d, want %d", v, got, want)
+		}
+	}
+}
+
+// COOKIE_SECURE takes Go's booleans in any case; anything else fails Load
+// rather than silently leaving the cookie insecure.
+func TestCookieSecure(t *testing.T) {
+	t.Setenv("MODEL_KNOWLEDGE_CUTOFF", "")
+	t.Setenv("ADMIN_PASSWORD", "")
+	for v, want := range map[string]bool{"": false, "false": false, "0": false, "true": true, "1": true, "TRUE": true, " True ": true} {
+		t.Setenv("COOKIE_SECURE", v)
+		if c, err := Load(); err != nil || c.CookieSecure != want {
+			t.Errorf("COOKIE_SECURE=%q: %v %v", v, c.CookieSecure, err)
+		}
+	}
+	t.Setenv("COOKIE_SECURE", "yes")
+	if _, err := Load(); err == nil || !strings.Contains(err.Error(), "COOKIE_SECURE") {
+		t.Fatalf("yes: %v", err)
+	}
+}
+
+// TRUSTED_PROXIES: CIDRs or single addresses; a bad entry fails Load.
+func TestTrustedProxies(t *testing.T) {
+	t.Setenv("MODEL_KNOWLEDGE_CUTOFF", "")
+	t.Setenv("ADMIN_PASSWORD", "")
+	t.Setenv("TRUSTED_PROXIES", "")
+	if c, err := Load(); err != nil || c.TrustedProxies != nil {
+		t.Fatalf("unset: %v %v", c.TrustedProxies, err)
+	}
+	t.Setenv("TRUSTED_PROXIES", " 172.16.0.0/12, 10.1.2.3 ,fd00::/8, 192.168.1.7/24,::ffff:172.18.0.1,::ffff:10.9.0.0/112")
+	c, err := Load()
+	want := []netip.Prefix{netip.MustParsePrefix("172.16.0.0/12"), netip.MustParsePrefix("10.1.2.3/32"),
+		netip.MustParsePrefix("fd00::/8"), netip.MustParsePrefix("192.168.1.0/24"),
+		netip.MustParsePrefix("172.18.0.1/32"), netip.MustParsePrefix("10.9.0.0/16")}
+	if err != nil || !slices.Equal(c.TrustedProxies, want) {
+		t.Fatalf("list: %v %v", c.TrustedProxies, err)
+	}
+	t.Setenv("TRUSTED_PROXIES", "172.16.0.0/12,docker")
+	if _, err := Load(); err == nil || !strings.Contains(err.Error(), `TRUSTED_PROXIES`) || !strings.Contains(err.Error(), `"docker"`) {
+		t.Fatalf("bad entry: %v", err)
+	}
 }
 
 // The bootstrap admin fails boot with a short password or the demo's email;
@@ -151,17 +199,35 @@ func TestAdminConfig(t *testing.T) {
 	if c, err := Load(); err != nil || c.AdminEmail != "admin@example.com" || c.AdminPassword != "long-enough-pw" {
 		t.Fatalf("valid: %v", err)
 	}
+	// bcrypt hashes at most 72 bytes: longer bootstrap passwords fail boot by name.
+	t.Setenv("ADMIN_PASSWORD", strings.Repeat("a", 72))
+	if _, err := Load(); err != nil {
+		t.Fatalf("72 bytes: %v", err)
+	}
+	t.Setenv("ADMIN_PASSWORD", strings.Repeat("a", 73))
+	if _, err := Load(); err == nil || !strings.Contains(err.Error(), "ADMIN_PASSWORD") || strings.Contains(err.Error(), "aaaa") {
+		t.Fatalf("long password: %v", err)
+	}
 	t.Setenv("ADMIN_PASSWORD", "")
 	if _, err := Load(); err != nil {
 		t.Fatalf("no admin configured: %v", err)
 	}
+	t.Setenv("DEMO_PASSWORD", strings.Repeat("b", 73))
+	if _, err := Load(); err == nil || !strings.Contains(err.Error(), "DEMO_PASSWORD") || strings.Contains(err.Error(), "bbbb") {
+		t.Fatalf("long demo password: %v", err)
+	}
+	t.Setenv("DEMO_EMAIL", "")
+	if _, err := Load(); err != nil {
+		t.Fatalf("demo password without a demo email is unused: %v", err)
+	}
 }
 
-func TestLiveArenaKillSwitch(t *testing.T) {
-	for _, v := range []string{"", "on", " OFF "} {
+// The live arena spends model calls, so it runs only with LIVE_ARENA=on (any case).
+func TestLiveArenaOptIn(t *testing.T) {
+	for v, on := range map[string]bool{"": false, "off": false, " OFF ": false, "true": false, "on": true, " ON ": true} {
 		t.Setenv("LIVE_ARENA", v)
-		if c := FromEnv(); c.LiveArena == (v == " OFF ") {
-			t.Fatalf("env %q: live=%v", v, c.LiveArena)
+		if c := FromEnv(); c.LiveArena != on {
+			t.Errorf("LIVE_ARENA=%q: live=%v", v, c.LiveArena)
 		}
 	}
 }
@@ -176,7 +242,7 @@ func TestScreenerCap(t *testing.T) {
 	}
 }
 
-// The desk's methods (round 9b) are on unless FORECAST_METHODS is off (any case).
+// The desk's methods are on unless FORECAST_METHODS is off (any case).
 func TestForecastMethodsConfig(t *testing.T) {
 	for v, on := range map[string]bool{"": true, "on": true, "off": false, " OFF ": false, "anything": true} {
 		t.Setenv("FORECAST_METHODS", v)

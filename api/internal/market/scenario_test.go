@@ -413,7 +413,7 @@ func TestLadderEdges(t *testing.T) {
 
 // TestRoundSigExact: ladder edges from a million up are whole numbers (the
 // live check's 10-year ₩ and BTC ladders read "₩999,999.9999999999"), and
-// below a million roundSig gives what slice 1's arithmetic gave.
+// below a million roundSig gives what the earlier arithmetic gave.
 func TestRoundSigExact(t *testing.T) {
 	for _, c := range []struct {
 		name    string
@@ -442,7 +442,7 @@ func TestRoundSigExact(t *testing.T) {
 			t.Errorf("roundSig(%v, %v) = %v, want %v", x[0], x[1], got, want)
 		}
 	}
-	// Below a million: slice 1's arithmetic (multiply by 10^(figs−1−⌊log10 x⌋),
+	// Below a million: the earlier arithmetic (multiply by 10^(figs−1−⌊log10 x⌋),
 	// round, divide) on random levels from 1e-6 to 1e6 and every figure count
 	// the callers use (the chat card's ladder, OutlookFrom, FormatLevel).
 	legacy := func(x float64, figs int) float64 {
@@ -453,7 +453,7 @@ func TestRoundSigExact(t *testing.T) {
 	for range 200_000 {
 		x, figs := math.Pow(10, -6+12*r.Float64()), 2+r.IntN(7)
 		if got, old := roundSig(x, figs), legacy(x, figs); got != old {
-			t.Fatalf("roundSig(%v, %d) = %v, slice 1 gave %v", x, figs, got, old)
+			t.Fatalf("roundSig(%v, %d) = %v, the earlier arithmetic gave %v", x, figs, got, old)
 		}
 	}
 	if roundSig(math.Inf(1), 3) != math.Inf(1) || !math.IsNaN(roundSig(math.NaN(), 3)) {
@@ -506,7 +506,7 @@ func TestFormatLevel(t *testing.T) {
 // The ladder follows the view: a strong view no longer piles into the open top
 // bucket, the baseline column uses the same edges, spot stays an edge.
 func TestViewLadderEdges(t *testing.T) {
-	// The live NVDA 10-year drift case (AQ1-LIVE-CHECK): spot $240.59, σ 58.9%, halved drift 15.64%/yr.
+	// The live NVDA 10-year drift case: spot $240.59, σ 58.9%, halved drift 15.64%/yr.
 	spot, vol := 240.59, 0.589
 	s := vol * math.Sqrt(10)
 	view := DriftMixture(spot, 10, vol, 0.1564)

@@ -409,7 +409,7 @@ describe('SignalsPage', () => {
     const exits = await screen.findByRole('region', { name: 'Recent exits' })
     const rows = within(exits).getAllByRole('row').slice(1)
     const cells = (r: HTMLElement) => within(r).getAllByRole('cell')
-    // Gap round G22's reasons: outranked, no fresh data and "left" (a board stored before reasons) say so, not "score fell".
+    // The legacy reasons: outranked, no fresh data and "left" (a board stored before reasons) say so, not "score fell".
     expect(rows.map((r) => cells(r)[6].textContent)).toEqual([
       'Target hit', 'Validity ended', 'Outranked by stronger picks', 'Score no longer cleared ±20', 'No fresh data', 'Left the board',
     ])

@@ -1,4 +1,4 @@
-// The running forecast card: the live pipeline trace (API contract "Live run progress, full panel (round 5)").
+// The running forecast card: the live pipeline trace (API contract "Live run progress, full panel").
 import { useEffect, useState, type ReactNode } from 'react'
 import { Card } from '../../components/ui/Card'
 import { IconCheck } from '../../components/ui/icons'
@@ -56,7 +56,7 @@ function researchDone(r: ForecastProgress['research']) {
 
 const plural = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`
 
-/** Round 9: the digest stage's row, before research; it reads every new file at once, so it counts files done. */
+/** The digest stage's row, before research; it reads every new file at once, so it counts files done. */
 function materialsRow(m: MaterialsStep): Row {
   const n = (x: unknown) => (typeof x === 'number' && Number.isFinite(x) && x > 0 ? Math.floor(x) : 0)
   const total = n(m.total)
@@ -199,7 +199,7 @@ function traced(p: ForecastProgress, ordered: boolean): Row[] {
   return rows
 }
 
-// Runs stored before round 5 have no trace: every stage animates for the whole run.
+// Older runs have no trace: every stage animates for the whole run.
 const FALLBACK: Row[] = [
   { ...RESEARCH, bar: 'busy', status: 'Searching…' },
   ...SPECIALISTS.map((s) => ({ key: s.role, glyph: s.glyph, name: s.name, focus: s.focus, bar: 'busy' as const, status: 'Thinking…' })),

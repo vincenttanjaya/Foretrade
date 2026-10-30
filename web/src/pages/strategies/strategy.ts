@@ -96,7 +96,7 @@ const CONFIGURED = [
   ['ZHIPU', 'Zhipu AI (Knowledge Atlas)'],
   ['EWJ', 'iShares MSCI Japan ETF'],
   ['EWY', 'iShares MSCI South Korea ETF'],
-  // Wave 2 (contract §2): twelve US stocks, then seven Asia perps.
+  // The second batch (contract §2): twelve US stocks, then seven Asia perps.
   ['PLTR', 'Palantir'],
   ['COIN', 'Coinbase'],
   ['HOOD', 'Robinhood'],
@@ -289,7 +289,7 @@ export function rebaseSince(points: Point[], days: number): Point[] {
   return slice.map((p) => ({ t: p.t, v: (p.v / base) * 100 }))
 }
 
-// ── Live forward (round 7) ───────────────────────────────────────────────────
+// ── Live forward ───────────────────────────────────────────────────
 
 const FORWARD_LABEL: Record<ForwardSummary['basis'], string> = { published: 'Since publish', saved: 'Since saved', launch: 'Since launch' }
 const FORWARD_MARK: Record<ForwardSummary['basis'], string> = { published: 'Published', saved: 'Saved', launch: 'Launched' }

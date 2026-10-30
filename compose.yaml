@@ -27,6 +27,7 @@ services:
       args:
         APP_URL: ${APP_URL:-http://localhost:${WEB_PORT:-8080}}
     restart: unless-stopped
+    stop_grace_period: 30s # the API's 20 s shutdown budget plus margin
     depends_on:
       db:
         condition: service_healthy
@@ -43,7 +44,6 @@ services:
       ADMIN_ORIGINS: ${ADMIN_ORIGINS:-http://localhost:${ADMIN_PORT:-8081},http://127.0.0.1:${ADMIN_PORT:-8081}}
       APP_URL: ${APP_URL:-http://localhost:${WEB_PORT:-8080}}
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
-      LIVE_ARENA: ${LIVE_ARENA:-off}
     extra_hosts:
       - host.docker.internal:host-gateway # Ollama / LM Studio on this machine; on Linux they must listen beyond 127.0.0.1 (.env.example)
     ports:

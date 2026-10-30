@@ -1,6 +1,6 @@
 package forecast
 
-// Desk vs market by strike (round 6): an ordered price report next to
+// Desk vs market by strike: an ordered price report next to
 // Polymarket's daily "<asset> above ___ on <date>" ladder. The desk's
 // P(close above each strike) comes from its buckets; each strike's market is
 // priced like Desk vs market (edge, EV, lean). Comparison only.

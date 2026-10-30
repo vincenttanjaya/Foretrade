@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-// NumberInField reports whether text states value as field's kind of number
-// (gap round G16): NumberIn's 0.5% match, but only for a number written in
+// NumberInField reports whether text states value as field's kind of number:
+// NumberIn's 0.5% match, but only for a number written in
 // that field's form, after dates, times, years and period labels are taken
 // out of the text. A P/E is "25x", "25×", "25 times earnings" or a number
 // near "P/E" (not one near sales, revenue, EBITDA, book or EV/); an EPS is a

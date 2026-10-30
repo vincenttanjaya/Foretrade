@@ -3,6 +3,7 @@ package llm
 import (
 	"archive/zip"
 	"bytes"
+	"errors"
 	"html"
 	"io"
 	"strings"
@@ -114,8 +115,8 @@ func TestDocTextLimits(t *testing.T) {
 		"no workbook":  {Format: "xlsx", Name: "Empty", Bytes: zipOf(t, [2]string{"xl/sharedStrings.xml", "<sst/>"})},
 		"pdf":          {Format: "pdf", Name: "Scan", Bytes: []byte("%PDF")},
 	} {
-		if _, err := docText(d); err == nil {
-			t.Errorf("%s: accepted", name)
+		if _, err := docText(d); !errors.Is(err, ErrUnreadableDoc) {
+			t.Errorf("%s: %v, want ErrUnreadableDoc", name, err)
 		}
 	}
 	if s, err := docText(&Document{Format: "xlsx", Name: "Prices", Bytes: xlsxFile(t)}); err != nil || s != "## Prices\nSymbol\tPrice\nBTC\t100000\n" {

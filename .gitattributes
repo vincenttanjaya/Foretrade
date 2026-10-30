@@ -1,0 +1,4 @@
+# Run or read by a POSIX shell (WSL on Windows included): LF even in a Git for Windows checkout.
+*.sh text eol=lf
+*.py text eol=lf
+.env.example text eol=lf

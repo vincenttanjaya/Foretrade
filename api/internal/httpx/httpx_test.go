@@ -56,6 +56,21 @@ func TestCORSAndCSRF(t *testing.T) {
 			t.Errorf("%s origin=%q type=%q: %d, want %d", tc.method, tc.origin, tc.ctype, w.Code, tc.want)
 		}
 	}
+
+	// A rejected origin is logged for the operator; a wrong type alone is not.
+	var buf strings.Builder
+	prev := slog.Default()
+	slog.SetDefault(slog.New(slog.NewTextHandler(&buf, nil)))
+	defer slog.SetDefault(prev)
+	do("POST", "http://localhost:5173", "text/plain", false)
+	if buf.Len() != 0 {
+		t.Fatalf("allowed origin logged: %q", buf.String())
+	}
+	w = do("POST", "http://203.0.113.5:8080", "application/json", false)
+	if w.Code != 403 || w.Header().Get("X-Content-Type-Options") != "nosniff" ||
+		!strings.Contains(buf.String(), "ALLOWED_ORIGINS") || !strings.Contains(buf.String(), "origin=http://203.0.113.5:8080") {
+		t.Fatalf("rejected origin: %d %v %q", w.Code, w.Header(), buf.String())
+	}
 }
 
 func TestServerErrorCanceled(t *testing.T) {

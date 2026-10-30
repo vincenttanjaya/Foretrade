@@ -13,6 +13,8 @@ function loginError(err: unknown) {
   if (err instanceof ApiError) {
     if (err.code === 'invalid_credentials') return 'Wrong email or password.'
     if (err.code === 'restricted' || err.code === 'rate_limited' || err.status === 0) return err.message
+    // The API's CSRF check: this page's origin is not in ALLOWED_ORIGINS, so a retry can never work.
+    if (err.code === 'forbidden') return "Sign-in isn't allowed from this address. Add it to ALLOWED_ORIGINS and ADMIN_ORIGINS in .env."
   }
   return 'Something went wrong while signing in. Please try again.'
 }

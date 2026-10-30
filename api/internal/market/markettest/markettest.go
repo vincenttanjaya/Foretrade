@@ -29,7 +29,7 @@ var base = map[string]float64{
 	"xyz:NVDA": 235, "xyz:TSLA": 369, "xyz:AAPL": 332, "xyz:MSFT": 521, "xyz:AMZN": 251, "xyz:GOOGL": 342, "xyz:META": 726, "xyz:SP500": 7722, "xyz:XYZ100": 30762,
 	// The Asian perps at their 2026-10-06 marks, USD.
 	"xyz:TSM": 485, "xyz:BABA": 110.6, "xyz:SMSN": 202.5, "xyz:SKHX": 1325, "xyz:HYUNDAI": 259, "xyz:SOFTBANK": 39.9, "xyz:MINIMAX": 31.9, "xyz:ZHIPU": 91.6, "xyz:EWJ": 99.7, "xyz:EWY": 188.7,
-	// Wave 2 at their 2026-10-06 marks, USD (KIOXIA post-split).
+	// The second batch at their 2026-10-06 marks, USD (KIOXIA post-split).
 	"xyz:PLTR": 189.91, "xyz:COIN": 188.34, "xyz:HOOD": 114.35, "xyz:MSTR": 164.85, "xyz:INTC": 116.09, "xyz:AMD": 631.95, "xyz:ORCL": 143.42,
 	"xyz:NFLX": 67.83, "xyz:CRCL": 83.665, "xyz:MU": 1057.9, "xyz:SNDK": 1694.5, "xyz:CRWV": 87.94,
 	"xyz:SKHY": 190.35, "xyz:CXMT": 8.3641, "xyz:UNITREE": 68.413, "xyz:GIGADEV": 52.267, "xyz:KIOXIA": 118.68, "xyz:EWT": 118.16, "xyz:KSTR": 22.27,

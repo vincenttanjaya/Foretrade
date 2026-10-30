@@ -98,7 +98,7 @@ func TestIntegrationSignalsAndPerformance(t *testing.T) {
 		t.Fatalf("attribution %v, portfolio total P&L %v", attr, total)
 	}
 
-	// Portfolio health (round 7): BTC long $2,000 and ETH short $800 is a concentrated two-position book, no stops,
+	// Portfolio health: BTC long $2,000 and ETH short $800 is a concentrated two-position book, no stops,
 	// 0 credits; the fake Binance moves every pair alike, so the short is a hedge, not a cluster.
 	review := c.call("GET", "/api/portfolio/review", nil, 200)
 	shape(t, review, "", "asOf revision window positions equity grossExposure netExposure exposurePct predictionStakes predictionStakesPct holdings "+

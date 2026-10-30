@@ -35,7 +35,7 @@ func TestBucketBounds(t *testing.T) {
 		{[]string{"≥ $120k", "$80,000 – $90,000", "< $80,000"}, nil},                            // high to low
 		{[]string{"Low", "Mid", "High"}, nil},                                                   // no numbers
 		{[]string{"< $80,000", "$80,000 – $90,000", "$90,000 – $95,000 – $99k", "≥ $99k"}, nil}, // three numbers
-		// Round 9b: scale words (TestAmountSuffix) and signed numbers.
+		// Scale words (TestAmountSuffix) and signed numbers.
 		{[]string{"< $800B", "$800B – $1.2T", "$1.2T – $1.5tn", "≥ $1.5 trillion"}, [][2]float64{{-inf, 8e11}, {8e11, 1.2e12}, {1.2e12, 1.5e12}, {1.5e12, inf}}},
 		{[]string{"Under $950bn", "$950bn – $1.1 tn", "Over $1.1tn"}, [][2]float64{{-inf, 9.5e11}, {9.5e11, 1.1e12}, {1.1e12, inf}}},
 		{[]string{"< 300", "300 to 450", "≥ 450"}, [][2]float64{{-inf, 300}, {300, 450}, {450, inf}}}, // any other word means ×1

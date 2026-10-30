@@ -385,7 +385,7 @@ function Bone({ className }: { className?: string }) {
   return <span aria-hidden="true" className={cx('block animate-pulse rounded-md bg-ink-fg/12', className)} />
 }
 
-/** Paper YES/NO positions on forecasts' matched Polymarket markets (round 5), reloaded when the account changes. */
+/** Paper YES/NO positions on forecasts' matched Polymarket markets, reloaded when the account changes. */
 function PredictionMarkets({ revision }: { revision: number | null }) {
   const [positions, setPositions] = useState<MarketPosition[]>([])
 

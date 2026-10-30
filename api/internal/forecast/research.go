@@ -49,10 +49,10 @@ type Source struct {
 // Research is how the run gathered its evidence pack (contract ForecastResult.research).
 type Research struct {
 	Queries []string `json:"queries"`
-	Status  string   `json:"status,omitempty"` // live | wire | carried | replay | none; absent on results stored before round 4
+	Status  string   `json:"status,omitempty"` // live | wire | carried | replay | none; absent on older results
 	Note    string   `json:"note,omitempty"`   // what the panel saw instead of a live search; "" for live
 
-	// Round 8. Depth is the live stage that ran ("" with search off, for
+	// Depth is the live stage that ran ("" with search off, for
 	// replays and older results); the rest is deep research's, but Searches.
 	Depth      string  `json:"depth,omitempty"`      // deep | quick
 	Angles     []Angle `json:"angles,omitempty"`     // deep: the research plan, ≥ 2

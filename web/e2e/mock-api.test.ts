@@ -459,7 +459,7 @@ describe('mock strategy forward contract', () => {
     })
   })
 
-  describe('forecast materials (round 9)', () => {
+  describe('forecast materials', () => {
     const draft: ForecastDraft = { shape: 'binary', question: 'Will ETH ETF inflows top $2bn in October?', outcomes: ['Yes', 'No'], resolutionCriteria: 'Farside data.', resolutionDate: '2099-12-31', category: 'crypto', priceRule: null }
     const b64 = (bytes: Uint8Array | string) => Buffer.from(bytes).toString('base64')
     const pdf = { kind: 'document', mediaType: 'application/pdf', name: 'note.pdf', data: b64(PDF_BYTES) }
@@ -1108,7 +1108,7 @@ describe('mock news wire regions', () => {
   })
 })
 
-describe('mock drawdown triggers (wave 3)', () => {
+describe('mock drawdown triggers', () => {
   let stop: () => Promise<void>
   beforeAll(async () => { stop = await globalSetup() })
   afterAll(async () => { await stop?.() })

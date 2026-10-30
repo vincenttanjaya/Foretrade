@@ -18,6 +18,8 @@ Every pull request runs `.github/workflows/ci.yml`. Run the same checks locally 
 
 - `gofmt -l .` must print nothing
 - `go vet ./...`
+- `go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...`: no known vulnerability the code reaches, in a module or
+  in the Go release that `go.mod`'s `toolchain` line pins
 - `go test -race -count=1 ./...` with a Postgres service, and a coverage gate: total statement coverage must stay
   at or above 75%
 
@@ -37,8 +39,8 @@ Every pull request runs `.github/workflows/ci.yml`. Run the same checks locally 
 - `npm run build`
 - end to end: `npm run e2e:build`, then Playwright against `e2e/mock-api.ts` (web runs in two shards)
 
-**Docker**: `scripts/setup.sh`, then `docker compose up -d --build --wait`, then checks that both ports serve their
-app, that the admin API answers on the admin port only, and that the bootstrap admin can sign in.
+**Docker**: `scripts/setup.sh`, then `docker compose up -d --build --wait --wait-timeout 180`, then checks that both
+ports serve their app, that the admin API answers on the admin port only, and that the bootstrap admin can sign in.
 
 Exchange holiday calendars (`api/internal/market/session.go`) run out every year. The server logs a warning at boot
 when one has fewer than 30 days left. To check them by hand, run

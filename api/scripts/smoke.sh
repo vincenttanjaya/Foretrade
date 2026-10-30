@@ -168,7 +168,7 @@ req POST /api/portfolio/close '{"symbol":"BTC"}'
 check "close without a position is 404" 404 'j["error"]["code"] == "not_found"'
 
 # --- strategy studio ----------------------------------------------------------
-# Full samples by Sharpe desc, then short samples by Sharpe desc (contract, round 3).
+# Full samples by Sharpe desc, then short samples by Sharpe desc (contract).
 req GET '/api/strategies?scope=top'
 check "strategies top list" 200 'len(j["strategies"]) == 8 and all(s["author"] == "Foretrade Labs" for s in j["strategies"]) and [(s["shortSample"], -s["metrics"]["sharpe"]) for s in j["strategies"]] == sorted((s["shortSample"], -s["metrics"]["sharpe"]) for s in j["strategies"])' &&
 	lab=$(py 'j["strategies"][0]["id"]')

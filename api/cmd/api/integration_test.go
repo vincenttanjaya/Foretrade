@@ -74,8 +74,8 @@ type options struct {
 	gamma   http.HandlerFunc                    // POLYMARKET_BASE (Polymarket's Gamma API); nil → every search finds no events
 	live    bool                                // LIVE_ARENA on: the shared live desk steps at boot (its model calls go to model)
 	yahoo   func(*yahootest.Fake)               // Yahoo data served from boot: the screener's boot run reads the first 3 constituents
-	deep    bool                                // FORECAST_RESEARCH_MODE=deep (round 8); off pins quick, so forecasts keep the one-shot research plan
-	methods bool                                // FORECAST_METHODS on (round 9b); off pins round 8b's roles and prompts for every question
+	deep    bool                                // FORECAST_RESEARCH_MODE=deep; off pins quick, so forecasts keep the one-shot research plan
+	methods bool                                // FORECAST_METHODS on; off pins the event-frame roles and prompts for every question
 	signals bool                                // the signals board's job runs: it analyses every instrument at boot, so only tests that read a computed board opt in
 	rt      *realtimeOpts                       // real-time sources (KRX's alone by default) against a fake host, on the market's own clock; nil: every source off
 }
@@ -141,7 +141,7 @@ func boot(t *testing.T, o options) *server {
 	env := map[string]string{
 		"DATABASE_URL": dsn, "PORT": "0", "ALLOWED_ORIGINS": origin + "," + adminOrigin, "ADMIN_ORIGINS": adminOrigin,
 		"AI_PROVIDER": "bedrock", "AI_MODEL": llmtest.Model, "AI_BASE_URL": "", "AI_API_KEY": "", "AI_EFFORT": "", "SECRET_KEY": "",
-		"COOKIE_SECURE": "false", "AI_DAILY_CREDITS": strconv.Itoa(o.credits), "MODEL_KNOWLEDGE_CUTOFF": "2026-06-30",
+		"COOKIE_SECURE": "false", "AI_DAILY_CREDITS": strconv.Itoa(cmp.Or(o.credits, 500)), "MODEL_KNOWLEDGE_CUTOFF": "2026-06-30",
 		"BINANCE_BASE": s.binance.URL, "HYPERLIQUID_BASE": s.binance.URL /* markettest answers Hyperliquid's /info */, "DEMO_EMAIL": "", "DEMO_PASSWORD": "", "DEMO_NAME": "",
 		"BRAVE_API_KEY": "", "BRAVE_BASE": "", "BRAVE_DAILY_LIMIT": "", "CRAWL_BASE": "http://127.0.0.1:1", "CRAWL_TOKEN": "",
 		"LIVE_ARENA": "off", // the live desk would call the model at boot; TestIntegrationLiveArena turns it on
@@ -788,7 +788,7 @@ func (f *fakeWeb) crawl(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(map[string]any{"status": "completed", "results": []any{map[string]any{
 		"markdown": "# Story\n\nFull story from " + f.crawled[i-1] + ": analysts said demand stayed firm through the week while volumes rose. " +
-			strings.Repeat("Desks reported steady two-way flow and tighter spreads across the session. ", 5), // ≥ 400 characters: shorter pages are stubs (round 4)
+			strings.Repeat("Desks reported steady two-way flow and tighter spreads across the session. ", 5), // ≥ 400 characters: shorter pages are stubs
 		"metadata": map[string]any{"title": "Story"}}}})
 }
 

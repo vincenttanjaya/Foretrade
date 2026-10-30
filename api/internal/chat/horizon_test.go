@@ -56,7 +56,7 @@ func TestExplicitHorizon(t *testing.T) {
 		// an indicator's lookback or a bond's tenor is not the horizon
 		{"is BTC above its 200-day moving average? where next 3 months", 92, "next 3 months"},
 		{"TSM if the 10-year yield hits 5%, in 2 years?", 731, "in 2 years"},
-		// slice 1 fix round: the owner's phrasings (AQ1-LIVE-CHECK) and their neighbours
+		// The owner's phrasings from a live check and their neighbours
 		{"NVDA 10 years outlook", 3653, "10 years outlook"},
 		{"NVDA 10 year outlook", 3653, "10 year outlook"},
 		{"10 year outlook for NVDA", 3653, "10 year outlook"},
@@ -185,7 +185,7 @@ func TestResolveHorizonNamed(t *testing.T) {
 
 // A past move's period word ("ran 20% this week", "fell 8% today") is not the
 // outlook's horizon; a by-when question then gets the by-when card. The
-// owner's repros (gap round G1).
+// owner's repros.
 func TestPastMovePeriodWords(t *testing.T) {
 	ten, two := 10.0, 2.0
 	for _, c := range []struct {
@@ -271,7 +271,7 @@ func TestPastMovePeriodWords(t *testing.T) {
 			t.Errorf("%q: %d %q %v, want %d %q", c.text, days, phrase, ok, c.days, c.phrase)
 		}
 	}
-	// "N or M units" runs to its far end (gap round G18); the near end stays readable for a horizon_days that names it, as "1 day" (not "1 days").
+	// "N or M units" runs to its far end; the near end stays readable for a horizon_days that names it, as "1 day" (not "1 days").
 	if hs := explicitHorizons("NVDA in 1 or 2 days", horizonToday); len(hs) < 2 || hs[0].phrase != "in 1 or 2 days" || hs[0].days != 2 || hs[1].phrase != "1 day" || hs[1].days != 1 {
 		t.Errorf("1 or 2 days: %+v", hs)
 	}
@@ -283,7 +283,7 @@ func TestPastMovePeriodWords(t *testing.T) {
 	}
 }
 
-// Gap round G7: enumerations, the "what's up" subject rule, through/till and
+// Enumerations, the "what's up" subject rule, through/till and
 // year ranges, halves, spans past the longest outlook, date snapping and the
 // basis wording.
 func TestHorizonParserGaps(t *testing.T) {
@@ -390,7 +390,7 @@ func TestHorizonParserGaps(t *testing.T) {
 		h.Reason != "Horizon chosen by the agent: 1,826 days (5 years)" {
 		t.Errorf("agent basis: %+v", h)
 	}
-	// A reason quoting the user that names no timeframe the parser reads is the user's (gap round G18: basis "user").
+	// A reason quoting the user that names no timeframe the parser reads is the user's (basis "user").
 	if _, h, _, _, _ := resolveHorizon(outlookInput{Symbol: "TSM", HorizonDays: &h1826, HorizonReason: "the user asked about the long haul"}, "is TSM a buy?", horizonToday); h.Basis != "user" ||
 		h.Reason != "The user asked about the long haul" {
 		t.Errorf("user-quoting reason: %+v", h)
@@ -427,7 +427,7 @@ func FuzzHorizonParser(f *testing.F) {
 	})
 }
 
-// The parser reads what the user wrote (gap round G18, today 2026-10-13):
+// The parser reads what the user wrote (today 2026-10-13):
 // ranges to their far end, halves, a 12-month "next year", lists, dates
 // without a year and shorthand, each with no override warning.
 func TestHorizonReadsWhatTheUserWrote(t *testing.T) {

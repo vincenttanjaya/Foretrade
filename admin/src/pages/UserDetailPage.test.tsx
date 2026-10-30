@@ -128,8 +128,10 @@ describe('UserDetailPage', () => {
     )
     expect(d).toHaveTextContent('Winners first; when none qualifies, the single best one.')
     expect(d).toHaveTextContent('skips forecasts already copied')
-    expect(within(d).getByLabelText('Copy from')).toHaveValue('demo@example.com')
-    expect(seed).not.toHaveBeenCalled()
+    expect(within(d).getByLabelText('Copy from')).toHaveValue('') // no default source: a fresh install has no demo account
+    await user.click(within(d).getByRole('button', { name: 'Copy content' }))
+    expect(seed).not.toHaveBeenCalled() // required
+    await user.type(within(d).getByLabelText('Copy from'), 'demo@example.com')
     await user.click(within(d).getByRole('button', { name: 'Copy content' }))
     expect(seed).toHaveBeenCalledWith('u1', 'demo@example.com')
     expect(await within(d).findByRole('alert')).toHaveTextContent('Pick a different account to copy from.')
@@ -148,6 +150,7 @@ describe('UserDetailPage', () => {
     vi.spyOn(api, 'seedUser').mockResolvedValue({ user: fx.adminUser(), seeded: { forecasts: 1, portfolios: 1, strategies: 0, arenaRuns: 0 } })
     await ready()
     await user.click(screen.getByRole('button', { name: 'Copy showcase content…' }))
+    await user.type(within(dialog('Copy showcase content')).getByLabelText('Copy from'), 'demo@example.com')
     await user.click(within(dialog('Copy showcase content')).getByRole('button', { name: 'Copy content' }))
     expect(
       await screen.findByText(

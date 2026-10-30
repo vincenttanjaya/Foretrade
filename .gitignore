@@ -10,3 +10,6 @@ coverage.out
 test-results/
 playwright-report/
 *.tsbuildinfo
+/api/api
+/api/forecast-replay
+/api/genlisted

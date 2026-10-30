@@ -178,7 +178,7 @@ func TestSeedKeepsCanonicalLinkedLineage(t *testing.T) {
 		t.Fatalf("linked snapshots lost from completed lineage: %d", n)
 	}
 	if n := scalar[int](t, e, `select count(*) from forecasts c join forecasts s on s.id=c.seeded_from where c.user_id=$1 and s.question = 'L0' and c.materials=s.materials and jsonb_array_length(c.materials) = 1`, uid); n != 1 {
-		t.Fatalf("materials not copied: the copy's evidence cites D ids: %d", n) // round 9
+		t.Fatalf("materials not copied: the copy's evidence cites D ids: %d", n)
 	}
 	if scalar[int](t, e, `select count(*) from chats where user_id=$1`, uid)+scalar[int](t, e, `select count(*) from trades where user_id=$1`, uid) != 0 {
 		t.Fatal("private data copied")

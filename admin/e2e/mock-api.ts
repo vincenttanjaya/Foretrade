@@ -835,7 +835,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   throw new Fail(404, 'not_found', `mock API has no ${method} ${url.pathname}`)
 }
 
-/** Starts the mock; port 0 picks a free one (unit tests). */
+/** Starts the mock on loopback only (it accepts the fixture admin's password); port 0 picks a free one (unit tests). */
 export function startMockApi(port = API_PORT): Promise<Server> {
   const server = createServer((req, res) =>
     handle(req, res).catch((err: unknown) => {
@@ -844,7 +844,7 @@ export function startMockApi(port = API_PORT): Promise<Server> {
       json(res, e.status, { error: { code: e.code, message: e.message } })
     }),
   )
-  return new Promise((resolve, reject) => server.once('error', reject).listen(port, () => resolve(server)))
+  return new Promise((resolve, reject) => server.once('error', reject).listen(port, '127.0.0.1', () => resolve(server)))
 }
 
 export const portOf = (s: Server) => (s.address() as AddressInfo).port

@@ -53,13 +53,13 @@ var budget = semaphore.NewWeighted(4 * BodyLimit)
 
 var wait = 30 * time.Second // then ErrBusy (429): a full budget frees as uploads finish
 
-// perUser is how many upload-sized bodies one user may have admitted at once
-// (gap round G23): a third waits like a full budget, then gets ErrBusy, so one
+// perUser is how many upload-sized bodies one user may have admitted at once:
+// a third waits like a full budget, then gets ErrBusy, so one
 // account cannot hold the whole budget.
 const perUser = 2
 
 // An admitted upload-sized body must arrive by readGrace plus its declared
-// length at readRate, at most readMax (gap round G23): a body trickled a byte
+// length at readRate, at most readMax: a body trickled a byte
 // a second would otherwise hold its share of the budget indefinitely.
 var (
 	readGrace = 20 * time.Second

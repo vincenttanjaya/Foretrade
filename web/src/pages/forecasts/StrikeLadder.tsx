@@ -1,5 +1,5 @@
-// Desk vs market by strike (round 6): an ordered price report's buckets against Polymarket's daily "above" ladder
-// (API contract "Desk vs market by strike (round 6)").
+// Desk vs market by strike: an ordered price report's buckets against Polymarket's daily "above" ladder
+// (API contract "Desk vs market by strike").
 import { useState } from 'react'
 import { Badge } from '../../components/ui/Badge'
 import { Button } from '../../components/ui/Button'

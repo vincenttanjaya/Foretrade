@@ -16,7 +16,7 @@ import (
 )
 
 // A full week of boards (42 × 100 cited wire rows) is read once per minute,
-// not on every read (gap round G2): ten concurrent cold reads validate the
+// not on every read: ten concurrent cold reads validate the
 // newest board once (the exits and the record come from the ledger, and none
 // of these boards stored before steady-v1 has a pick that could have left
 // it), later reads none and come back fast.
@@ -102,7 +102,7 @@ func TestReadAfterRefresh(t *testing.T) {
 	}
 }
 
-// A refresh that keeps failing retries on a ceiling (gap round G6): 2, 5,
+// A refresh that keeps failing retries on a ceiling: 2, 5,
 // then 10 minutes four times, then hourly; GET says retrying with the retry
 // time, running while a refresh computes and idle after one succeeds; a
 // restart keeps the failures.
@@ -255,7 +255,7 @@ func TestCheckDropsCachedRead(t *testing.T) {
 }
 
 // An older board stored before steady-v1 that no longer validates restarts
-// the legacy chain after it (gap round G22's rule, kept for those boards):
+// the legacy chain after it (the legacy rule, kept for those boards):
 // no removal is read from it or across it (SOL left the oldest board at the
 // invalid one), so no number from an unvalidated board is shown, and the
 // boards after it still give theirs. The same holds with a steady board shown

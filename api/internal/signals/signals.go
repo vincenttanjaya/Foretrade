@@ -100,8 +100,8 @@ type Board struct {
 	Method    string    `json:"method"`
 	quality   *quality
 	ledger    *ledger // steady-v1 boards: the universe's prices and the exits (ledger.go); nil on a legacy board
-	// dropped is, on a legacy board a gap-round-2 build stored (G22, before
-	// steady-v1), every pick of the board before it that is not on this one,
+	// dropped is, on a legacy board the last build before steady-v1
+	// stored, every pick of the board before it that is not on this one,
 	// with why; nil on every other board. A steady board's exits are in ledger.
 	dropped []droppedPick
 }
@@ -111,7 +111,7 @@ type Board struct {
 // from the boards themselves (legacyHistory).
 func (b *Board) legacy() bool { return b.ledger == nil }
 
-// droppedPick is a previous pick a legacy (gap round G22) refresh left off,
+// droppedPick is a previous pick a legacy refresh left off,
 // and why: outranked (its new score still cleared the threshold on its side),
 // score_fell (it did not) or no_data (no analysis, or a stale bar). Score is
 // nil for no_data. Read only: the steady build stores none.
@@ -238,12 +238,12 @@ func due(b *Board, now time.Time) bool {
 // boards up to the shown one, oldest first) that left: missing, same symbol
 // and side, from the next board, and every pick of a legacy board a steady
 // board follows (the steady rule carries no legacy pick). The outcome reads
-// 1h candles (gap round G22): target_hit when a high (bullish) or low
+// 1h candles: target_hit when a high (bullish) or low
 // (bearish) between the pick and its removal reached the target, else expired
 // when it was removed at or after validUntil, else the reason the next
 // board's refresh recorded (outranked, score_fell or no_data), or left when it
-// recorded none (every board stored before gap round 2, and every steady
-// board). A pick whose candles fail is left out. A steady board's picks leave
+// recorded none (every board stored before reasons were recorded, and
+// every steady board). A pick whose candles fail is left out. A steady board's picks leave
 // only through the ledger (exits): its rules, never these.
 // ponytail: the first candle may open up to an hour before the pick.
 func legacyHistory(boards []Board, hourly func(symbol string) ([]market.Candle, error)) []RemovedPick {
@@ -567,7 +567,7 @@ func scanBoard(row pgx.Row) (Board, error) {
 	var stored struct {
 		Quality *quality      `json:"_quality"`
 		Ledger  *ledger       `json:"_ledger"`  // nil on a board stored before steady-v1
-		Dropped []droppedPick `json:"_dropped"` // only on a board a gap-round-2 build stored before steady-v1
+		Dropped []droppedPick `json:"_dropped"` // only on a board the last build before steady-v1 stored
 	}
 	if json.Unmarshal(raw, &b) != nil || json.Unmarshal(raw, &stored) != nil {
 		// A row this build cannot read (a field's type changed in a deploy) is

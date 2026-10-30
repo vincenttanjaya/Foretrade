@@ -17,6 +17,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/app/apptest"
 	"github.com/vincenttanjaya/Foretrade/api/internal/attach"
 	"github.com/vincenttanjaya/Foretrade/api/internal/attach/attachtest"
+	"github.com/vincenttanjaya/Foretrade/api/internal/llm"
 	"github.com/vincenttanjaya/Foretrade/api/internal/llm/llmtest"
 )
 
@@ -338,6 +339,29 @@ func TestAttachmentChargeAndRefund(t *testing.T) {
 				t.Fatalf("charge: got %d want %d", spent(t, e), c.want)
 			}
 		})
+	}
+}
+
+// A PDF on a provider that can't read PDFs, and any message while AI is off,
+// end in their own error code (no Retry in the web app), free and with no
+// model request.
+func TestStreamUnreadableFileAndAIOff(t *testing.T) {
+	e := apptest.New(t, Register, apptest.Options{})
+	if err := e.LLM.Configure(llm.Settings{Provider: "groq", Model: "m", APIKey: "k", BaseURL: "http://127.0.0.1:1"}); err != nil {
+		t.Fatal(err)
+	}
+	pdf := map[string]any{"message": "Read this", "attachments": []any{docInput(pdfFixture(1), "application/pdf", "a.pdf")}}
+	evs := parseSSE(t, e.Do("POST", "/api/chat/stream", pdf).Body.String())
+	if !slices.Equal(names(evs), []string{"chat", "error"}) || !strings.Contains(string(evs[1].Data), `"code":"unreadable_file"`) || spent(t, e) != 0 {
+		t.Fatalf("pdf on groq: %v %s, credits %d", names(evs), evs[len(evs)-1].Data, spent(t, e))
+	}
+
+	if err := e.LLM.Configure(llm.Settings{}); err != nil {
+		t.Fatal(err)
+	}
+	evs = parseSSE(t, e.Do("POST", "/api/chat/stream", `{"message":"hi"}`).Body.String())
+	if !slices.Equal(names(evs), []string{"chat", "error"}) || !strings.Contains(string(evs[1].Data), `"code":"ai_off"`) || spent(t, e) != 0 {
+		t.Fatalf("ai off: %v %s, credits %d", names(evs), evs[len(evs)-1].Data, spent(t, e))
 	}
 }
 

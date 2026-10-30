@@ -45,13 +45,13 @@ type Deps struct {
 
 	PolymarketBase string // POLYMARKET_BASE: the Gamma API the forecast desk compares against; "" → no market odds
 
-	// The forecast desk's research stage (round 8). The zero values keep the
+	// The forecast desk's research stage. The zero values keep the
 	// one-shot stage, so package tests that build Deps by hand are unchanged.
 	ForecastDeepResearch bool // FORECAST_RESEARCH_MODE != quick: the multi-round deep research stage
 	ForecastSearches     int  // FORECAST_RESEARCH_SEARCHES: deep research's per-run Brave call cap; 0 → 18
-	// ForecastMethods (FORECAST_METHODS != off, round 9b): ordered numeric
+	// ForecastMethods (FORECAST_METHODS != off): ordered numeric
 	// questions get per-frame methods, tools, the pool and the guard. The zero
-	// value keeps every question on round 8b's roles and prompts.
+	// value keeps every question on the event-frame roles and prompts.
 	ForecastMethods bool
 
 	LiveArena bool // LIVE_ARENA: the shared live paper desk runs in this process (off = the board reads paused)
@@ -68,6 +68,9 @@ type Deps struct {
 // jobs that would call the model skip their turn quietly. Without a client
 // (package tests) it is false, so callers behave as before.
 func (d *Deps) AIOff() bool { return d != nil && d.LLM != nil && !d.LLM.Configured() }
+
+// AIOffMsg is what a user sees for an AI request while no provider is set.
+const AIOffMsg = "AI is not set up on this server yet. An admin can turn it on in the admin console's Settings."
 
 // YahooSource is d.Yahoo, or yahoo.Disabled (every call unavailable) when
 // none is wired, so callers need no nil check.
@@ -139,6 +142,8 @@ func WriteError(w http.ResponseWriter, err error) {
 	case errors.Is(err, market.ErrUpstream), errors.Is(err, yahoo.ErrUnavailable):
 		slog.Warn("upstream market data", "err", err)
 		httpx.Error(w, http.StatusBadGateway, "upstream", "Market data is unavailable right now. Try again shortly.")
+	case errors.Is(err, llm.ErrNotConfigured):
+		httpx.Error(w, http.StatusServiceUnavailable, "ai_off", AIOffMsg)
 	case errors.Is(err, llm.ErrUpstream):
 		slog.Warn("upstream ai", "err", err)
 		httpx.Error(w, http.StatusBadGateway, "upstream", "The AI model is unavailable right now. Try again shortly.")

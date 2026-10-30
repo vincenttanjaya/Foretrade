@@ -16,7 +16,7 @@ import (
 const marketKeys = "source question url yesPrice volumeUsd endDate match edgePp evYes evNo signal thin asOf"
 
 // Desk vs market: a price-rule forecast finds its strike in the Polymarket
-// ladder (POLYMARKET_BASE: the dated event by its slug, round 6) and comes
+// ladder (POLYMARKET_BASE: the dated event by its slug) and comes
 // back with the edge, EV and lean; the user's context is stored and shown to
 // the panel as S0.
 func TestIntegrationForecastMarket(t *testing.T) {

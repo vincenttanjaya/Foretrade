@@ -26,7 +26,7 @@ const (
 // Every panel member and the aggregator must see the R1 line.
 func referenceRun(t *testing.T, aggregate string) (f any, r1, anchor float64) {
 	t.Helper()
-	// The desk methods on, as in production (round 9b): a binary price rule stays an event frame, so R1 and the guard are unchanged.
+	// The desk methods on, as in production: a binary price rule stays an event frame, so R1 and the guard are unchanged.
 	s := boot(t, options{brave: true, deep: true, methods: true, model: func(r llmtest.Request) llmtest.Reply {
 		switch {
 		case strings.HasPrefix(r.System, queryWriter):
@@ -94,7 +94,7 @@ func referenceRun(t *testing.T, aggregate string) (f any, r1, anchor float64) {
 	return f, r1, anchor
 }
 
-// Round 8b's shrink guard end to end: the aggregator pulls a live BTC price
+// The shrink guard end to end: the aggregator pulls a live BTC price
 // question to 50% from R1 without a referenceNote, so the stored result is
 // R1's probability with guard "shrink" and the server's flag, and the row's
 // anchor_p is R1 for the track record.

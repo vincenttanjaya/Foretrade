@@ -9,7 +9,7 @@ import (
 )
 
 // An ordered report whose view leads titles the bell by its view, as the
-// forecast page states it (gap round G14); a bucket headline keeps its top
+// forecast page states it; a bucket headline keeps its top
 // range, and a binary one is unchanged (TestNotifications).
 func TestForecastReadyTitlesTheView(t *testing.T) {
 	e := apptest.New(t, Register, apptest.Options{})
@@ -22,7 +22,7 @@ func TestForecastReadyTitlesTheView(t *testing.T) {
 		{view("view", "capped_drift"), "Forecast ready · median $611"},
 		{view("view", "none"), "Forecast ready · 80% range ≈$242–≈$1,480"},
 		{view("bucket", "capped_drift"), "Forecast ready · ≥ $1,100 20%"},
-		{`{"probabilities":` + probs + `}`, "Forecast ready · ≥ $1,100 20%"}, // stored before round 9b: no view to state
+		{`{"probabilities":` + probs + `}`, "Forecast ready · ≥ $1,100 20%"}, // stored without a view: none to state
 	} {
 		if _, err := e.DB.Exec(ctx, `insert into forecasts (user_id, shape, question, outcomes, resolution_date, status, result, completed_at)
 			values ($1, 'ordered', 'Where will TSM close on 2031-10-08?', '["< $300","$300 – $450","$450 – $600","$600 – $800","$800 – $1,100","≥ $1,100"]',

@@ -1,7 +1,7 @@
 // The agent's "price_alert" card: an automation the user sets with one tap (POST /api/alerts, source agent, the card's
 // proposalId, so a card sets one alert). A price trigger, a daily/weekday/weekly schedule (set_schedule), a
-// prediction-market odds trigger (set_odds_alert, round 6) or an all-time-high drawdown trigger that notifies or sells
-// part of the paper long (set_drawdown_alert, wave 3). Research and thesis proposals share this confirmation card.
+// prediction-market odds trigger (set_odds_alert) or an all-time-high drawdown trigger that notifies or sells
+// part of the paper long (set_drawdown_alert). Research and thesis proposals share this confirmation card.
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { AssetIcon } from '../../components/ui/AssetIcon'

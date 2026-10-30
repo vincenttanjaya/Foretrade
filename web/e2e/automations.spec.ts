@@ -112,7 +112,7 @@ test('an odds trigger set from the Prediction market tab is listed with the mark
   await expectNoHorizontalScroll(page)
 })
 
-// Wave 3: all-time-high drawdown triggers. The mock's high is 1.6 × the fixture mark (SOL $240 on Jan 19, 2025).
+// All-time-high drawdown triggers. The mock's high is 1.6 × the fixture mark (SOL $240 on Jan 19, 2025).
 for (const theme of ['light', 'dark'] as const) {
   test(`a drawdown sell from the Automations form is reviewed once, warns when already past and is listed (${theme})`, { tag: '@mobile' }, async ({ page }, info) => {
     await page.addInitScript((value) => localStorage.setItem('theme', value), theme)

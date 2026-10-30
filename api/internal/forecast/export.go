@@ -14,7 +14,7 @@ func DraftIdea(ctx context.Context, d *app.Deps, idea string) (Draft, error) {
 	return (&handler{d: d}).draft(ctx, idea, todayUTC())
 }
 
-// DerivedView is the desk view an ordered result stored before round 9b
+// DerivedView is the desk view an older ordered result stored without one
 // reads as (GET's derived view: no reference), for the agent chat's
 // get_forecast; nil when its ranges do not parse.
 func DerivedView(outcomes []string, probs []OutcomeP, resolutionDate string, completedAt *time.Time) *DeskView {

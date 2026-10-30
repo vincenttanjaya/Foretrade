@@ -183,7 +183,7 @@ func TestPromptsDoNotHedge(t *testing.T) {
 		{agg1, "R1 counts as a member for this rule."},
 		{agg1, `"referenceNote": {"reason": "<only when the prompt gives R1 and your final P(Yes) is on the other side of 50% from R1`},
 		{agg1, "For this question the vocabulary is: yes | no | context."},
-		// Both rounds reach the prompts: round 9's materials beside round 8b's R1.
+		// Both reach the prompts: the materials beside R1.
 		{spec, "- The user's own material: S0 (the user's notes) and D1..Dn (files the user attached,"},
 		{agg1, "You receive the question, the user's notes (S0) and attached materials (D1..Dn) when present, the research"},
 		{agg1, "The user's notes and materials (S0, D ids and the findings read from them) do not count as cited evidence here.\n"},
@@ -230,7 +230,7 @@ func TestShrinkGuard(t *testing.T) {
 	if unknown == nil || len(unknown.IDs) != 0 || cleanReferenceNote(&ReferenceNote{IDs: []string{"S1"}}, sources, findings) != nil || cleanReferenceNote(nil, sources, findings) != nil {
 		t.Fatalf("notes: %+v", unknown)
 	}
-	// Nor is the user's material (round 9): its D ids and the findings read from it.
+	// Nor is the user's material: its D ids and the findings read from it.
 	mat := cleanReferenceNote(&ReferenceNote{Reason: "The user's broker note says so.", IDs: []string{"D1", "F2"}}, sources,
 		append(slices.Clip(findings), Finding{ID: "F2", SourceIDs: []string{"D1"}, Origin: "material"}))
 	if mat == nil || len(mat.IDs) != 0 {
@@ -412,7 +412,7 @@ func TestLiveRunReference(t *testing.T) {
 	}
 }
 
-// R1 (round 8b) and the user's materials (round 9) reach the same prompts:
+// R1 and the user's materials reach the same prompts:
 // every panel member and the aggregator see the R1 line before S0 and the
 // D1..Dn block. A hedge toward 50% that cites only the user's file (its D id
 // and the finding read from it) is not evidence, so the server resets it.

@@ -2,7 +2,7 @@
 
 Vite + React 19 + TypeScript (strict) + Tailwind v4 (`@tailwindcss/vite`) + react-router 7 (`react-router`
 package, data-less `<BrowserRouter>`), `lightweight-charts` v5, `react-markdown` + `remark-gfm`.
-Node 20 (`.node-version` pins 20.20.2).
+Node 24 (`.node-version` pins 24.22.2).
 API base: `import.meta.env.VITE_API_URL` (dev default `http://localhost:8080`; the Docker image builds with `/`, since
 the Go server serves the app and the API on one origin).
 HTTP contract: [API-CONTRACT.md](API-CONTRACT.md).
@@ -105,7 +105,8 @@ src/components/ui/ProbabilityBars.tsx  horizontal outcome bars: label · bar · 
                                      props {items: {label, p}[], compact?}
 src/components/ui/Sparkline.tsx      tiny SVG line, coloured by first→last
 src/components/ui/LineChart.tsx      lightweight-charts wrapper: series [{name, points: Point[], color?}], theme-aware, resizes
-src/components/ui/AssetIcon.tsx      round coloured monogram per symbol (no external images)
+src/components/ui/AssetIcon.tsx      bundled logo per symbol from src/assets/{coins,stocks} (provenance in each LICENSE.md),
+                                     else a monogram from the name
 src/components/ui/Disclaimer.tsx     "Simulated · not financial advice"
 src/components/ui/Markdown.tsx       react-markdown + remark-gfm with styled tables/lists/code
 src/components/layout/AppShell.tsx   rail + top bar + <Outlet/>; PageHeader({title, subtitle, actions}) export
@@ -223,7 +224,7 @@ HTTP contract: [API-CONTRACT.md → Admin console](API-CONTRACT.md#admin-console
 
 **Stack** = this app's, minus the chart and markdown libraries: Vite + React 19 + TypeScript strict + Tailwind v4 +
 react-router 7; Vitest + Testing Library (+ v8 coverage thresholds as in `vite.config.ts` here); Playwright e2e against a
-local mock API (this app uses port 4010; the admin uses 4011). Node 20 (`.node-version`). Charts are plain
+local mock API (this app uses port 4010; the admin uses 4011). Node 24 (`.node-version`). Charts are plain
 HTML/SVG: bar strips whose bars are focusable with an `aria-label` ("Oct 2: 42 credits"), and a tiny SVG sparkline.
 Env: `VITE_API_URL` (dev `http://localhost:8080`; the Docker image builds with `/`) and `VITE_APP_URL` (the trade app,
 dev `http://localhost:5173`; the Docker image takes it from the `APP_URL` build arg, default `http://localhost:8080`).
@@ -239,12 +240,14 @@ the web app, the console names AI providers and models (it is where they are con
 **Auth gate.** `AuthProvider` calls `GET /api/me` once on load:
 - 401 → `/login`.
 - `user.role !== "admin"` → `POST /api/auth/logout` `{}`, then a full-screen **Access restricted** wall: "This console
-  is for Foretrade administrators. Your session has been signed out." + "Back to sign in". Any `403 forbidden`
-  from `/api/admin/*` (an admin demoted mid-session) shows the same wall.
+  is for Foretrade administrators. Your session has been signed out." + "Back to sign in". A `403 forbidden`
+  from `/api/admin/*` re-checks `/api/me` and shows the same wall only if the role is no longer admin (a demotion
+  mid-session); otherwise (an origin missing from `ADMIN_ORIGINS`) the page shows the API's message.
 - Network failure → "Can't reach the API" + Retry.
 - `/login`: email + password. A successful login whose `user.role` is not admin logs out at once and shows
   "Access restricted — this console is for administrators only." inline; 401 → "Wrong email or password."; 429 → the
-  server's message.
+  server's message; 403 `forbidden` (this origin is not in `ALLOWED_ORIGINS`) → "Sign-in isn't allowed from this
+  address. Add it to ALLOWED_ORIGINS and ADMIN_ORIGINS in .env."
 - The session cookie is shared with the trade app (one cookie per host; cookies ignore the port), so signing out here
   signs that browser out of the trade app too. Say so under the Log out item.
 
@@ -257,7 +260,7 @@ theme toggle, Log out. Toast provider as here. Content max-width ~1200 px.
 |---|---|---|
 | `/login` | `LoginPage` | split layout like this app's login; hero "Operator console." + one line on what it does |
 | `/` | `OverviewPage` | `asOf` + Refresh (auto-refresh every 60 s). KPI cards: Users (total · admins · disabled), Active today / 7d / 30d, New users 30d, AI credits today. AI credits 30-day bar strip. Feature usage table: feature · today · 7d · 30d · 30-day sparkline. Top users by credits (7d) → `/users/:id`. Paper totals (accounts, open positions, equity, total P&L, 30d notional). System status card: version, uptime, DB latency, model + knowledge cutoff ("AI is off · choose a provider" → `/settings` when none), news (last ingest, items, brief age; amber when the ingest is > 3 h or the brief > 6 h old, or news is disabled), Brave used/limit meter, crawler dot (reachable / unreachable / not configured), running forecasts and arena runs, and the live paper desk's status and limits. `null` values render "—" |
-| `/users` | `UsersPage` | Filters live in the URL query (`q` debounced 300 ms, `status`, `role`, `sort`, `order`, `page`). Table: name + email, role badge, status badge, managed badge, created, last login, last active (time ago), credits today / limit ("12 / 500", limit muted when it is the default), equity, sessions; sortable headers map to `sort`/`order`; pager. Row → `/users/:id`. **New user** modal: email, name, role, credit limit (blank = default), password (blank = generate) → when the response has `password`, show it once with Copy and "I've saved it" |
+| `/users` | `UsersPage` | Filters live in the URL query (`q` debounced 300 ms, `status`, `role`, `sort`, `order`, `page`). Table: name + email, role badge, status badge, managed badge, created, last login, last active (time ago), credits today / limit ("12 / 500", limit muted when it is the default), equity, sessions; sortable headers map to `sort`/`order`; pager. Row → `/users/:id`. **New user** modal: email, name, role, credit limit (blank = default), password (blank = generate), "Start with showcase content" (off by default; when on, the "Copy from" email, blank by default, is sent as `seedFrom`) → when the response has `password`, show it once with Copy and "I've saved it" |
 | `/users/:id` | `UserDetailPage` | Header: name, email, role / status / managed badges. Profile card: created, last login, last active, sessions, credit limit. Actions: Edit (name, role, credit limit, with "Use default"), Disable / Enable, Set password (type one or generate; disabled with a tooltip on managed accounts), Revoke sessions, Reset today's credits, Reset portfolio (confirm), and a Danger zone **Delete** whose button enables only after typing the user's exact email (on a managed account its copy says the account is recreated with the config password at the next API restart, instead of "can't be undone"). On your own account, Disable, demote and Delete are disabled with "You can't … your own account." Then: 30-day usage bars against the limit, lifetime counts, portfolio summary (equity, P&L, positions table), recent trades, activity lists (chats, forecasts, strategies, AI portfolios, arena runs), and this user's audit entries |
 | `/audit` | `AuditPage` | Paged table (50 per page): time, admin email, action as a label ("Disabled user", "Generated password", …), target email (→ `/users/:id`; a 404 there reads "Account deleted"), detail summary (`from → to` for updates) |
 | `/settings` | `SettingsPage` | **AI provider** card: status badge (off / ready / error); provider select grouped Cloud APIs / Local / ChatGPT plan / AWS; per preset an API key (show/hide, saved "…a1b2" hint, Replace / Clear), base URL (preset default as placeholder), model combo box filled by **Load models** that also takes free text, reasoning-effort toggle, knowledge cutoff date and, for Bedrock, AWS region; **Test connection** (latency or the provider's error) and **Save**, which tests first and saves nothing on failure. When `AI_PROVIDER` is set in the server's environment the card is read-only ("Set by environment"). **Sign in with ChatGPT** opens OpenAI's sign-in in a new tab; the API's `/auth/callback` returns to `/settings?chatgpt=ok\|error&message=…`, which the page toasts once; signed in, it shows the email and **Sign out**, plus a note that the plan belongs to the signed-in person, so AI runs in owner-only mode (admins only). **Search** card: Brave Search API key (link to brave.com/search/api), crawl4ai base URL and token, each with a source badge (saved here or from the environment). A warning explains `SECRET_KEY` when the server has none |

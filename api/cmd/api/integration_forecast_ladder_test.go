@@ -12,7 +12,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/llm/llmtest"
 )
 
-// Desk vs market by strike (round 6): an ordered price forecast whose buckets
+// Desk vs market by strike: an ordered price forecast whose buckets
 // straddle Polymarket's daily "Bitcoin above ___" ladder comes back with one
 // priced row per strike inside the buckets' edges, ascending; POST /market
 // re-prices them from the event (0 credits); a paper stake is refused.

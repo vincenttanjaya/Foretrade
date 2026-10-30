@@ -153,7 +153,7 @@ describe('WhatToWatch · pending signals', () => {
   })
 })
 
-describe('EvidenceBase · the user\'s materials (round 9)', () => {
+describe('EvidenceBase · the user\'s materials', () => {
   const f = { ...ordered, materials: fx.materials }
   it('marks material findings as yours, links them to their row, and counts them apart from web sources', () => {
     render(<EvidenceBase f={f} r={fx.materialsForecastResult} />)

@@ -23,8 +23,6 @@ import type {
 export const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080').replace(/\/+$/, '')
 /** The trade app, for the "Open Foretrade" link. */
 export const APP_URL = (import.meta.env.VITE_APP_URL || 'http://localhost:5173').replace(/\/+$/, '')
-/** The account a new investor account copies its showcase content from by default (the shared demo user). */
-export const SHOWCASE_SOURCE = 'demo@example.com'
 
 export class ApiError extends Error {
   readonly status: number // 0 = network failure
@@ -38,8 +36,8 @@ export class ApiError extends Error {
   }
 }
 
-// AuthProvider registers these: a 401 anywhere sends the admin to /login; a 403 from /api/admin/* (an admin demoted
-// mid-session) shows the "Access restricted" wall.
+// AuthProvider registers these: a 401 anywhere sends the admin to /login; a 403 from /api/admin/* re-checks /api/me and
+// shows the "Access restricted" wall only for an admin demoted mid-session (an ADMIN_ORIGINS 403 stays a page error).
 const handlers = { unauthorized: () => {}, forbidden: () => {} }
 export function setAuthHandlers(h: typeof handlers) {
   Object.assign(handlers, h)

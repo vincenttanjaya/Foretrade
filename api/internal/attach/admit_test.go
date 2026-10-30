@@ -78,7 +78,7 @@ func restoreReads(t *testing.T) {
 	t.Cleanup(func() { readGrace, readRate, readMax, wait = g, r, m, w })
 }
 
-// Four trickling bodies (gap round G23) that declare the cap each held the
+// Four trickling bodies that declare the cap each held the
 // whole upload budget, so a normal 5.6 MB upload waited 30 s for a 429. Now
 // each body has a read deadline: the trickles are cut, their shares come
 // back, and the normal upload gets 200.
@@ -119,7 +119,7 @@ func TestAdmitReadDeadline(t *testing.T) {
 	}
 }
 
-// One user holds at most two upload-sized admissions (gap round G23): a third
+// One user holds at most two upload-sized admissions: a third
 // waits like a full budget, then gets 429, while another user's upload goes
 // through.
 func TestAdmitPerUser(t *testing.T) {

@@ -508,8 +508,8 @@ describe('TradePage · manual ticket', () => {
     expect(row('Position size')).toHaveTextContent('$5,000 (margin $1,000 × 5×)')
     expect(row('Est. liquidation')).toHaveTextContent('$80.50 (-19.5%)')
     expect(row('Est. quantity')).toHaveTextContent('50 SOL')
-    expect(screen.getByText('Empty or past liquidation → the stop is set at the est. liquidation.')).toBeInTheDocument()
-    expect(screen.getByText(/^Simulated isolated margin: the position closes at the est\. liquidation price/)).toBeInTheDocument()
+    expect(screen.getByText('Empty or past liquidation → the stop is set at the est. liquidation (a tighter stop you already hold is kept).')).toBeInTheDocument()
+    expect(screen.getByText(/^Simulated leverage: the est\. liquidation \(0\.5% maintenance\) is an ordinary stop, checked every 15 s/)).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'Confirm buy (paper)' }))
     expect(order).toHaveBeenLastCalledWith({ symbol: 'SOL', side: 'buy', notional: 5000, stopLoss: 80.5, takeProfit: undefined, source: 'manual', note: '5× leverage (paper)' })
@@ -524,6 +524,18 @@ describe('TradePage · manual ticket', () => {
       await waitFor(() => expect(order).toHaveBeenLastCalledWith(expect.objectContaining({ notional: 500, stopLoss: sent })))
       await waitFor(() => expect(screen.getByLabelText('Margin (USD)')).toHaveValue(null))
     }
+  })
+
+  it('a leveraged add with an empty stop keeps the tighter stop the position holds', async () => {
+    vi.mocked(api.candles).mockResolvedValue({ candles: [{ t: T0, o: 3000, h: 3000, l: 3000, c: 3000, v: 1 }] }) // ETH at the fixture price
+    const order = vi.spyOn(api, 'placeOrder').mockResolvedValue({ trade: fx.trade({ symbol: 'ETH', qty: 5 / 3, price: 3000, notional: 5000 }), portfolio: fx.portfolio })
+    const { user } = await manual('ETH') // 2 ETH long, stop $2,700
+    await user.click(within(screen.getByRole('group', { name: 'Leverage' })).getByRole('button', { name: '5×' }))
+    await user.type(screen.getByLabelText('Margin (USD)'), '1000')
+    expect(row('Est. liquidation')).toHaveTextContent('$2,415.00')
+    await user.click(screen.getByRole('button', { name: 'Confirm buy (paper)' }))
+    expect(order).toHaveBeenLastCalledWith(expect.objectContaining({ notional: 5000, stopLoss: undefined }))
+    expect(await screen.findByText(/^Bought .* ETH at \$3,000\.00 · 5× \(paper\)\.$/)).toBeInTheDocument()
   })
 
   it('a short liquidates above the price; 1× and limit orders have no margin', async () => {

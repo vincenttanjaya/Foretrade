@@ -158,6 +158,7 @@ export type TicketInput = {
   buyingPower: number
   stop: number | null
   take: number | null
+  leverage?: number // > 1: the amount field is margin, so the cap is stated as margin
 }
 export type TicketErrors = { amount?: string; stop?: string; take?: string }
 
@@ -174,7 +175,8 @@ export function checkTicket(t: TicketInput): TicketErrors {
   const qty = resultingQty(t.posQty, t.side, t.amount > 0 ? t.amount : 0, t.price)
   const added = (Math.abs(qty) - Math.abs(t.posQty)) * t.price // exposure this order adds
   const max = Math.max(0, t.buyingPower * MAX_FILL)
-  if (!e.amount && added > max) e.amount = `Above your buying power. The most you can add is about ${fmtUsd(max)}.`
+  const lev = t.leverage ?? 1
+  if (!e.amount && added > max) e.amount = `Above your buying power. The most you can add is about ${fmtUsd(max / lev)}${lev > 1 ? ' of margin' : ''}.`
 
   const flat = Math.abs(qty * t.price) < 0.01
   const long = qty > 0

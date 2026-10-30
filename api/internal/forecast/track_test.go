@@ -111,7 +111,7 @@ func TestScore(t *testing.T) {
 	}
 }
 
-// Round 8b: the anchor fields pair the desk with the anchor on the anchored
+// The anchor fields pair the desk with the anchor on the anchored
 // binary rows only (a user's record mixes runs with and without R1), while
 // brier and skill stay over every row against the coin flip.
 func TestScorePairsTheAnchoredSubset(t *testing.T) {
@@ -137,7 +137,7 @@ func TestScorePairsTheAnchoredSubset(t *testing.T) {
 
 // The honest headline: skill against the coin flip and bootstrap intervals
 // that are stable between calls, contain the sample mean and need n ≥ 5.
-// Round 8b: the claim says nothing until enough questions resolve, then
+// The claim says nothing until enough questions resolve, then
 // ahead, behind or no_edge by where the basis's whole 90% range lies, in
 // either direction; skill only when ahead.
 func TestClaim(t *testing.T) {

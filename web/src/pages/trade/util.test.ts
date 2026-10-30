@@ -192,6 +192,7 @@ describe('checkTicket', () => {
     expect(t({ amount: 5 }).amount).toBe('The minimum order is $10.')
     expect(t({ amount: NaN }).amount).toBe('Enter an amount in USD.')
     expect(t({ amount: 5000 }).amount).toBe('Above your buying power. The most you can add is about $4,975.00.')
+    expect(t({ amount: 5000, leverage: 5 }).amount, 'the field is margin').toBe('Above your buying power. The most you can add is about $995.00 of margin.')
     expect(t({ stop: 105 }).stop).toBe('For a long, set this below the price.')
     expect(t({ side: 'sell', take: 110 }).take).toBe('For a short, set this below the price.')
     expect(t({ side: 'sell', stop: 90 }).stop).toBe('For a short, set this above the price.')

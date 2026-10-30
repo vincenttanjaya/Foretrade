@@ -81,7 +81,7 @@ func TestIngestAgainstDB(t *testing.T) {
 		case "Federal Reserve interest rates":
 			fmt.Fprintf(w, `{"results":[%s,{"title":"Powell says policy is well positioned","url":"https://news.example/powell","description":""},
 				{"title":"Pakistan's inflation remains in double digits","url":"https://news.example/pk","description":"The central bank held"}]}`, shared) // not US: skipped
-		case "US dollar treasury yields": // an off-topic title whose description passes the US-macro rule: skipped (round 7)
+		case "US dollar treasury yields": // an off-topic title whose description passes the US-macro rule: skipped
 			fmt.Fprint(w, `{"results":[{"title":"What It Means for You: Five Tips Before Payday","url":"https://life.example/payday","description":"The US dollar and your budget"}]}`)
 		default:
 			fmt.Fprint(w, `{"results":[]}`)

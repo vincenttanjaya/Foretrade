@@ -49,7 +49,7 @@ type MarketOdds struct {
 	Signal     string    `json:"signal"`            // yes | no | wait
 	Thin       bool      `json:"thin"`              // volumeUsd null or < thinVolume: the signal is always wait
 	Outcome    string    `json:"outcome,omitempty"` // categorical: the option this market prices ("Nvidia"); edge and EV use its P
-	Strike     float64   `json:"strike,omitempty"`  // ladder rows only (round 6): yesPrice is P(close above it), the edge uses the desk's P(above)
+	Strike     float64   `json:"strike,omitempty"`  // ladder rows only: yesPrice is P(close above it), the edge uses the desk's P(above)
 	AsOf       time.Time `json:"asOf"`
 	LinkStatus string    `json:"linkStatus,omitempty"`
 }

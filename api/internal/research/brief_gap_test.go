@@ -47,7 +47,7 @@ func briefFixture(t *testing.T, db *pgxpool.Pool, prefix string, n int, ago time
 
 // An ingest that sees a cited URL again with another snippet and a later
 // page_age keeps the row as first stored, so the brief (and every signals
-// board resting on it) still validates (gap round G5).
+// board resting on it) still validates.
 func TestIngestKeepsCitedRows(t *testing.T) {
 	db := storetest.Schema(t)
 	ctx := context.Background()

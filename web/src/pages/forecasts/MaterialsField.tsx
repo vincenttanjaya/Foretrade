@@ -1,4 +1,4 @@
-// "Materials (optional)" (API contract round 9): files the desk reads once at the start of the run. A drop zone that
+// "Materials (optional)" (API contract): files the desk reads once at the start of the run. A drop zone that
 // also takes a paste while focused, the picker, one chip per file and each file's own error.
 import { useId, useState, type ReactNode } from 'react'
 import { AttachmentChip, AttachmentChips } from '../../components/attachments/AttachmentChips'

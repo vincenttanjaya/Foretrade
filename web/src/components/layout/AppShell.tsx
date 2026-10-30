@@ -325,7 +325,7 @@ function UserMenu({ creditsLeft }: { creditsLeft: number | null }) {
               </span>
             </div>
             <div className="mt-2 h-1 overflow-hidden rounded-full bg-border">
-              <div className="h-full rounded-full bg-accent" style={{ width: `${((creditsLeft ?? 0) / credits.limit) * 100}%` }} />
+              <div className="h-full rounded-full bg-accent" style={{ width: `${credits.limit > 0 ? ((creditsLeft ?? 0) / credits.limit) * 100 : 0}%` }} />
             </div>
             <div className="mt-1.5 text-[11.5px] text-muted">Resets 00:00 UTC</div>
           </div>

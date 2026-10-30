@@ -90,10 +90,10 @@ func widthOn(bounds [][2]float64, outcomes []string, probs []OutcomeP) float64 {
 	return math.Log(ds.quantile(0.9).Value / ds.quantile(0.1).Value)
 }
 
-// TestVolFloor (the live check's P9): holding only the median and the chance
+// TestVolFloor: holding only the median and the chance
 // left a narrow final on the capped drift contradicting itself. On the
 // re-check's sweep (the 22 live ladders, lognormal finals at 0.5 to 1.25× H1's
-// σ and −1 to +0.5 points a year around the drift) round 4's view of the
+// σ and −1 to +0.5 points a year around the drift) the earlier view of the
 // final as written held the chance on 272 of its 579 views on the drift, 74
 // of them at the drift's centre; 49 stated a 50% (or 80%) range that started
 // above today beside a chance under 75% (90%), 15 at the centre ("50% range
@@ -104,7 +104,7 @@ func widthOn(bounds [][2]float64, outcomes []string, probs []OutcomeP) float64 {
 // (the guard is off) and on a diverse one (the guard first): every view on
 // the drift states the stored final's own chance, its ranges agree with it,
 // and the bars from today's edge are within a point of it. The final is
-// widened around its own median (round 6, P10): to H1's σ at the median its
+// widened around its own median: to H1's σ at the median its
 // view states, which it keeps.
 func TestVolFloor(t *testing.T) {
 	logsTo(t, io.Discard)
@@ -120,7 +120,7 @@ func TestVolFloor(t *testing.T) {
 				k.fr.Plan = "long_stock"
 				final := probsAt(outcomes, market.DriftMixture(c.spot, years, sf*c.vol, math.Log(math.Exp(c.mu)+dp/100)).Buckets(c.edges)...)
 				where := fmt.Sprintf("%s at %.2f× σ, %+.2f points a year", c.name, sf, dp)
-				// Round 4: the view of the final as the aggregator wrote it.
+				// The view of the final as the aggregator wrote it.
 				b0 := k.basis(nil, final)
 				if v0 := deskView(d, final, ref, c.days, b0); b0.Kind == "capped_drift" {
 					before.views++
@@ -140,7 +140,7 @@ func TestVolFloor(t *testing.T) {
 				ln := probsAt(outcomes, logn...)
 				for kind, panel := range map[string][]Specialist{
 					// Two anchored methods on different inputs within 0.10 of each other: the guard is off.
-					// (History and regime both rest on H1, so they no longer agree independently: gap round G20.)
+					// (History and regime both rest on H1, so they no longer agree independently.)
 					"agree": {{Role: "base_rate", Name: "Base-rate statistician", Method: "history", Anchor: ln, Probabilities: ln},
 						{Role: "quant", Name: "Market & quant analyst", Method: "fundamentals", Anchor: ln, Probabilities: ln},
 						{Role: "skeptic", Name: "Narrative & macro skeptic", Method: "judgment", Probabilities: final}},
@@ -206,7 +206,7 @@ func TestVolFloor(t *testing.T) {
 		}
 	}
 	if before != (tally{views: 579, held: 272, held0: 74, contra: 49, contra0: 15, gap2: 159}) {
-		t.Errorf("round 4's view of these finals: %+v, not the re-check's 579 views, 272 held (74 at the centre), 49 contradicting (15), 159 bars over by 2 points", before)
+		t.Errorf("the earlier view of these finals: %+v, not the re-check's 579 views, 272 held (74 at the centre), 49 contradicting (15), 159 bars over by 2 points", before)
 	}
 	for kind, a := range after {
 		if a.views < 579 || kind == "agree" && (a.views != 579 || a.guarded != 0) || a.floored == 0 {
@@ -362,8 +362,8 @@ func TestVolFloorBound(t *testing.T) {
 		kept, floored, gain, narrowed, cited, none, heldMedianQuiet, edgeOff)
 }
 
-// TestVolFloorCentre (the live check's P10): the floor widens a final around
-// its own median and never moves its centre toward the drift. Round 5 mixed
+// TestVolFloorCentre: the floor widens a final around
+// its own median and never moves its centre toward the drift. An earlier floor mixed
 // a narrow final toward the drift's own lognormal, so it moved a cautious
 // final's median and chance toward the drift's: (a) it widened finals already
 // at H1's σ that sat under the drift, whose open tails read narrower on the
@@ -375,7 +375,7 @@ func TestVolFloorBound(t *testing.T) {
 // σ, −8.6% and 42% at H1's σ). Now:
 //   - a lognormal at H1's σ or wider, centred 1 to 10 points a year under the
 //     drift, is never widened (132 finals on the 22 live ladders at each of 1,
-//     1.1 and 1.25× σ; round 5 widened 18 at 1×);
+//     1.1 and 1.25× σ; the earlier floor widened 18 at 1×);
 //   - over spreads of 0.3 to 1.5× σ (by 0.2) at 3, 5, 7.5 and 10 points a
 //     year under the drift, and (by 0.05) 20 under for TSM at a year (−12.3%
 //     a year) and NVDA at ten (−10%), the view states the desk's own median

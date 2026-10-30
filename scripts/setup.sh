@@ -35,7 +35,7 @@ admin=$(value ADMIN_PORT)
 cat <<MSG
 .env is ready. Start Foretrade with:
 
-  docker compose up -d --build --wait
+  docker compose up -d --build --wait --wait-timeout 180
 
 Web app:        http://localhost:${web:-8080}
 Admin console:  http://localhost:${admin:-8081}  (this machine only)

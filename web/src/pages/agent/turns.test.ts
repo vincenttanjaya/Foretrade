@@ -143,6 +143,8 @@ describe('toolLabel', () => {
 describe('errorCopy', () => {
   it('has friendly copy per code, and no retry for an exhausted quota', () => {
     expect(errorCopy('ai_quota', 'x')).toMatchObject({ title: 'Daily AI credits used up', retry: false })
+    expect(errorCopy('ai_off', 'AI is not set up on this server yet.')).toEqual({ title: "AI isn't set up yet", detail: 'AI is not set up on this server yet.', retry: false })
+    expect(errorCopy('unreadable_file', "The AI on this server can't read this file.")).toEqual({ title: "This file can't be read here", detail: "The AI on this server can't read this file.", retry: false })
     expect(errorCopy('rate_limited', '')).toMatchObject({ title: 'Too many requests', retry: true })
     expect(errorCopy('upstream', '')).toEqual({ title: "The desk couldn't reach its data", detail: 'Market data or the model is unavailable right now.', retry: true })
     expect(errorCopy('upstream', 'Bedrock timed out').detail).toBe('Bedrock timed out')

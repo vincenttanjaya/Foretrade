@@ -226,7 +226,7 @@ func TestResearchFailure(t *testing.T) {
 		t.Fatalf("a run with sources is not flagged, and a live run has no note: %+v %s", res.Flags, toJSON(res.Research))
 	}
 	if j := toJSON(Research{Queries: []string{}}); j != `{"queries":[]}` {
-		t.Fatalf("a result stored before round 4 has no status or note: %s", j) // the web derives them
+		t.Fatalf("an older result has no status or note: %s", j) // the web derives them
 	}
 }
 

@@ -1,4 +1,4 @@
-// The upload body cap is checked before sending (API contract round 9: the server answers an oversize body with a 400).
+// The upload body cap is checked before sending (API contract: the server answers an oversize body with a 400).
 // Five files at the per-file limits stay under the real 32 MiB, so this file lowers the cap to reach the check.
 import { fireEvent, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

@@ -282,7 +282,7 @@
   }
 }
 
-/* Round 5: a dark-theme Export PDF prints light: the :root token values win on paper. */
+/* A dark-theme Export PDF prints light: the :root token values win on paper. */
 @media print {
   [data-theme='dark'] {
     --bg: #f7f5f0;

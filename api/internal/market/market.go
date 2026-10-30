@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
 	"net/url"
@@ -57,12 +58,12 @@ type Listing struct {
 func (a AssetInfo) Perp() bool { return a.Class != Crypto }
 
 // Universe is the selected fixed 69 crypto plus 38 stock/index perps: nine US,
-// ten Asian, then wave 2's twelve US and seven Asian. WLFI's admission
+// ten Asian, then a second batch of twelve US and seven Asian. WLFI's admission
 // counts400 returned bars, including the open bar. NMR has an explicit
 // paper-only current24h-volume exception; see the contract. Seven US stocks
 // have300 closed daily bars; SP500 alone uses actual shorter retained index
 // history. The first Asian perps were admitted on 2026-10-06 with at least 100
-// closed daily bars and $0.5M mean 30-day notional volume; wave 2's US stocks
+// closed daily bars and $0.5M mean 30-day notional volume; the second batch's US stocks
 // with at least 200 bars and the same volume, and its Asian perps by owner
 // approval (short or pre-IPO-converted history, thin volume; see the contract).
 // None of this attests underlying exchange tracking.
@@ -108,7 +109,7 @@ var Universe = []AssetInfo{
 	{"ALGO", "ALGOUSDT", "Algorand", Crypto, "binance", nil},
 	{"LDO", "LDOUSDT", "Lido DAO", Crypto, "binance", nil},
 	{"STX", "STXUSDT", "Stacks", Crypto, "binance", nil},
-	// Round 7, by 24h quote volume on 2026-10-05 (re-verified that day: TRADING,
+	// Added by 24h quote volume on 2026-10-05 (re-verified that day: TRADING,
 	// 400 returned daily bars and fresh trades; NMR current24h exception is documented).
 	{"ZEC", "ZECUSDT", "Zcash", Crypto, "binance", nil},
 	{"QNT", "QNTUSDT", "Quant", Crypto, "binance", nil},
@@ -162,7 +163,7 @@ var Universe = []AssetInfo{
 	{"ZHIPU", "xyz:ZHIPU", "Zhipu AI (Knowledge Atlas)", Stock, "hyperliquid", &Listing{"asia", HKEX, "HKEX 2513 H-share, HKD→USD", "HKD", "2513.HK"}},
 	{"EWJ", "xyz:EWJ", "iShares MSCI Japan ETF", Stock, "hyperliquid", &Listing{"asia", NYSE, "NYSE Arca: EWJ, USD (JPY exposure inside the ETF)", "USD", "EWJ"}},
 	{"EWY", "xyz:EWY", "iShares MSCI South Korea ETF", Stock, "hyperliquid", &Listing{"asia", NYSE, "NYSE Arca: EWY, USD (KRW exposure inside the ETF)", "USD", "EWY"}},
-	// Wave 2 (measured 2026-10-06): twelve more US stocks under the US rule in the
+	// The second batch (measured 2026-10-06): twelve more US stocks under the US rule in the
 	// contract, then seven Asian perps the owner approved despite the history
 	// caveats their underlying names (exclusions are in the contract).
 	{"PLTR", "xyz:PLTR", "Palantir", Stock, "hyperliquid", &Listing{"us", NYSE, "Nasdaq: PLTR Class A common share", "USD", "PLTR"}},
@@ -712,7 +713,7 @@ func (c *Client) get(ctx context.Context, path string, q url.Values, out any) er
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("%w: %s: status %d", ErrUpstream, path, resp.StatusCode)
 	}
-	if err := json.NewDecoder(resp.Body).Decode(out); err != nil {
+	if err := json.NewDecoder(io.LimitReader(resp.Body, 8<<20)).Decode(out); err != nil {
 		return fmt.Errorf("%w: %s: decode: %w", ErrUpstream, path, err)
 	}
 	return nil

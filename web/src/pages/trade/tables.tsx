@@ -302,7 +302,7 @@ const SOURCES: Record<TradeSource | 'prediction', [label: string, tone: BadgeTon
   autopilot: ['Autopilot', 'accent'],
   alert: ['Alert', 'outline'],
   copy: ['Copy', 'accent'],
-  prediction: ['Prediction', 'accent'], // round 5: P&L by source only (paper prediction positions are not trades)
+  prediction: ['Prediction', 'accent'], // P&L by source only (paper prediction positions are not trades)
 }
 
 export function SourceBadge({ source }: { source: TradeSource | 'prediction' }) {

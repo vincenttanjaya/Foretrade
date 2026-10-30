@@ -1,4 +1,4 @@
-// Forecast materials (API contract round 9): files attached on the New forecast page, read once by the desk, shown in
+// Forecast materials (API contract): files attached on the New forecast page, read once by the desk, shown in
 // "Your materials" on the report with evidence linking to them, and carried into an update.
 import { expect, expectNoHorizontalScroll, test, type Page } from './fixtures'
 import { API_URL, MATERIALS_FORECAST, RUNNING_MATERIALS_FORECAST } from './mock-api'

@@ -11,7 +11,7 @@ import { Input, Label, Select } from '../components/ui/Input'
 import { FormError, Modal } from '../components/ui/Modal'
 import { PasswordReveal } from '../components/ui/PasswordReveal'
 import { Skeleton } from '../components/ui/Spinner'
-import { api, errorMessage, SHOWCASE_SOURCE } from '../lib/api'
+import { api, errorMessage } from '../lib/api'
 import { seededSummary, seededWarning } from '../lib/audit'
 import { fmtDate, fmtNum, fmtUsd, timeAgo } from '../lib/format'
 import { passwordProblem } from '../lib/password'
@@ -269,8 +269,9 @@ function NewUserForm({ defaultLimit, onCancel, onCreated }: { defaultLimit?: num
   const [role, setRole] = useState<Role>('user')
   const [limit, setLimit] = useState('')
   const [password, setPassword] = useState('')
-  const [showcase, setShowcase] = useState(true)
-  const [seedFrom, setSeedFrom] = useState(SHOWCASE_SOURCE)
+  // ponytail: off and blank, as a fresh install has no demo account (DEMO_EMAIL is opt-in); prefill from the API if needed.
+  const [showcase, setShowcase] = useState(false)
+  const [seedFrom, setSeedFrom] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 

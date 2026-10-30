@@ -78,8 +78,8 @@ func TestSearchDropsJunkAndRanksOutlets(t *testing.T) {
 	for _, r := range got {
 		urls = append(urls, r.URL)
 	}
-	// "Bitcoin price prediction blog" is an SEO title on an unknown host: junk since round 4; the Super Bowl odds go by
-	// their source name (round 7). Live search has no on-topic rule, so "Another blog" stays.
+	// "Bitcoin price prediction blog" is an SEO title on an unknown host: junk; the Super Bowl odds go by
+	// their source name. Live search has no on-topic rule, so "Another blog" stays.
 	want := []string{"https://www.reuters.com/markets/btc", "https://www.coindesk.com/miners", "https://other.example/y"}
 	if fmt.Sprint(urls) != fmt.Sprint(want) {
 		t.Fatalf("results %v, want %v", urls, want)
@@ -176,7 +176,7 @@ func TestJunkTitles(t *testing.T) {
 		{"COINTURK NEWS - Bitcoin, Blockchain and Cryptocurrency News and Analysis", "https://cointurk.com/news", true},
 		{"Crypto: Latest News", "https://news.example/crypto", true},
 		{"Stocktradersdaily", "https://stocktradersdaily.com/news/123", true},                                         // the site's own name
-		{"BNB Price Prediction: 44% Below Record, 37th Burn Nears", "https://cryptoticker.io/en/bnb-37th-burn", true}, // round 4: any price prediction off a known outlet
+		{"BNB Price Prediction: 44% Below Record, 37th Burn Nears", "https://cryptoticker.io/en/bnb-37th-burn", true}, // any price prediction off a known outlet
 		{"Bitcoin price prediction: analysts see $150k", "https://www.reuters.com/markets/btc-prediction", false},     // a newsroom's own story
 		{"Bitcoin ETF inflows hit $1bn as price nears 2026 high", "https://www.coindesk.com/a", false},
 		{"Breaking news: SEC approves spot SOL ETF", "https://news.example/sol-etf", false}, // only a trailing tagline counts
@@ -233,7 +233,7 @@ func TestRoundupsAndOnTopic(t *testing.T) {
 	}
 }
 
-// Round 4 source hygiene: presale promos, listicle and SEO titles, MarketBeat
+// Source hygiene: presale promos, listicle and SEO titles, MarketBeat
 // auto pages and press releases; a known outlet keeps its own price stories.
 func TestJunkRound4(t *testing.T) {
 	for _, tc := range []struct {
@@ -272,7 +272,7 @@ func TestJunkRound4(t *testing.T) {
 	}
 }
 
-// Round 7 wire quality: the forex-converter page a sports-betting site put in
+// Wire quality: the forex-converter page a sports-betting site put in
 // prod's wire (cited as source 1 by the agent), converter and gambling
 // wording, and the host and source-name backstops; the on-topic headlines
 // listed beside it stay.
@@ -344,7 +344,7 @@ func TestAboutMarkets(t *testing.T) {
 	}
 }
 
-// Rows stored before round 7 are hidden on read: the converter page from
+// Rows stored before this rule are hidden on read: the converter page from
 // prod's wire (its description passed the US-macro rule), a converter whose
 // title names an asset, and an off-topic lifestyle page; the on-topic rows
 // beside them stay in the contract's order.

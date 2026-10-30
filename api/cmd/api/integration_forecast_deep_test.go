@@ -36,7 +36,7 @@ var (
 	firstSource   = regexp.MustCompile(`"id":"(S\d+)"`)
 )
 
-// Round 8 deep research end to end: the plan's typed queries reach Brave
+// Deep research end to end: the plan's typed queries reach Brave
 // (past-year freshness, an "any" web search with none, a zh-hans search whose
 // Chinese result is kept), the screen drops the candidate it scores 0, the
 // best pages are read, findings citing a source outside their batch are
@@ -135,7 +135,7 @@ func TestIntegrationForecastDeepResearch(t *testing.T) {
 	if str(t, f, "forecast.status") != "completed" {
 		t.Fatalf("run: %v", f)
 	}
-	shape(t, f, "forecast.result", resultKeys+" watch view") // round 9b: an ordered result reads as a desk view
+	shape(t, f, "forecast.result", resultKeys+" watch view") // an ordered result reads as a desk view
 	shapeAll(t, f, r+"findings", "id claim sourceIds asOf angle direction strength")
 	shape(t, f, r+"research", "queries status depth angles rounds searches candidates")
 	shapeAll(t, f, r+"research.angles", "id kind label queries findings")

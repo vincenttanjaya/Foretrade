@@ -53,7 +53,7 @@ var alwaysLong = Spec{Name: "Always long", Interval: "1h", Bars: 1999, PositionP
 	LongEntry: all(when(ind("price", 0), ">", Indicator{Kind: "const", Value: num(0)}))}
 
 // A quote-feed listing's bars exist only in its sessions, so its ratios and
-// window are measured over its own span (gap round G15): the TWSE-shaped run
+// window are measured over its own span: the TWSE-shaped run
 // of the same returns reads Sharpe ≈2.11 and vol ≈23.9% over 557 days, where
 // 24/7 bars read 5.45 and 61.8% over 83 days. The crypto run is unchanged.
 func TestQuoteFeedAnnualization(t *testing.T) {
@@ -105,7 +105,7 @@ func TestSessionMetricsOnRead(t *testing.T) {
 	feed.Symbol = "MEDIATEK"
 	now, _ := Backtest(feed, twse)
 	old := alwaysLong
-	old.Symbol = "BTC" // the same bars measured the 24/7 way, as rows saved before G15 were
+	old.Symbol = "BTC" // the same bars measured the 24/7 way, as older rows were
 	legacy, _ := Backtest(old, twse)
 	m := legacy.Metrics
 	if m.Sharpe != 5.45 || m.AnnualizedReturnPct != nil {

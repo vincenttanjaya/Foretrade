@@ -1,6 +1,6 @@
 package forecast
 
-// The question's frame (round 9b): what kind of number an ordered question
+// The question's frame: what kind of number an ordered question
 // asks for and about which one instrument, so the panel can use methods that
 // fit it. A long-horizon price question on a listed stock gets three
 // genuinely different methods (measured history, an EPS × P/E scenario model,
@@ -443,9 +443,9 @@ func floorRescale(p []float64) {
 }
 
 // cappedDrift is series' halved drift capped at its home market's long-run
-// return + 2 points, at most 10%/yr (market.CapDrift, slice 1's rule): the
+// return + 2 points, at most 10%/yr (market.CapDrift): the
 // only drift the desk uses or shows. 0 under 2 years of history. The index is
-// read in the drift's currency, as the gap round's outlook card reads it: a
+// read in the drift's currency, as the chat's outlook card reads it: a
 // series in US dollars (a USD listing such as TSM or SONY, a listing
 // converted to dollars, crypto, a dollar index) by its home index in US
 // dollars (TickerHistoryUSD: TSM by TWII converted at Yahoo's daily FX; the
@@ -792,11 +792,11 @@ func (m *measurement) windowWidth() float64 {
 	return math.Log(m.stats.Window.Q[5] / m.stats.Window.Q[1])
 }
 
-// Prompts per frame. Event frames get round 8b's text unchanged; numeric
+// Prompts per frame. Event frames get the base text unchanged; numeric
 // frames add the method each member uses and how the aggregator resolves them.
 
 // The specialists' "is a claim too" sentence: hedging toward 50% for event
-// frames (round 8b), a near-equal spread for ordered numbers.
+// frames, a near-equal spread for ordered numbers.
 const (
 	claimEvent   = "Moving toward 50% is a claim too: it costs as much as overconfidence when the evidence does not support it."
 	claimNumeric = "A near-equal spread across the outcomes is a claim too (that every range is about equally likely): give one only when you believe it, and always say where the middle of your distribution is and why."
@@ -923,7 +923,7 @@ const (
 )
 
 // combineRules is the aggregator's "How to combine" block: the ensemble's or
-// R1's (round 8b) for event frames, the methods' for numeric frames.
+// R1's for event frames, the methods' for numeric frames.
 func combineRules(fr frame, r1 bool) string {
 	switch {
 	case fr.numeric():

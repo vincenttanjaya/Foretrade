@@ -1,4 +1,4 @@
-// The numeric report's hero (API contract round 9b, "Desk view and methods"): the desk's median, its 50% and 80% ranges
+// The numeric report's hero (API contract "Desk view and methods"): the desk's median, its 50% and 80% ranges
 // and the chance of ending at or above today, read from the final buckets by the server, on a log (or linear) axis.
 // A flat distribution never reads as "most likely"; the buckets stay below as the scored distribution. The median and
 // the chance above today show only when the view's basis anchors them (cited scenarios or the measured history at the

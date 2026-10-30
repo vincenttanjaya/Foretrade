@@ -15,7 +15,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/yahoo/yahootest"
 )
 
-// The owner's TSM question on its stored report's six ranges (round 9b).
+// The owner's TSM question on its stored report's six ranges.
 var methodsOutcomes = []string{"< $300", "$300 – $450", "$450 – $600", "$600 – $800", "$800 – $1,100", "≥ $1,100"}
 
 const (
@@ -218,7 +218,7 @@ const (
 	scenarioKeys = "kind name p modelP lo hi level vsRefPct annualPct inputs thesis mustBeTrue sourceIds"
 )
 
-// Round 9b's desk methods end to end on the owner's TSM question: with deep
+// The desk methods end to end on the owner's TSM question: with deep
 // research and the methods on, the base rate reads H1 and the SOX history,
 // the quant prices EPS × P/E scenarios (its F1 EPS verified, its S2 P/E
 // relabelled an assumption), the skeptic prices two events; the result leads

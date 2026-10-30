@@ -1,4 +1,4 @@
-// "Tell me when the market moves" (round 6): an odds trigger on the report's matched Polymarket market, set from the Desk
+// "Tell me when the market moves": an odds trigger on the report's matched Polymarket market, set from the Desk
 // vs market card (POST /api/alerts, trigger odds, notify only, 0 credits). The server re-prices the market about once a minute.
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'

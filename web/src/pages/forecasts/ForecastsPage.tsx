@@ -463,7 +463,7 @@ function Headline({ f }: { f: ForecastSummary }) {
 }
 
 /**
- * Round 9b: a numeric row whose view leads reads its median and, with a measured reference, the chance of ending at or
+ * A numeric row whose view leads reads its median and, with a measured reference, the chance of ending at or
  * above today (the bar), never a range that does not stand out. A view that states no median reads its 80% range.
  */
 function MedianHeadline({ reading }: { reading: NonNullable<ReturnType<typeof viewReading>> }) {

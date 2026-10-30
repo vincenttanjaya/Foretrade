@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Manual live eval of the chat's price_outlook horizon rules (round 9a), not CI:
+# Manual live eval of the chat's price_outlook horizon rules, not CI:
 # sends the eight phrasings of the contract to a dev API's agent chat and prints,
 # for each, the horizon fields of every price_outlook call the model made and the
 # card's horizon basis and view kind. Each message spends the chat's credits.

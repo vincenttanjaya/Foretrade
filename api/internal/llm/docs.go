@@ -29,6 +29,11 @@ func imageMIME(format string) string { return "image/" + format } // png | jpeg 
 // fileName is the document's name with its format as the extension.
 func fileName(d *Document) string { return d.Name + "." + d.Format }
 
+// ErrUnreadableDoc is a document the provider can't take: a PDF on a wire
+// without PDF support, or a docx/xlsx whose text can't be extracted. Retrying
+// can't help. The wires return it inside ErrUpstream.
+var ErrUnreadableDoc = errors.New("unreadable document")
+
 // docText is a document as text, for wires without native support: text
 // formats as they are, docx and xlsx extracted, at most maxDocText bytes.
 func docText(d *Document) (string, error) {
@@ -36,14 +41,14 @@ func docText(d *Document) (string, error) {
 	var err error
 	switch d.Format {
 	case "pdf":
-		return "", errors.New("this provider can't read PDF files")
+		return "", fmt.Errorf("%w: this provider can't read PDF files", ErrUnreadableDoc)
 	case "docx", "xlsx":
 		err = officeText(d, out)
 	default:
 		out.WriteString(string(d.Bytes))
 	}
 	if err != nil {
-		return "", fmt.Errorf("%s could not be read: %w", fileName(d), err)
+		return "", fmt.Errorf("%w: %s could not be read: %w", ErrUnreadableDoc, fileName(d), err)
 	}
 	if out.cut {
 		out.sb.WriteString("\n[truncated]")

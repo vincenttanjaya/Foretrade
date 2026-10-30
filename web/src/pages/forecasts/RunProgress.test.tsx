@@ -139,7 +139,7 @@ describe('Working · ordered runs', () => {
   })
 })
 
-describe('Working · deep research (round 8)', () => {
+describe('Working · deep research', () => {
   const deep = (research: Partial<ForecastProgress['research']>) =>
     fx.deepForecast({ status: 'running', result: null, completedAt: null, progress: { ...fx.deepProgress, research: { ...fx.deepProgress.research, ...research } } })
   const steps = () => within(screen.getByRole('list', { name: 'Research steps' })).getAllByRole('listitem')
@@ -216,7 +216,7 @@ describe('Working · deep research (round 8)', () => {
   })
 })
 
-describe('Working · your materials (round 9)', () => {
+describe('Working · your materials', () => {
   const step = (materials: ForecastProgress['materials']) => render(<Working f={running(trace({ materials }))} reconnecting={false} />)
   const rows = () => [...document.querySelectorAll('li[data-stage]')].map((li) => li.getAttribute('data-stage'))
 

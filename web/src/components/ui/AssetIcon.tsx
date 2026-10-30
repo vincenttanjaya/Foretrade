@@ -13,7 +13,7 @@ const COINS = bySymbol(import.meta.glob<string>('../../assets/coins/*.{svg,png}'
 // Plain stock, ETF and index marks from src/assets/stocks/{ID}.svg|png (convention and provenance in LICENSE.md there).
 const STOCKS = bySymbol(import.meta.glob<string>('../../assets/stocks/*.{svg,png}', { eager: true, query: '?no-inline', import: 'default' }))
 
-// Legal and group words a monogram skips (LOGO-PLAN §6): "PT Bank Negara Indonesia (Persero) Tbk" reads BN, not PB.
+// Legal and group words a monogram skips: "PT Bank Negara Indonesia (Persero) Tbk" reads BN, not PB.
 const LEGAL_PHRASES = /\b(public company limited|joint stock company)\b/gi
 const LEGAL_WORDS = new Set(['PT', 'TBK', 'BERHAD', 'BHD', 'CTCP', 'CO', 'LTD', 'LIMITED', 'INC', 'CORP', 'CORPORATION', 'HOLDINGS', 'HOLDING', 'GROUP', 'THE', 'PLC'])
 

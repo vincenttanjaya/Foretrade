@@ -40,7 +40,7 @@ type Draft struct {
 	PriceRule          *PriceRule `json:"priceRule"` // binary Binance price questions only; resolves automatically
 	Context            string     `json:"context"`   // the user's notes for the panel (S0, unverified); the draft endpoint returns ""
 
-	LinkedMarket *LinkedMarket `json:"linkedMarket,omitempty"` // round 7 (board.go): the Polymarket market a board draft came from; a run compares against it first
+	LinkedMarket *LinkedMarket `json:"linkedMarket,omitempty"` // board.go: the Polymarket market a board draft came from; a run compares against it first
 }
 
 // LinkedMarket is the immutable external predicate a manual forecast prices.
@@ -70,7 +70,7 @@ type Specialist struct {
 	KeyFactors    []string   `json:"keyFactors"`
 	Confidence    string     `json:"confidence"`
 
-	// Round 9b (numeric frames): the method the server saw it use (from the
+	// Numeric frames only: the method the server saw it use (from the
 	// tool calls that ran), the tool's own distribution it started from, its
 	// distribution read as a view, and the quant's valuation scenarios.
 	Method string          `json:"method,omitempty"` // history | fundamentals | volatility | regime | judgment | fallback
@@ -78,7 +78,7 @@ type Specialist struct {
 	Stats  *SpecStats      `json:"stats,omitempty"` // ordered results; derived on read for older rows
 	Model  []ModelScenario `json:"model,omitempty"`
 
-	// family is the input its anchor rests on (deskKit.read, gap round G20):
+	// family is the input its anchor rests on (deskKit.read):
 	// "history" for H1's blend, a regime on H1's lognormal and a volatility
 	// member whose σ came from history_stats; its own for fundamentals and a
 	// price_outlook volatility member. Never stored; inputFamily reads Method
@@ -109,7 +109,7 @@ type Evidence struct {
 	AsOf     string  `json:"asOf"`
 	URL      *string `json:"url"`                // the cited web source's URL; null for none or an unknown id
 	SourceID string  `json:"sourceId,omitempty"` // the aggregator's citation ("S3"); cleared once mapped to URL
-	// round 9: "D2", the user's material this claim comes from; url stays null and the page links its card
+	// "D2", the user's material this claim comes from; url stays null and the page links its card
 	MaterialID string `json:"materialId,omitempty"`
 }
 
@@ -129,12 +129,12 @@ type Finding struct {
 	Angle     string   `json:"angle"`            // a research.angles id
 	Direction string   `json:"direction"`        // binary yes|no|context; ordered higher|lower|center|tail|context; categorical an outcome or context
 	Strength  string   `json:"strength"`         // strong | moderate | slight | minimal
-	Origin    string   `json:"origin,omitempty"` // round 9: "material" when read from the user's files (sourceIds are D ids); absent for web research
+	Origin    string   `json:"origin,omitempty"` // "material" when read from the user's files (sourceIds are D ids); absent for web research
 	Ref       string   `json:"ref,omitempty"`    // material findings: where in the file ("p. 4")
 	order     int      // extraction order: the ledger's last tie-break; not stored
 }
 
-// Watch is one pending signal of the report's "What to watch" (round 8).
+// Watch is one pending signal of the report's "What to watch".
 type Watch struct {
 	Signal   string   `json:"signal"`
 	Detail   string   `json:"detail"`
@@ -158,27 +158,27 @@ type Result struct {
 	WhatWouldChange []string      `json:"whatWouldChange"`
 	Confidence      string        `json:"confidence"`
 	KnowledgeNote   string        `json:"knowledgeNote"`
-	Sources         []Source      `json:"sources"`              // the evidence pack S1..S8 (deep research, round 8: S1..S24)
+	Sources         []Source      `json:"sources"`              // the evidence pack S1..S8 (deep research: S1..S24)
 	Research        Research      `json:"research"`             // the search queries behind it
-	Findings        []Finding     `json:"findings"`             // round 8: the research ledger F1..Fn; [] without deep research
+	Findings        []Finding     `json:"findings"`             // the research ledger F1..Fn; [] without deep research
 	Market          *MarketOdds   `json:"market"`               // the matching Polymarket market; binary live runs only
-	Ladder          []*MarketOdds `json:"ladder,omitempty"`     // round 6 (ladder.go): ordered live runs, the Polymarket strike ladder, ascending, 2..8 rows
+	Ladder          []*MarketOdds `json:"ladder,omitempty"`     // ladder.go: ordered live runs, the Polymarket strike ladder, ascending, 2..8 rows
 	ChangeNote      string        `json:"changeNote,omitempty"` // updates only: what moved the estimate since the previous run
 	// ViewChange (an update of a numeric question whose previous run and this
-	// one both have a view, gap round G20) is the change the server reads off
+	// one both have a view) is the change the server reads off
 	// the two stored views: "Median $570 → $611 (+7.2%) · chance at or above
 	// today 58% → 62%", or "80% range $356–$917 → $380–$950" when either
 	// states no median. A numeric changeNote then gives the reasons only.
 	ViewChange string `json:"viewChange,omitempty"`
 
-	MarketCheckedAt *time.Time `json:"marketCheckedAt,omitempty"` // round 5: when POST /market last searched Gamma (refresh.go)
-	Watch           []Watch    `json:"watch,omitempty"`           // round 8: 0..4 pending signals; absent when none
+	MarketCheckedAt *time.Time `json:"marketCheckedAt,omitempty"` // when POST /market last searched Gamma (refresh.go)
+	Watch           []Watch    `json:"watch,omitempty"`           // 0..4 pending signals; absent when none
 
-	Reference     *Reference     `json:"reference"`               // round 8b (reference.go): R1, the volatility-only P(Yes); null without a price rule and for older rows
-	ReferenceNote *ReferenceNote `json:"referenceNote,omitempty"` // round 8b: the aggregator's cited reason for moving toward 50% from R1; only when it kept the number
-	Guard         string         `json:"guard,omitempty"`         // round 8b: "shrink" when the server reset P(Yes) to R1
+	Reference     *Reference     `json:"reference"`               // reference.go: R1, the volatility-only P(Yes); null without a price rule and for older rows
+	ReferenceNote *ReferenceNote `json:"referenceNote,omitempty"` // the aggregator's cited reason for moving toward 50% from R1; only when it kept the number
+	Guard         string         `json:"guard,omitempty"`         // "shrink" when the server reset P(Yes) to R1
 
-	// Round 9b (view.go, views.go, frame.go): additive, older rows lack them all.
+	// The desk view (view.go, views.go, frame.go): additive, older rows lack them all.
 	View      *DeskView      `json:"view,omitempty"`      // ordered results whose buckets parse; derived on read for older rows
 	Scenarios []DeskScenario `json:"scenarios,omitempty"` // 2..5, low to high: the quant's scenario_model levels, odds from the final buckets
 	Methods   *Methods       `json:"methods,omitempty"`   // numeric frames with the methods on: weights, pool, agreement, guard
@@ -198,8 +198,8 @@ type Forecast struct {
 	Replay             *ReplayInfo `json:"replay"`     // null = the caller's own forecast
 	ParentID           *string     `json:"parentId"`   // the run this one updates; null for a first run
 	History            []Point     `json:"history"`    // the lineage's completed runs, oldest first; [] for a replay
-	Progress           *Progress   `json:"progress"`   // the run's live trace (round 5); null before the run's first write, for older runs and replays
-	Materials          []Material  `json:"materials"`  // round 9: the files the user attached and what the desk read (materials.go); [] without
+	Progress           *Progress   `json:"progress"`   // the run's live trace; null before the run's first write, for older runs and replays
+	Materials          []Material  `json:"materials"`  // the files the user attached and what the desk read (materials.go); [] without
 }
 
 // Point is one completed run in a forecast's probability history.
@@ -208,7 +208,7 @@ type Point struct {
 	Outcome string    `json:"outcome"` // the run's headline outcome (binary: Yes)
 	P       float64   `json:"p"`
 	At      time.Time `json:"at"`               // completedAt
-	Median  *float64  `json:"median,omitempty"` // round 9b: the run's desk-view median (ordered runs whose buckets parse)
+	Median  *float64  `json:"median,omitempty"` // the run's desk-view median (ordered runs whose buckets parse)
 }
 
 type Resolution struct {
@@ -237,7 +237,7 @@ type Summary struct {
 	ResolvedOutcome    *string    `json:"resolvedOutcome"`
 	Replay             bool       `json:"replay"`
 	ParentID           *string    `json:"parentId"`
-	View               *ViewBrief `json:"view,omitempty"` // round 9b: ordered results whose buckets parse
+	View               *ViewBrief `json:"view,omitempty"` // ordered results whose buckets parse
 }
 
 type handler struct{ d *app.Deps }
@@ -257,11 +257,11 @@ func register(mux *http.ServeMux, d *app.Deps, b *board) {
 	mux.Handle("POST /api/forecasts/{id}/update", auth(h.handleUpdate))
 	mux.Handle("POST /api/forecasts/{id}/restore", auth(h.handleRestore))
 	mux.Handle("GET /api/forecasts/{id}", auth(h.handleGet))
-	mux.Handle("POST /api/forecasts/{id}/market", auth(h.handleRefreshMarket))         // round 5: refresh.go
-	mux.Handle("POST /api/forecasts/{id}/market-position", auth(h.handleOpenPosition)) // round 5: positions.go
+	mux.Handle("POST /api/forecasts/{id}/market", auth(h.handleRefreshMarket))         // refresh.go
+	mux.Handle("POST /api/forecasts/{id}/market-position", auth(h.handleOpenPosition)) // positions.go
 	mux.Handle("GET /api/market-positions", auth(h.handlePositions))
 	mux.Handle("DELETE /api/forecasts/{id}", auth(h.handleArchive))
-	b.register(mux) // round 7: the prediction markets board, board.go
+	b.register(mux) // the prediction markets board, board.go
 }
 
 func (h *handler) handleDraft(w http.ResponseWriter, r *http.Request) {
@@ -285,20 +285,20 @@ func (h *handler) handleDraft(w http.ResponseWriter, r *http.Request) {
 	}
 	draft, ref, err := h.draftWith(ctx, idea, todayUTC())
 	if err != nil {
-		if ctx.Err() == nil { // a client that hung up mid-call still pays: Bedrock already billed
+		if ctx.Err() == nil { // a client that hung up mid-call still pays: the provider already billed
 			h.d.Usage.Refund(ctx, user, usage.CostDraft)
 		}
 		app.WriteError(w, err)
 		return
 	}
 	out := map[string]any{"draft": draft, "credits": credits}
-	if ref != nil { // round 9b: the level the ranges are multiples of
+	if ref != nil { // the level the ranges are multiples of
 		out["reference"] = ref
 	}
 	httpx.JSON(w, http.StatusOK, out)
 }
 
-// createRequest is a draft plus the user's materials (round 9): new files,
+// createRequest is a draft plus the user's materials: new files,
 // and digests to reuse from one of the caller's forecasts on the same question.
 type createRequest struct {
 	Draft
@@ -503,7 +503,7 @@ var errUpdateRunning = &app.Conflict{Msg: "An update is already running."}
 // unresolved, future forecast of the caller's: a new row with parent_id = id
 // that copies the question, and the parent's estimate as the aggregator's
 // prior. The parent stays in the lineage's history. The body may add new
-// files and choose which of the parent's read materials to keep (round 9);
+// files and choose which of the parent's read materials to keep;
 // {} keeps every one and adds none.
 func (h *handler) handleUpdate(w http.ResponseWriter, r *http.Request) {
 	var req struct {
@@ -674,10 +674,10 @@ func (h *handler) get(ctx context.Context, user, id string) (Forecast, error) {
 	if f.Result != nil && f.Result.Sources == nil { // ponytail: results stored before the research stage; no backfill
 		f.Result.Sources, f.Result.Research.Queries = []Source{}, []string{}
 	}
-	if f.Result != nil && f.Result.Findings == nil { // results stored before round 8 have no ledger
+	if f.Result != nil && f.Result.Findings == nil { // results stored before deep research have no ledger
 		f.Result.Findings = []Finding{}
 	}
-	if f.Result != nil && f.Result.Market != nil && thin(f.Result.Market.VolumeUSD) { // results stored before round 3 have no thin flag: derive it, never an edge
+	if f.Result != nil && f.Result.Market != nil && thin(f.Result.Market.VolumeUSD) { // older results have no thin flag: derive it, never an edge
 		f.Result.Market.Thin, f.Result.Market.Signal = true, "wait"
 	}
 	if f.LinkedMarket != nil && f.Result != nil && f.Result.Market != nil && !linkedPredicate(f.Draft) {
@@ -688,7 +688,7 @@ func (h *handler) get(ctx context.Context, user, id string) (Forecast, error) {
 	return f, err
 }
 
-// derive fills what an ordered result stored before round 9b lacks, from its
+// derive fills what an older ordered result stored without a view lacks, from its
 // stored probabilities only (nothing is backfilled): the desk view, marked
 // derived and without a reference (no measured price, so no P(above) or
 // change), and each member's stats.
@@ -791,7 +791,7 @@ func (h *handler) list(ctx context.Context, user, status, shape string, replay b
 			return nil, err
 		}
 		s.ResolutionDate, s.Headline = date.Format(time.DateOnly), headline(s.Shape, probs)
-		if view == nil && s.Shape == "ordered" && probs != nil { // stored before round 9b: derived, without a reference
+		if view == nil && s.Shape == "ordered" && probs != nil { // stored without a view: derived, without a reference
 			d := Draft{Shape: s.Shape, Outcomes: outcomes, ResolutionDate: s.ResolutionDate}
 			view = deskView(d, probs, nil, horizonOf(d, runDay(s.CreatedAt, s.CompletedAt)), noBasis)
 		}
@@ -918,6 +918,8 @@ func runError(err error) string {
 	switch {
 	case errors.Is(err, context.DeadlineExceeded):
 		return "The forecast timed out. Try again."
+	case errors.Is(err, llm.ErrNotConfigured):
+		return app.AIOffMsg
 	case errors.Is(err, llm.ErrUpstream):
 		return "The AI model is unavailable right now. Try again shortly."
 	}

@@ -287,7 +287,7 @@ func TestChatAttachments(t *testing.T) {
 
 	plain := newFake(t)
 	if _, err := plain.client(llm.Settings{Provider: "groq", Model: "m", APIKey: "k"}).CompleteWith(t.Context(), "", m, ""); !errors.Is(err, llm.ErrUpstream) ||
-		!strings.Contains(err.Error(), "can't read PDF") || len(plain.requests()) != 0 {
+		!errors.Is(err, llm.ErrUnreadableDoc) || !strings.Contains(err.Error(), "can't read PDF") || len(plain.requests()) != 0 {
 		t.Fatalf("pdf elsewhere: %v, %d requests", err, len(plain.requests()))
 	}
 }

@@ -1,5 +1,5 @@
 // Package arena is the AI backtest arena ("time travel"):
-// persona agents on the one Bedrock model trade a past window step by step,
+// persona agents on the configured model trade a past window step by step,
 // each seeing only bars closed by the simulated time, filled at the next
 // bar's open by the paper engine's rules and scored against BTC and an
 // equal-weight basket. Runs happen in a goroutine; the client polls
@@ -35,7 +35,7 @@ const (
 	startingCash  = 100_000.0
 	maxAgents     = 4
 	maxSteps      = 90 // the cadences' day spans cap steps here; the DB check backs it up
-	maxActiveRuns = 2  // process-wide: protects the Bedrock quota chat also uses
+	maxActiveRuns = 2  // process-wide: protects the provider quota chat also uses
 	maxNewsCalls  = 120
 	maxPriceCalls = 6 // per agent-step: every tool result is resent on each later turn of the call
 	loadTimeout   = 20 * time.Second

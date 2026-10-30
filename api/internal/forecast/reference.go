@@ -1,6 +1,6 @@
 package forecast
 
-// The volatility-only reference R1 (round 8b): for a binary price-rule
+// The volatility-only reference R1: for a binary price-rule
 // question the server prices the rule under the same zero-drift lognormal
 // the replay's anchor uses (spot and 90-day realized volatility as of the
 // run), shows it to the panel and the aggregator, stores it as anchor_p, and

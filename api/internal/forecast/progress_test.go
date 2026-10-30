@@ -61,7 +61,7 @@ func TestTracker(t *testing.T) {
 		t.Fatalf("a write after completion landed: %+v", p)
 	}
 
-	// No market lookup: skipped from the start. An ordered run looks up its strike ladder (round 6).
+	// No market lookup: skipped from the start. An ordered run looks up its strike ladder.
 	if s := newTracker(ctx, e.DB, f.ID, Draft{Shape: "binary"}, false, nil).p.Market.Status; s != "skipped" {
 		t.Errorf("no POLYMARKET_BASE: market %s", s)
 	}

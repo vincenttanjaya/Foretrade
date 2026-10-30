@@ -233,7 +233,7 @@ type OutlookView struct {
 	P95      float64  `json:"p95"`
 	PAbove   float64  `json:"pAbove"` // P(price at the horizon ≥ today): the view's chance of a gain, spreads included
 	// PAboveByWeights is a scenarios view's share of its weights on
-	// scenarios at or above today (gap round G19): the sum the model would
+	// scenarios at or above today: the sum the model would
 	// otherwise write as its "P(gain)"; nil for other kinds.
 	PAboveByWeights *float64 `json:"pAboveByWeights,omitempty"`
 	ChangePct       float64  `json:"changePct"` // median vs spot

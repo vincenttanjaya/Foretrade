@@ -28,7 +28,7 @@ API contract: [`docs/API-CONTRACT.md`](../docs/API-CONTRACT.md) §3 "Admin conso
 
 ## Develop
 
-Node 20 (`.node-version`).
+Node 24 (`.node-version`).
 
 ```sh
 npm ci

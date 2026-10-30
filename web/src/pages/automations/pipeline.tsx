@@ -13,11 +13,11 @@ export const WEEKDAYS = ['Sundays', 'Mondays', 'Tuesdays', 'Wednesdays', 'Thursd
 export const scheduleText = (every?: AlertEvery | null, at?: string | null, weekday?: number | null) =>
   `${every === 'week' ? WEEKDAYS[weekday ?? 0] : every === 'weekdays' ? 'Weekdays' : 'Every day'} · ${at} UTC`
 
-/** 'Polymarket "Will the Fed cut in December?" rises above 25%': an odds trigger (round 6), level 0..1. */
+/** 'Polymarket "Will the Fed cut in December?" rises above 25%': an odds trigger, level 0..1. */
 export const oddsText = (question: string | undefined, op: AlertOp | null, level: number | null) =>
   `Polymarket “${question ?? 'market'}” ${op === 'below' ? 'falls below' : 'rises above'} ${pctLabel(level ?? 0)}`
 
-/** A price in its currency: fmtPrice for USD, else 'SGD 37.80' (a quote feed's listing price, wave 3). */
+/** A price in its currency: fmtPrice for USD, else 'SGD 37.80' (a quote feed's listing price). */
 export function fmtIn(n: number | null | undefined, currency = 'USD') {
   if (currency === 'USD') return fmtPrice(n)
   const s = fmtPrice(n)
@@ -27,7 +27,7 @@ export function fmtIn(n: number | null | undefined, currency = 'USD') {
 /** 'Jan 19, 2025': a high's daily bar, in UTC like the bars. */
 export const athDate = (iso: string) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 
-/** 'SOL falls 20% below its all-time high': a drawdown trigger (wave 3). */
+/** 'SOL falls 20% below its all-time high': a drawdown trigger. */
 export const drawdownText = (symbol: string, pct: number) => `${symbol} falls ${pct}% below its all-time high`
 
 /**

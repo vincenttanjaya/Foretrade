@@ -141,7 +141,7 @@ const id = encodeURIComponent
 
 type WithCredits<T> = T & { credits: Credits }
 
-/** Round 9: files for a forecast run, and digests to copy from one of the user's earlier runs of the same question. */
+/** Files for a forecast run, and digests to copy from one of the user's earlier runs of the same question. */
 export type CreateForecastOptions = { attachments?: AttachmentInput[]; reuseMaterials?: { forecastId: string; ids?: string[] } }
 export type UpdateForecastOptions = { attachments?: AttachmentInput[]; keepMaterials?: string[] }
 
@@ -221,9 +221,9 @@ export const api = {
     get<PredictionBoard>(`/api/predictions/markets${qs(filter)}`, signal),
   predictionDraft: (marketId: string, signal?: AbortSignal) =>
     get<PredictionDraft>(`/api/predictions/markets/${id(marketId)}/draft`, signal),
-  // Round 9b: a long-horizon stock draft whose ranges are cut at multiples of today's level carries that level.
+  // A long-horizon stock draft whose ranges are cut at multiples of today's level carries that level.
   draftForecast: (idea: string) => post<WithCredits<{ draft: ForecastDraft; reference?: DeskReference | null }>>('/api/forecasts/draft', { idea }),
-  // Round 9: attachments and reuseMaterials join the body only when set, so a text-only run sends today's JSON.
+  // Attachments and reuseMaterials join the body only when set, so a text-only run sends today's JSON.
   createForecast: (draft: ForecastDraft, opts: CreateForecastOptions = {}) =>
     post<WithCredits<{ forecast: Forecast }>>('/api/forecasts', forecastBody(draft, opts)),
   forecasts: (filter: { status?: ForecastStatus; shape?: ForecastShape; scope?: 'mine' | 'replay' } = {}, signal?: AbortSignal) =>
@@ -238,7 +238,7 @@ export const api = {
   updateForecast: (forecastId: string, opts: UpdateForecastOptions = {}) =>
     post<WithCredits<{ forecast: Forecast }>>(`/api/forecasts/${id(forecastId)}/update`, forecastBody({}, opts)),
   trackRecord: (signal?: AbortSignal) => get<{ replay: TrackRecord; mine: TrackRecord }>('/api/forecasts/track-record', signal),
-  // Round 5: fresh Polymarket odds and paper prediction positions (0 credits).
+  // Fresh Polymarket odds and paper prediction positions (0 credits).
   refreshMarket: (forecastId: string, rematch = false) =>
     post<{ forecast: Forecast }>(`/api/forecasts/${id(forecastId)}/market`, rematch ? { rematch } : {}),
   openMarketPosition: (forecastId: string, side: 'yes' | 'no', stake: number) =>
@@ -256,7 +256,7 @@ export const api = {
   strategy: (strategyId: string, signal?: AbortSignal) =>
     get<{ strategy: Strategy }>(`/api/strategies/${id(strategyId)}`, signal),
   deleteStrategy: (strategyId: string) => del(`/api/strategies/${id(strategyId)}`),
-  // round 6: community strategies (0 credits)
+  // Community strategies (0 credits)
   publishStrategy: (strategyId: string, published: boolean) =>
     post<{ strategy: Strategy }>(`/api/strategies/${id(strategyId)}/publish`, { published }),
   starStrategy: (strategyId: string, starred: boolean) =>
@@ -315,7 +315,7 @@ export const api = {
   // Automations: price alerts, paper limit orders and the notifications bell (0 credits)
   alerts: (status: 'active' | 'all' = 'all', signal?: AbortSignal) => get<{ alerts: Alert[] }>(`/api/alerts${qs({ status })}`, signal),
   createAlert: (req: AlertRequest) => post<{ alert: Alert }>('/api/alerts', req),
-  alertATH: (symbol: string, signal?: AbortSignal) => get<{ ath: AthQuote }>(`/api/alerts/ath${qs({ symbol })}`, signal), // wave 3: a drawdown trigger's high
+  alertATH: (symbol: string, signal?: AbortSignal) => get<{ ath: AthQuote }>(`/api/alerts/ath${qs({ symbol })}`, signal), // a drawdown trigger's high
   cancelAlert: (alertId: string) => del(`/api/alerts/${id(alertId)}`),
   resumeAlert: (alertId: string) => post<{ alert: Alert }>(`/api/alerts/${id(alertId)}/resume`),
   alertRuns: (alertId: string, params: { limit?: number; before?: string } = {}, signal?: AbortSignal) =>

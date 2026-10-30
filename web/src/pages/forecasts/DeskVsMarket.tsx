@@ -1,4 +1,4 @@
-// Desk vs market and the Prediction Market Copilot on paper (round 5): the desk against Polymarket's live odds, a
+// Desk vs market and the Prediction Market Copilot on paper: the desk against Polymarket's live odds, a
 // paper YES/NO position on the matched market, and the positions on this forecast's lineage.
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Badge, type BadgeTone } from '../../components/ui/Badge'
@@ -14,7 +14,7 @@ import { fmtUsd } from '../../lib/format'
 import { usePortfolio } from '../../lib/portfolio'
 import type { Forecast, ForecastResult, MarketOdds, MarketPosition, OutcomeP } from '../../lib/types'
 import { fmtDay, fmtEv, fmtPts, httpUrl, isThin, SIGNAL_LABEL, yesP } from './forecast'
-import { OddsAlertButton } from './OddsAlertButton' // round6: odds alert
+import { OddsAlertButton } from './OddsAlertButton'
 
 type Side = 'yes' | 'no'
 
@@ -44,7 +44,7 @@ const sideLabel = (side: Side) => (side === 'yes' ? 'Yes' : 'No')
  * Desk vs market for a live binary or categorical report: the desk's P(Yes) (categorical: its top option's P, against
  * that option's market) against Polymarket's price for the same question, the edge, the EV of a $1 contract on the
  * side the desk favours and a lean. A thin market (under $1,000 traded) shows no lean and mutes the edge. Odds over an
- * hour old refresh once on open; a report never searched (pre-round-4, seeded) searches once. Then a paper position on
+ * hour old refresh once on open; a report never searched (older or seeded) searches once. Then a paper position on
  * the matched market, settled when this forecast resolves.
  */
 export function DeskVsMarket({ f, r, final, onChange }: { f: Forecast; r: ForecastResult; final: OutcomeP[]; onChange: (f: Forecast) => void }) {
@@ -120,7 +120,6 @@ export function DeskVsMarket({ f, r, final, onChange }: { f: Forecast; r: Foreca
         {m && actionReady && live && !resolved && !superseded && desk != null && (
           <PositionPanel key={m.question} f={f} m={m} desk={desk} onBought={() => setReload((n) => n + 1)} />
         )}
-        {/* round6: odds alert */}
         {m && actionReady && live && !resolved && !superseded && desk != null && !isThin(m) && <OddsAlertButton key={`alert ${m.question}`} forecastId={f.id} m={m} desk={desk} />}
         {positions.length > 0 && <Positions positions={positions} />}
         {m && (

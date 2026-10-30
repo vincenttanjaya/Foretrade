@@ -431,8 +431,8 @@ func TestContextPromptAction(t *testing.T) {
 	}
 }
 
-// get_forecast on an ordered report (round 9b) returns the desk view: the
-// stored one with its scenarios, else, for a row stored before round 9b, one
+// get_forecast on an ordered report returns the desk view: the
+// stored one with its scenarios, else, for an older row stored without one, one
 // derived from its probabilities (ranges only, no reference, marked derived):
 // a view whose basis states no median passes no median or P(above).
 func TestGetForecastDeskView(t *testing.T) {
@@ -457,7 +457,7 @@ func TestGetForecastDeskView(t *testing.T) {
 	}
 	evs := parseSSE(t, e.Do("POST", "/api/chat/stream", `{"message":"Where will TSM be in 2031?"}`).Body.String())
 	sent := string(e.Bedrock.Requests()[1].Body)
-	// The view leads both (gap round G14): the stored one states its median, the derived one (no basis, flat) its 80% range.
+	// The view leads both: the stored one states its median, the derived one (no basis, flat) its 80% range.
 	var chips []string
 	for _, ev := range find(evs, "tool_result") {
 		var x struct{ Summary string }

@@ -14,7 +14,7 @@ import { ConfirmDialog, FormError, Modal } from '../components/ui/Modal'
 import { PasswordReveal } from '../components/ui/PasswordReveal'
 import { Skeleton } from '../components/ui/Spinner'
 import { Stat } from '../components/ui/Stat'
-import { ApiError, api, errorMessage, SHOWCASE_SOURCE } from '../lib/api'
+import { ApiError, api, errorMessage } from '../lib/api'
 import { auditLabel, auditSummary, seededSummary, seededWarning } from '../lib/audit'
 import { useAuth } from '../lib/auth'
 import { cx } from '../lib/cx'
@@ -753,7 +753,7 @@ function PasswordForm({
 /** Copies another account's showcase content into this one: POST /api/admin/users/{id}/seed. Submitting is the confirm. */
 function SeedForm({ user: u, onClose, onSaved }: { user: AdminUser; onClose: () => void; onSaved: (u: AdminUser) => void }) {
   const { toast } = useToast()
-  const [from, setFrom] = useState(SHOWCASE_SOURCE)
+  const [from, setFrom] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

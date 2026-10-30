@@ -1,4 +1,4 @@
--- Round 6: community strategies (publish / star / copy).
+-- Community strategies (publish / star / copy).
 alter table strategies
   add column published_at timestamptz,
   add column copied_from uuid references strategies on delete set null;

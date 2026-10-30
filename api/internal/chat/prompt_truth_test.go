@@ -11,7 +11,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/market"
 )
 
-// The prompt says what the tools really do (gap round G10): an earlier file is
+// The prompt says what the tools really do: an earlier file is
 // gone, a null medianYears is "not within 30 years", the 0 sentinels, the
 // quote feeds' candles and the outlook card.
 func TestPromptTruth(t *testing.T) {
@@ -49,7 +49,7 @@ func TestPromptTruth(t *testing.T) {
 	}
 }
 
-// The prompt and the tools say true things (gap round G19): one gain figure
+// The prompt and the tools say true things: one gain figure
 // (the card's pAbove), 3–5 scenarios, pEnd as the odds, the extrapolated
 // median, the desk's run time and the tools as they are.
 func TestPromptTruthG19(t *testing.T) {

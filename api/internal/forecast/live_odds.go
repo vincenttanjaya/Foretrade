@@ -1,6 +1,6 @@
 package forecast
 
-// Live odds for prediction-market alerts (round 6): the alerts loop and POST
+// Live odds for prediction-market alerts: the alerts loop and POST
 // /api/alerts re-price a forecast's matched market without a user request.
 
 import (

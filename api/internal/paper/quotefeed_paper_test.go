@@ -67,7 +67,7 @@ func TestQuoteFeedPaperFill(t *testing.T) {
 
 // Over an exchange holiday longer than 4 days (KRX's year-end closure) a
 // quote-feed position still closes, at the last close; once KRX has traded
-// half an hour without a fresh quote, it is paused as before (gap round G4).
+// half an hour without a fresh quote, it is paused as before.
 func TestQuoteFeedPaperHolidayClose(t *testing.T) {
 	pool := storetest.Pool(t)
 	user := storetest.User(t, pool)

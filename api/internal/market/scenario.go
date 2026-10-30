@@ -460,7 +460,7 @@ type TimeToTarget struct {
 	Rows        []TargetRow `json:"rows"`   // years 1, 3, 5, 10, 15, 20
 	MedianYears *float64    `json:"medianYears"`
 	// MedianExtrapolated: the median assumes a scenario view's returns carry
-	// on past extrapolateAfter × its horizon (gap round G19), as the rows
+	// on past extrapolateAfter × its horizon, as the rows
 	// there are flagged; false for a drift view.
 	MedianExtrapolated bool            `json:"medianExtrapolated"`
 	ByScenario         []ScenarioYears `json:"byScenario"`

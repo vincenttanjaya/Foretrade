@@ -1,4 +1,4 @@
-// Parts of the price_outlook card (contract "Price outlook view", round 9a): the by-when table, the scenario table and
+// Parts of the price_outlook card (contract "Price outlook view"): the by-when table, the scenario table and
 // the folded volatility-only baseline. Kept apart so cards.tsx stays readable.
 import type { ReactNode } from 'react'
 import { Badge, type BadgeTone } from '../../components/ui/Badge'

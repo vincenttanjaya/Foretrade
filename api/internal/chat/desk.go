@@ -35,7 +35,7 @@ type report struct {
 		WhatWouldChange json.RawMessage `json:"whatWouldChange"`
 		Flags           json.RawMessage `json:"flags"`
 		Market          json.RawMessage `json:"market"` // the prediction-market line, passed through as is; null or absent = none
-		// Round 9b: an ordered result's desk view and scenarios; absent on older rows.
+		// An ordered result's desk view and scenarios; absent on older rows.
 		View      json.RawMessage `json:"view"`      // read by view() (the agent's slice) and desk() (the whole view)
 		Scenarios json.RawMessage `json:"scenarios"` // passed through as is
 	}
@@ -63,8 +63,8 @@ type deskView struct {
 	} `json:"basis"`
 }
 
-// view is the report's desk view: the stored one, else (an ordered result
-// stored before round 9b) derived from its probabilities. nil otherwise.
+// view is the report's desk view: the stored one, else (an older ordered
+// result stored without one) derived from its probabilities. nil otherwise.
 func (r report) view() *deskView {
 	var v *deskView
 	if stored(r.Result.View) {
@@ -90,8 +90,8 @@ func (r report) desk() *forecast.DeskView {
 	return deskOf(r.Shape, r.Outcomes, r.Result.Probabilities, r.Result.View, r.ResolutionDate, r.CompletedAt)
 }
 
-// deskOf is a stored result's desk view: its view JSON, else (an ordered row
-// stored before round 9b) derived from its probabilities. nil otherwise.
+// deskOf is a stored result's desk view: its view JSON, else (an older ordered
+// row stored without one) derived from its probabilities. nil otherwise.
 func deskOf(shape string, outcomes []string, probs []outcomeP, view json.RawMessage, date string, completed *time.Time) *forecast.DeskView {
 	if stored(view) {
 		var v *forecast.DeskView
@@ -514,7 +514,7 @@ func (a *agentRun) forecastReport(ctx context.Context, input json.RawMessage, in
 	if m := r.market(); m != nil {
 		o["market"] = m
 	}
-	if v := r.view(); v != nil { // round 9b: the desk's numbers line leads an ordered answer
+	if v := r.view(); v != nil { // the desk's numbers line leads an ordered answer
 		o["view"] = v
 	}
 	if sc := res.Scenarios; len(sc) > 0 && string(sc) != "null" {

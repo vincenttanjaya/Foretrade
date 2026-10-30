@@ -110,13 +110,24 @@ describe('auth gate', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'Platform overview.' })).toBeInTheDocument()
   })
 
-  it('walls off an admin demoted mid-session (any 403 from an admin route)', async () => {
-    stubSession()
+  it('walls off an admin demoted mid-session (a 403 from an admin route, then /api/me says user)', async () => {
+    stubSession(fx.member).mockResolvedValueOnce({ user: fx.admin, credits: fx.credits })
     const logout = vi.spyOn(api, 'logout').mockResolvedValue()
     respond(403, 'forbidden', 'Admins only.') // the real client: GET /api/admin/overview → 403
     renderApp()
     expect(await screen.findByRole('heading', { name: 'Access restricted' })).toBeInTheDocument()
     expect(logout).toHaveBeenCalled()
+  })
+
+  it('keeps an admin signed in on an origin 403 (ADMIN_ORIGINS) and shows the API message', async () => {
+    const me = stubSession()
+    const logout = vi.spyOn(api, 'logout').mockResolvedValue()
+    respond(403, 'forbidden', 'Cross-site request rejected.')
+    renderApp()
+    expect(await screen.findByText('Cross-site request rejected.')).toBeInTheDocument()
+    await waitFor(() => expect(me).toHaveBeenCalledTimes(2)) // the re-check
+    expect(screen.queryByRole('heading', { name: 'Access restricted' })).not.toBeInTheDocument()
+    expect(logout).not.toHaveBeenCalled()
   })
 
   it('goes back to sign-in when the session expires mid-session (401)', async () => {
@@ -187,6 +198,10 @@ describe('LoginPage', () => {
     [new ApiError(401, 'invalid_credentials', 'Wrong email or password.'), 'Wrong email or password.'],
     [new ApiError(429, 'rate_limited', 'Too many sign-in attempts. Try again later.'), 'Too many sign-in attempts. Try again later.'],
     [new ApiError(0, 'network', "Can't reach the API."), "Can't reach the API."],
+    [
+      new ApiError(403, 'forbidden', 'Cross-site request rejected.'),
+      "Sign-in isn't allowed from this address. Add it to ALLOWED_ORIGINS and ADMIN_ORIGINS in .env.",
+    ],
     [new ApiError(500, 'internal', 'boom'), 'Something went wrong while signing in. Please try again.'],
   ])('shows %s as "%s"', async (err, text) => {
     signedOut()

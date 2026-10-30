@@ -927,7 +927,7 @@ function OddsFields({
 }
 
 /**
- * The Drawdown tab (wave 3): the asset, the drawdown in % and what it measures from: the all-time high, its date and
+ * The Drawdown tab: the asset, the drawdown in % and what it measures from: the all-time high, its date and
  * source (what the history covers), the current price, the trigger level and, when the price is already past it, that
  * it fires on the next check. A high over 100× the price (`withheld`, athWithheld) is not shown and sets no level.
  */

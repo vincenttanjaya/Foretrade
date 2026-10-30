@@ -410,7 +410,7 @@ export const twoYearOutlook: PriceOutlook = {
 }
 
 /**
- * "Can TSMC 10x, if yes by when" as the API answers it (wip/aq1-api b857117, slice 1 fix round; numbers to 6 significant
+ * "Can TSMC 10x, if yes by when" as the API answers it (numbers to 6 significant
  * figures): three EPS × P/E scenarios at five years (FY2027 EPS $21.33 cited [1]; growth and multiples labelled, the
  * bull's "P/E 25 [1]" relabelled an assumption), variance-matched mixture, the 10× odds by year and the zero-drift
  * baseline beside it. Run against the API's fakes: spot $485 and a synthetic 29-year series shaped like a listing's
@@ -561,12 +561,12 @@ export const tsmOutlookView: PriceOutlook = {
     ownCagrPct: 13.1907,
     ownSince: '1997-10-01',
   },
-  // The card's note as the gap-round-2 API writes it (the raw "pe 25 cited [1] not found…" line goes to the model only).
+  // The card's note as the API writes it (the raw "pe 25 cited [1] not found…" line goes to the model only).
   warnings: ['P/E 25× is not stated in source [1]: shown as an assumption'],
 }
 
 /**
- * "NVDA 10 years outlook" as the API answers it with no scenarios (wip/aq1-api b857117, the API's fakes: spot $235, a
+ * "NVDA 10 years outlook" as the API answers it with no scenarios (the API's fakes: spot $235, a
  * synthetic 27-year NVDA-like series and a synthetic S&P 500): the horizon read from the question (3,653 days, over
  * the model's 1,825), the halved drift capped at the S&P 500's long-run return + 2 points, and the ladder grown to
  * eight ranges so the upside is not one open bucket. Model outputs from synthetic inputs, not NVDA's numbers.
@@ -664,13 +664,13 @@ export const nvdaOutlookView: PriceOutlook = {
       applied: true,
     },
   },
-  // Gap round 2: the API's "Horizon set from the question …, not horizon_days 1825" is a note to the model, in the tool
+  // The API's "Horizon set from the question …, not horizon_days 1825" is a note to the model, in the tool
   // result only; the horizon line already says where the 10 years came from.
   warnings: [],
 }
 
 /**
- * "Is SOL a good long-term hold?" with horizon_days 1,095 and no horizon_reason (wip/aq1-api b857117): accepted, basis
+ * "Is SOL a good long-term hold?" with horizon_days 1,095 and no horizon_reason: accepted, basis
  * "agent", the reason saying so, and a warning to the model. The API's fakes; not SOL's numbers.
  */
 export const solAgentView: PriceOutlook = {
@@ -757,17 +757,17 @@ export const solAgentView: PriceOutlook = {
     volAssumed: false,
     driftCap: { benchmark: '', source: '', since: null, benchmarkCagrPct: null, capPct: 10, uncappedPct: 7.2401, applied: false },
   },
-  // Gap round 2: the "No horizon_reason: …" note is the model's, in the tool result only; the horizon line says it.
+  // The "No horizon_reason: …" note is the model's, in the tool result only; the horizon line says it.
   warnings: [],
 }
 
 /**
- * The tail note the API gives only to a scenarios view whose downside is really too thin, as gap round 2 writes it for
+ * The tail note the API gives only to a scenarios view whose downside is really too thin, as the API writes it for
  * the reader (the advice to add a tail scenario goes to the model only).
  */
 export const thinTailWarning = "The scenarios' downside is thinner than the volatility baseline's: 5th percentile 58% below the median, against 75%"
 
-/** The notes a card stored before gap round 2 carries for the model: the card shows none of them as written. */
+/** The notes an older card carries for the model: the card shows none of them as written. */
 export const legacyModelHints = [
   'No horizon_reason: the card says the agent chose 180 days; when the question names no timeframe, say why the horizon fits it',
   'Horizon set from the question ("5y outlook": 1,826 days), not horizon_days 365',
@@ -780,7 +780,7 @@ export const legacyModelHints = [
 ]
 
 /**
- * "BTC next 3 months" as the round-9a API answers it against the market fake (spot $100,000): no scenarios, so the
+ * "BTC next 3 months" as the API answers it against the market fake (spot $100,000): no scenarios, so the
  * view is the halved historical drift at 92 days; six-figure levels, no multiples (they read <1% under a year).
  * Synthetic numbers from the API's own engine, not BTC's.
  */
@@ -857,7 +857,7 @@ export const tsmSource: SourceRef = {
 }
 
 /**
- * The card the owner flagged, as the API built it before round 9a: TSM over 5 years, zero drift, σ 43.8% from 247 venue
+ * The card the owner flagged, as the API built it before the price outlook view: TSM over 5 years, zero drift, σ 43.8% from 247 venue
  * closes, mirror-symmetric buckets and no view fields. Copied from that card's numbers.
  */
 export const legacyOutlook: PriceOutlook = {
@@ -1551,7 +1551,7 @@ export const equityCurve = (over: Partial<EquityCurve> = {}): EquityCurve => ({
   ...over,
 })
 
-/** Portfolio health of fx.portfolio: one ETH long with a stop (round 7). */
+/** Portfolio health of fx.portfolio: one ETH long with a stop. */
 export const review = (over: Partial<PortfolioReview> = {}): PortfolioReview => ({
   asOf: '2026-10-05T12:00:00Z',
   revision: 1,
@@ -1625,7 +1625,7 @@ export const autopilot = (over: Partial<Autopilot> = {}): Autopilot => ({
   ...over,
 })
 
-// ── Signals history & strategy optimizer (round 2) ──────────────────────────
+// ── Signals history & strategy optimizer ──────────────────────────
 type RemovedPick = import('../lib/types').RemovedPick
 type OptimizeCell = import('../lib/types').OptimizeCell
 type OptimizeResult = import('../lib/types').OptimizeResult
@@ -1647,7 +1647,7 @@ export const signalHistory: RemovedPick[] = [
 
 /**
  * How the picks of boards stored before steady-v1 left them (legacy rows, newest first): each reason the API reads from
- * a legacy board chain (gap round G22's). invalidation 0, exitAt = the close of exitPrice's 1h bar, no 72 h score keys.
+ * a legacy board chain. invalidation 0, exitAt = the close of exitPrice's 1h bar, no 72 h score keys.
  * AVAX hit its target and DOGE's validity ended on the same board; LINK still cleared the threshold but was pushed out of
  * the four a side; XRP's score fell; ADA had no fresh bar; DOT left a board stored before the reasons were recorded.
  */
@@ -1699,7 +1699,7 @@ export const optimizeResult: OptimizeResult = {
   current: cell(4, null, 1.12),
 }
 
-// ── Trade desk (round 2): perps context, protection cards, invested portfolios ──
+// ── Trade desk: perps context, protection cards, invested portfolios ──
 type Derivatives = import('../lib/types').Derivatives
 type ProtectionProposal = import('../lib/types').ProtectionProposal
 type AIPortfolioInvested = import('../lib/types').AIPortfolioInvested
@@ -1744,10 +1744,10 @@ export const invested = (over: Partial<AIPortfolioInvested> = {}): AIPortfolioIn
   ...over,
 })
 
-// ── Market pulse (round 3) ──
+// ── Market pulse ──
 export const pulse: MarketPulse = { fearGreed: { value: 71, label: 'Greed', asOf: '2026-10-03T00:00:00Z', source: 'alternative.me' } }
 
-// ── Automations (round 3) ──
+// ── Automations ──
 /** A $1,000 SOL limit buy at $142.50 (live $150): stop $135, target $165, set from the agent's card. */
 export const alert = (over: Partial<Alert> = {}): Alert => ({
   id: 'al1',
@@ -1780,7 +1780,7 @@ export const alert = (over: Partial<Alert> = {}): Alert => ({
   ...over,
 })
 
-// ── Workflows (round 4, P4): schedules ──
+// ── Workflows: schedules ──
 /** A $100 BTC buy every Monday at 09:00 UTC that last ran Mon Sep 28. */
 export const schedule = (over: Partial<Alert> = {}): Alert =>
   alert({
@@ -1889,11 +1889,11 @@ export const notifications: Notification[] = [
   }),
 ]
 
-// ── Research provenance (round 4, P2-research) ──
+// ── Research provenance ──
 
 export const wireNote = 'Live search found no usable sources for this run; the panel used the stored news wire (last 72 h).'
 
-// round6:P4 ── community strategies, AI portfolio actual vs BTC ── begin
+// ── Community strategies, AI portfolio actual vs BTC ── begin
 type Community = NonNullable<Strategy['community']>
 
 /** An own, unpublished strategy's community info (the API sets it on every saved strategy). */
@@ -1921,9 +1921,9 @@ export const sinceInvest = {
   series: [99.86, 100.4, 101.2, 100.9].map((v, i) => ({ t: 1_790_928_000 + i * 3600, v })),
   btcSeries: [100, 100.2, 100.5, 100.8].map((v, i) => ({ t: 1_790_928_000 + i * 3600, v })),
 }
-// round6:P4 ── end
+// ── Community strategies ── end
 
-// round6:P2 ── Desk vs market by strike ── begin
+// ── Desk vs market by strike ── begin
 export const ladderBuckets = ['< $80,000', '$80,000 – $90,000', '$90,000 – $100,000', '≥ $100,000']
 
 /** One row of Polymarket's Oct 9 Bitcoin ladder: its price against the desk's P(above) (the edge). */
@@ -1961,9 +1961,9 @@ export const ladderForecast = (over: Partial<Forecast> = {}): Forecast =>
     },
     ...over,
   })
-// round6:P2 ── end
+// ── Desk vs market by strike ── end
 
-// round6:P3 ── Prediction-market odds triggers ── begin
+// ── Prediction-market odds triggers ── begin
 /** An odds trigger on fx.forecast()'s matched market (Polymarket 55%, desk 62%): notify when it rises above 62%. */
 export const oddsAlert = (over: Partial<Alert> = {}): Alert =>
   alert({
@@ -2003,7 +2003,7 @@ export const oddsCard = (over: Partial<PriceAlertProposal> = {}): PriceAlertProp
   ...over,
 })
 
-// ── Drawdown triggers (wave 3): test values, not market data ──
+// ── Drawdown triggers: test values, not market data ──
 const solHigh = {
   ath: 250, athAt: '2025-01-19T00:00:00Z', athLive: false, coveredFrom: '2020-08-11T00:00:00Z', source: 'binance' as const,
   sourceLabel: 'Binance SOLUSDT daily highs since 2020-08-11', ticker: 'SOLUSDT', currency: 'USD', basis: 'mark' as const,
@@ -2060,7 +2060,7 @@ export const oddsNotification = notification({
   symbol: null,
   link: '/forecasts/f1234567-aaaa',
 })
-// round6:P3 ── end
+// ── Prediction-market odds triggers ── end
 
 export const liveDesk = (over: Partial<import('../lib/types').LiveDesk> = {}): import('../lib/types').LiveDesk => ({
   enabled: true, status: 'live', startedAt: '2026-10-01T00:00:00Z', lastStepAt: '2026-10-05T08:00:00Z', nextStepAt: '2026-10-05T12:00:00Z',
@@ -2224,7 +2224,7 @@ export const screenerPageBeforeLive = (over: Partial<ScreenerPage> = {}): Screen
   }
 }
 
-// ── Deep research (round 8): an ordered IPO-opening report with a findings ledger, and a run mid-research ──
+// ── Deep research: an ordered IPO-opening report with a findings ledger, and a run mid-research ──
 
 export const deepBuckets = ['Below S$1.70', 'S$1.70 – S$1.79', 'S$1.80 – S$1.89', 'S$1.90 – S$1.99', 'S$2.00 or higher']
 
@@ -2358,7 +2358,7 @@ export const deepProgress: ForecastProgress = {
   updatedAt: '2026-10-06T09:47:00Z',
 }
 
-// ── Forecast materials (round 9): the deep report with three of the user's files, and a run still reading them ──
+// ── Forecast materials: the deep report with three of the user's files, and a run still reading them ──
 
 /** D1 a broker note the desk read (3 findings), D2 a CSV reused from an earlier run, D3 a chart it couldn't read. */
 export const materials: ForecastMaterial[] = [
@@ -2415,9 +2415,9 @@ export const materialsProgress: ForecastProgress = {
   materials: { status: 'running', total: 3, reused: 1, read: 2, failed: 0 },
 }
 
-// ── Desk view and methods (round 9b): the TSM question re-run with three methods, its old report, a short BTC ladder ──
+// ── Desk view and methods: the TSM question re-run with three methods, its old report, a short BTC ladder ──
 // Numbers are AQ-DESIGN §6.1's worked example (the PDF's buckets and its stand-in for H1); the measured history is
-// synthetic, not TSM's. The view and the scenarios are the API's JSON for these buckets (wip/aq2-api's pure view code);
+// synthetic, not TSM's. The view and the scenarios are the API's JSON for these buckets (the API's pure view code);
 // the specialist stats are the same interpolation of their probabilities.
 
 export const tsmBuckets = ['< $300', '$300 – $450', '$450 – $600', '$600 – $800', '$800 – $1,100', '≥ $1,100']
@@ -2567,7 +2567,7 @@ export const tsmDeskForecast = (over: Partial<Forecast> = {}): Forecast =>
   })
 
 /**
- * The same question stored before round 9b: the old near-uniform buckets, one method, and the view GET derives, which
+ * The same question stored before desk views: the old near-uniform buckets, one method, and the view GET derives, which
  * no evidence anchors (basis none: the ranges only, no median, no reference).
  */
 export const tsmLegacyResult: ForecastResult = {

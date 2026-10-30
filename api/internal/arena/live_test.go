@@ -234,7 +234,7 @@ func liveCount(t *testing.T, e *apptest.Env, sql string, args ...any) int {
 // pauses the board and refuses copies.
 // liveClock is a test's tick clock for the wall-clock time real: mid-bar
 // (2 h into the 4h bar before real's), so a "+1 minute" tick never crosses a
-// 4h boundary (gap round G24: run in the last minute before a boundary, as at
+// 4h boundary (run in the last minute before a boundary, as at
 // 07:59:13 UTC, it landed on a new, really due bar and the tests failed).
 func liveClock(real time.Time) time.Time {
 	return real.UTC().Truncate(4 * time.Hour).Add(-2 * time.Hour)

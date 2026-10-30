@@ -267,7 +267,7 @@ func TestResearchPublicationWaitCannotRenewDeadline(t *testing.T) {
 	if _, err = tx.Exec(t.Context(), `select id from chats where id=$1 for update`, chatID); err != nil {
 		t.Fatal(err)
 	}
-	// The setup below (a claim, an attempt, a goroutine reaching the lock) fits 3 s under load (gap round G24: 700 ms
+	// The setup below (a claim, an attempt, a goroutine reaching the lock) fits 3 s under load (700 ms
 	// failed once on a loaded runner); the assertions hold for any window.
 	admission, cancel := context.WithTimeout(t.Context(), 3*time.Second)
 	defer cancel()

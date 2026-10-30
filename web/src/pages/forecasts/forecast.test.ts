@@ -4,7 +4,6 @@ import { SYMBOLS } from '../strategies/strategy'
 import {
   anchored,
   angleKindLabel,
-  brierOf,
   bucketBoundsTs,
   cdfOf,
   fmtAnnual,
@@ -141,7 +140,7 @@ describe('drafts', () => {
     expect(normalizeDraft({ context: 'x'.repeat(4100) }).context, 'caps context').toHaveLength(4000)
   })
 
-  it('formats the desk-vs-market edge and EV, the specialist spread and a Brier score', () => {
+  it('formats the desk-vs-market edge and EV, and the specialist spread', () => {
     expect([fmtPts(5), fmtPts(-4.9), fmtPts(0)]).toEqual(['+5 pts', '−4.9 pts', '±0 pts'])
     expect([fmtEv(0.05), fmtEv(-0.1), fmtEv(0)]).toEqual(['+$0.05', '−$0.10', '±$0.00'])
     const spec = (yes: number) => ({ ...fx.forecastResult.specialists[0], probabilities: [{ outcome: 'Yes', p: yes }, { outcome: 'No', p: 1 - yes }] })
@@ -149,8 +148,6 @@ describe('drafts', () => {
     expect(specialistSpread([spec(0.4), spec(0.55)], 'Yes')).toEqual({ pts: 15, level: 'moderate' })
     expect(specialistSpread([spec(0.2), spec(0.6)], 'Yes')).toEqual({ pts: 40, level: 'high' })
     expect(specialistSpread([spec(0.2)], 'Yes'), 'one specialist has no spread').toBeNull()
-    expect(brierOf(0.71, 'Yes')).toBeCloseTo(0.0841)
-    expect(brierOf(0.3, 'No')).toBeCloseTo(0.09)
   })
 })
 
@@ -393,7 +390,7 @@ describe('rounding and market depth', () => {
   })
 })
 
-describe('deep research (round 8)', () => {
+describe('deep research', () => {
   const r = fx.deepForecastResult
 
   it('reads the ledger defensively: unknown source ids, malformed items and older results', () => {
@@ -511,7 +508,7 @@ describe('deep research (round 8)', () => {
   })
 })
 
-describe('materials (round 9)', () => {
+describe('materials', () => {
   it('reads materials defensively: drops malformed items, clamps text, keeps digests only for read files, caps five', () => {
     const long = 'x'.repeat(700)
     const raw = [
@@ -584,7 +581,7 @@ describe('materials (round 9)', () => {
   })
 })
 
-describe('desk view (round 9b)', () => {
+describe('desk view', () => {
   const edges = [300, 450, 600, 800, 1100]
   const q = (ps: number[], x: number) => quantileOf(edges, ps, 'log', x)!
   const old = [0.17, 0.19, 0.17, 0.16, 0.14, 0.17] // the stored TSM report
@@ -779,7 +776,7 @@ describe('desk view (round 9b)', () => {
     expect(methodsOf({ methods: { ...fx.tsmDeskResult.methods!, agreement: 'unanimous' } })).toBeNull()
     expect(methodsOf({ methods: { ...fx.tsmDeskResult.methods!, pool: [] } })).toBeNull()
     expect(methodsOf({ methods: { ...fx.tsmDeskResult.methods!, weightsFrom: 'x', guard: 'x', weights: [{ role: 'quant', weight: -1 }] } })).toMatchObject({ weightsFrom: 'prior', guard: null, weights: [] })
-    // The volatility floor (API fix round 5): a final on the capped drift mixed toward the measured history's lognormal.
+    // The volatility floor: a final on the capped drift mixed toward the measured history's lognormal.
     expect(methodsOf({ methods: { ...fx.tsmDeskResult.methods!, guard: 'volatility' } })).toMatchObject({ guard: 'volatility' })
 
     expect(measuredOf(fx.tsmDeskResult)).toMatchObject({ symbol: 'TSM', url: 'https://finance.yahoo.com/quote/TSM/history', window: { independent: 5 } })

@@ -402,7 +402,7 @@ func (a *agentRun) buildView(ctx context.Context, o *market.PriceOutlook, in out
 func (a *agentRun) warn(o *market.PriceOutlook, w string) { o.Warnings = append(o.Warnings, w) }
 
 // hint is a note for the model only: it goes in price_outlook's result
-// string under "Notes for you", never on the card (gap round G19).
+// string under "Notes for you", never on the card.
 func (a *agentRun) hint(w string) { a.hints = append(a.hints, w) }
 
 // levelBounds holds every scenario, whatever its mode, to level mode's range

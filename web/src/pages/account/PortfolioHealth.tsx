@@ -32,7 +32,7 @@ const STOP_TONE: Record<ReviewHolding['stopStatus'], string> = {
 const MAX_BARS = 8 // the positions table below lists every holding
 
 /**
- * "Is my paper book diversified?" (round 7): the server's review of the open positions, reloaded whenever the
+ * "Is my paper book diversified?": the server's review of the open positions, reloaded whenever the
  * account changes (its revision). Numbers are Go facts; the agent link hands the interpretation to the chat.
  */
 export function PortfolioHealth({ revision }: { revision: number | null }) {

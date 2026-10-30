@@ -34,6 +34,7 @@ func TestWriteError(t *testing.T) {
 		{wrap(&paper.HaltedError{Symbol: "TON"}), 409, "conflict", "TON is halted on Binance, so new orders are paused"},
 		{wrap(usage.ErrQuota), 429, "ai_quota", "AI credits"},
 		{wrap(usage.ErrOwnerOnly), 403, "ai_owner_only", "owner-only mode"},
+		{wrap(llm.ErrNotConfigured), 503, "ai_off", "not set up"},
 		{wrap(paper.ErrInsufficient), 400, "insufficient_buying_power", "buying power"},
 		{ErrNotFound, 404, "not_found", "Not found."},
 		{wrap(ErrForbidden), 403, "forbidden", "Admins only."},

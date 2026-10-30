@@ -4,7 +4,8 @@ import type { User } from './types'
 
 /**
  * loading: the first /api/me (or a Retry) is in flight · ok: checked; `user` is the admin, or null when signed out ·
- * restricted: a non-admin session was found (or an admin route answered 403) and has been signed out ·
+ * restricted: a non-admin session was found (or an admin route answered 403 and /api/me showed a demotion) and has been
+ * signed out ·
  * error: the API could not be reached.
  */
 export type AuthState = 'loading' | 'ok' | 'restricted' | 'error'
@@ -51,7 +52,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [restrict])
 
   useEffect(() => {
-    setAuthHandlers({ unauthorized: () => setUser(null), forbidden: () => void restrict() })
+    setAuthHandlers({
+      unauthorized: () => setUser(null),
+      // A 403 is a demotion or the API refusing this origin (ADMIN_ORIGINS): only the role tells them apart. A 401 here
+      // goes to `unauthorized`; any other failure leaves the page's own error on screen.
+      forbidden: () => void api.me().then(({ user }) => (user.role !== 'admin' ? restrict() : undefined), () => {}),
+    })
     void check()
   }, [check, restrict])
 

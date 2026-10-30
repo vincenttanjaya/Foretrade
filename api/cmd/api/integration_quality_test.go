@@ -10,9 +10,9 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/research/researchtest"
 )
 
-// Round 2 quality: the signals board's track record (steady-v1: its pick ledger), the studio's stop/target
+// Quality: the signals board's track record (steady-v1: its pick ledger), the studio's stop/target
 // optimizer, and an admin disable that stops the account's autopilot.
-// Round 3: a per-asset news read hides a multi-coin roundup whose title names
+// A per-asset news read hides a multi-coin roundup whose title names
 // another asset and lists title matches first; the levels page titled BTC
 // stays for BTC, once and last.
 func TestIntegrationQuality(t *testing.T) {
@@ -45,8 +45,8 @@ func TestIntegrationQuality(t *testing.T) {
 	// The board's exits and track record come from its pick ledger, not candles: SOL left at its invalidation
 	// and was scored at 72 h against a random pick from the same list. Boards stored before steady-v1 are still
 	// retained (the switch was 84 h ago): how their picks left is listed after, marked legacy, never scored. SOL
-	// dropped off the bullish side of one, its score under the threshold as its refresh recorded it (gap round
-	// G22), and BTC left at the switch, which recorded no reason.
+	// dropped off the bullish side of one, its score under the threshold as its refresh recorded it,
+	// and BTC left at the switch, which recorded no reason.
 	eventually(t, 30*time.Second, "the boot board", func() bool { return s.count(t, "select count(*) from signal_boards") > 0 })
 	picked := time.Now().Add(-80 * time.Hour).UTC().Truncate(time.Second)
 	if _, err := s.db.Exec(t.Context(), `insert into signal_picks (symbol, side, picked_at, price_at_pick, target, invalidation, valid_until, score_at_pick,

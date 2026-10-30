@@ -23,7 +23,7 @@ export function usePrivateSnapshot<T>(identity: string, revision: number | null,
       if (ctrl.signal.aborted || request !== generation.current || latest.current == null) return
       const s = snapshot(result)
       if (s && s.revision < latest.current) throw new ApiError(409, 'stale_review', 'Review returned an older account revision. Retry for current facts.')
-      if (s && accepted.current && (s.revision < accepted.current.revision || (s.revision === accepted.current.revision && s.asOf < accepted.current.asOf))) throw new ApiError(409, 'stale_review', 'Review returned an older snapshot. Retry for current facts.')
+      if (s && accepted.current && (s.revision < accepted.current.revision || (s.revision === accepted.current.revision && Date.parse(s.asOf) < Date.parse(accepted.current.asOf)))) throw new ApiError(409, 'stale_review', 'Review returned an older snapshot. Retry for current facts.')
       accepted.current = s; value.current = result
       setState({ identity, value: result, error: '', busy: false })
       if (s && s.revision > latest.current && s.revision > refreshed.current) { refreshed.current = s.revision; void ahead() }

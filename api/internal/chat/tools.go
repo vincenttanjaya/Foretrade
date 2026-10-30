@@ -49,7 +49,7 @@ type agentRun struct {
 	odds      int                    // get_market_odds calls so far
 	quotes    int                    // get_stock_quote calls so far
 	toolNums  []float64              // numbers in this message's get_stock_quote and get_asset_analysis results: price_outlook's "quote" basis
-	hints     []string               // price_outlook's notes for the model only (gap round G19): never on the card
+	hints     []string               // price_outlook's notes for the model only: never on the card
 	today     time.Time              // tests pin the date the horizon is read against; zero → now
 	// listings is the market layer's ListingQuotes (get_stock_quote's
 	// freshest price); nil → d.Market's. Tests set it.

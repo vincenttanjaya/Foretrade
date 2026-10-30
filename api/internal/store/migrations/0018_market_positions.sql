@@ -1,4 +1,4 @@
--- Paper positions on a forecast's matched Polymarket market (round 5): bought from paper cash, settled by the forecast's resolution.
+-- Paper positions on a forecast's matched Polymarket market: bought from paper cash, settled by the forecast's resolution.
 create table market_positions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references users on delete cascade,

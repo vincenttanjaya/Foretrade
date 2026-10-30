@@ -1,4 +1,4 @@
--- Wave 3: all-time-high drawdown triggers (API contract "All-time-high drawdown triggers"). One-shot: fire once when the price is at
+-- All-time-high drawdown triggers (API contract "All-time-high drawdown triggers"). One-shot: fire once when the price is at
 -- or below ath × (1 − drawdown_bps / 10000), then notify or sell sell_pct of the current paper long. The stored high
 -- ratchets up when a check sees a higher price (ath_live: set by a checked price, not read from the daily history);
 -- ath_source/ath_ticker/ath_currency/ath_from say where it came from and what it covers. outcome records how it fired.

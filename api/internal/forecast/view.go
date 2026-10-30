@@ -1,6 +1,6 @@
 package forecast
 
-// The desk view (round 9b): what an ordered numeric answer leads with. The
+// The desk view: what an ordered numeric answer leads with. The
 // final bucket probabilities are read as a distribution (log-uniform inside
 // each closed range, exponential open tails) for a median, central ranges and
 // P(at or above today), so a near-uniform set of buckets reads as a wide view
@@ -78,7 +78,7 @@ type DeskView struct {
 	Edges       []ViewEdge `json:"edges"`
 	Lead        string     `json:"lead"`
 	Basis       ViewBasis  `json:"basis"`
-	Derived     bool       `json:"derived,omitempty"` // computed on read for a row stored before round 9b
+	Derived     bool       `json:"derived,omitempty"` // computed on read for an older row stored without a view
 }
 
 // ViewBasis is what the view's centre rests on. The desk states a median,

@@ -571,7 +571,7 @@ describe('PriceOutlookCard review fixes', () => {
   })
 })
 
-describe('PriceOutlookCard · fix round', () => {
+describe('PriceOutlookCard · horizons, drift cap and notes', () => {
   const card = (data: PriceOutlook) => renderPage(<AgentCard card={{ type: 'price_outlook', data }} />)
   const nvda = fx.nvdaOutlookView
 

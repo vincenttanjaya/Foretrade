@@ -190,7 +190,7 @@ describe('api client', () => {
     expect(JSON.parse(fetchMock().mock.calls[11][1]!.body as string)).toEqual({ spec })
   })
 
-  it('sends forecast materials only when there are some, and {} for a plain update (round 9)', async () => {
+  it('sends forecast materials only when there are some, and {} for a plain update', async () => {
     fetchMock().mockImplementation(async () => json({}))
     const draft: ForecastDraft = { shape: 'binary', question: 'Will it?', outcomes: ['Yes', 'No'], resolutionCriteria: '', resolutionDate: '2027-01-01', category: 'other' }
     const file = { kind: 'document', mediaType: 'text/csv', name: 'a.csv', data: 'YSxi' } as const

@@ -372,7 +372,7 @@ func TestCheckOddsBudget(t *testing.T) {
 func TestPruneRuns(t *testing.T) {
 	e := apptest.New(t, Register, apptest.Options{})
 	// prune runs at most once an hour per process: start from no prune, and put back the process's own
-	// afterwards (gap round G24: a second run under -count=2 found the first run's prune and skipped its own).
+	// afterwards (a second run under -count=2 found the first run's prune and skipped its own).
 	oddsMu.Lock()
 	saved := pruned
 	pruned = time.Time{}

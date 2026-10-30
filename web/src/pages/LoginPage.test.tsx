@@ -32,7 +32,7 @@ describe('LoginPage', () => {
     ])
     expect(screen.getByLabelText('Email')).toHaveAttribute('type', 'email')
     expect(screen.getByText(/Paper trading only\./)).toBeInTheDocument()
-    // Quote-feed stocks fill at Yahoo's delayed price: the note never calls every price live (gap round 2, G17).
+    // Quote-feed stocks fill at Yahoo's delayed price: the note never calls every price live.
     const note = screen.getByText(/Paper trading only\./).closest('p')
     expect(note).toHaveTextContent('Orders fill against public market prices (for quote-feed stocks, each price says whether it is real-time or delayed) in a simulated ledger.')
     expect(note).not.toHaveTextContent(/\blive\b/)
@@ -52,8 +52,9 @@ describe('LoginPage', () => {
   })
 
   it.each([
-    [new ApiError(401, 'invalid_credentials', 'Wrong'), "That email and password don't match. Check the demo credentials and try again."],
+    [new ApiError(401, 'invalid_credentials', 'Wrong'), "That email and password don't match."],
     [new ApiError(429, 'rate_limited', 'Slow down'), 'Too many sign-in attempts. Wait a few minutes, then try again.'],
+    [new ApiError(403, 'forbidden', 'Cross-site request rejected.'), "Sign-in isn't allowed from this address. Open the app at the address your administrator set up."],
     [new ApiError(0, 'network', 'Cannot reach the server. Check your connection and try again.'), 'Cannot reach the server. Check your connection and try again.'],
     [new ApiError(500, 'internal', 'boom'), 'Something went wrong while signing in. Please try again.'],
     [new Error('weird'), 'Something went wrong while signing in. Please try again.'],

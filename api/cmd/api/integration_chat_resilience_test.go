@@ -13,7 +13,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/llm/llmtest"
 )
 
-// Round 4: an answer survives the client leaving. The run continues on the
+// An answer survives the client leaving. The run continues on the
 // server, GET /api/chats/{id} says pending until the assistant message is
 // stored, and the message is charged. Chat's get_forecasts lists lineage heads
 // only, so a superseded run never reaches the agent.

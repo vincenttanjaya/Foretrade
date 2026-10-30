@@ -1,7 +1,7 @@
-// The research ledger on a report (API contract round 8, "Deep research"): findings grouped by the direction they
-// point, the aggregator's "What to watch" signals and (round 8b) the volatility-only reference the desk is checked
+// The research ledger on a report (API contract "Deep research"): findings grouped by the direction they
+// point, the aggregator's "What to watch" signals and the volatility-only reference the desk is checked
 // against. Findings are model-written from untrusted web text, so they render as plain text; only the pack's own source
-// URLs become links. Findings from the user's own files (round 9) link to their row in "Your materials" on this page
+// URLs become links. Findings from the user's own files link to their row in "Your materials" on this page
 // instead.
 import { useId, useState } from 'react'
 import { Badge, type BadgeTone } from '../../components/ui/Badge'
@@ -264,7 +264,7 @@ export function DirectionChip({ group }: { group: DirectionGroup }) {
 }
 
 /**
- * Round 8b: the volatility-only P(Yes) for this price question, as of the run, and the server's note when it reset the
+ * The volatility-only P(Yes) for this price question, as of the run, and the server's note when it reset the
  * desk's number to it (the desk moved toward 50% without citing evidence).
  */
 export function VolatilityReference({ r }: { r: ForecastResult }) {

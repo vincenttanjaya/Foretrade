@@ -4,6 +4,7 @@ package config
 import (
 	"cmp"
 	"fmt"
+	"net/netip"
 	"os"
 	"slices"
 	"strconv"
@@ -20,7 +21,10 @@ type Config struct {
 	AllowedOrigins []string
 	AdminOrigins   []string // the only browser origins /api/admin/* serves
 	CookieSecure   bool
-	AIDailyCredits int
+	AIDailyCredits int // 0 blocks AI for users without their own limit
+	// TrustedProxies are the reverse proxies whose X-Forwarded-For the sign-in
+	// limiter reads (TRUSTED_PROXIES, CIDRs or addresses); loopback always is one.
+	TrustedProxies []netip.Prefix
 
 	// BinanceBase is the market-data API; "" → https://data-api.binance.vision.
 	BinanceBase string
@@ -51,13 +55,13 @@ type Config struct {
 	CrawlBase       string
 	CrawlToken      string // never log
 
-	// Forecast desk research (round 8). ForecastDeepResearch is false only
+	// Forecast desk research. ForecastDeepResearch is false only
 	// for FORECAST_RESEARCH_MODE=quick (the one-shot stage); ForecastSearches is
 	// deep research's per-run Brave call cap, 5..40.
 	ForecastDeepResearch bool
 	ForecastSearches     int
-	// ForecastMethods is false only for FORECAST_METHODS=off (round 9b): the
-	// desk's numeric questions then keep round 8b's roles and prompts.
+	// ForecastMethods is false only for FORECAST_METHODS=off: the
+	// desk's numeric questions then keep the event-frame roles and prompts.
 	ForecastMethods bool
 
 	// PolymarketBase is the Gamma API the forecast desk reads market odds from.
@@ -74,8 +78,8 @@ type Config struct {
 	// the screener's own quote tier (market.Client.Watch) off.
 	ScreenerMaxTickers int
 
-	// LiveArena runs the shared live paper desk (contract "Live arena"); LIVE_ARENA=off
-	// is the kill switch for its model calls and copy mirroring in this process.
+	// LiveArena runs the shared live paper desk (contract "Live arena") in this
+	// process. Opt-in (LIVE_ARENA=on): its model calls spend the operator's key.
 	LiveArena bool
 
 	// QuotesRealtime are the venues whose real-time quote sources are on
@@ -107,8 +111,8 @@ type Config struct {
 	AdminPort string
 }
 
-// Load reads the environment. An invalid MODEL_KNOWLEDGE_CUTOFF or AI_EFFORT,
-// or an invalid admin config, fails it.
+// Load reads the environment. An invalid MODEL_KNOWLEDGE_CUTOFF, AI_EFFORT,
+// COOKIE_SECURE or TRUSTED_PROXIES, or an invalid bootstrap account, fails it.
 func Load() (Config, error) {
 	c := FromEnv()
 	if v := os.Getenv("MODEL_KNOWLEDGE_CUTOFF"); v != "" && c.AI.KnowledgeCutoff.IsZero() {
@@ -117,17 +121,29 @@ func Load() (Config, error) {
 	if e := c.AI.Effort; e != "" && e != "on" && e != "off" {
 		return c, fmt.Errorf("AI_EFFORT must be on or off, got %q", e)
 	}
+	if v := strings.TrimSpace(os.Getenv("COOKIE_SECURE")); v != "" {
+		if _, err := strconv.ParseBool(v); err != nil {
+			return c, fmt.Errorf("COOKIE_SECURE must be true or false, got %q", v)
+		}
+	}
+	if _, bad := prefixes(os.Getenv("TRUSTED_PROXIES")); bad != "" {
+		return c, fmt.Errorf("TRUSTED_PROXIES must be a comma list of CIDRs or addresses, got %q", bad)
+	}
 	return c, c.validate()
 }
 
-// validate checks the bootstrap admin: a password of at least 12 characters
-// and an email other than the demo account's. Messages never hold the values.
+// validate checks the bootstrap accounts: passwords bcrypt can hash (at most
+// 72 bytes), an admin password of at least 12 and an admin email other than
+// the demo account's. Messages never hold the values.
 func (c Config) validate() error {
+	if c.DemoEmail != "" && len(c.DemoPassword) > 72 {
+		return fmt.Errorf("DEMO_PASSWORD must be at most 72 bytes")
+	}
 	if c.AdminEmail == "" || c.AdminPassword == "" {
 		return nil
 	}
-	if len(c.AdminPassword) < 12 {
-		return fmt.Errorf("ADMIN_PASSWORD must be at least 12 characters")
+	if n := len(c.AdminPassword); n < 12 || n > 72 {
+		return fmt.Errorf("ADMIN_PASSWORD must be 12 to 72 bytes")
 	}
 	if strings.EqualFold(strings.TrimSpace(c.AdminEmail), strings.TrimSpace(c.DemoEmail)) {
 		return fmt.Errorf("ADMIN_EMAIL must differ from DEMO_EMAIL")
@@ -141,8 +157,7 @@ func FromEnv() Config {
 		DatabaseURL:    os.Getenv("DATABASE_URL"),
 		AllowedOrigins: splitList(cmp.Or(os.Getenv("ALLOWED_ORIGINS"), "http://localhost:5173,http://localhost:5174")),
 		AdminOrigins:   splitList(cmp.Or(os.Getenv("ADMIN_ORIGINS"), "http://localhost:5174")),
-		CookieSecure:   os.Getenv("COOKIE_SECURE") == "true",
-		AIDailyCredits: envInt("AI_DAILY_CREDITS", 500),
+		AIDailyCredits: envCount("AI_DAILY_CREDITS", 500),
 		DemoEmail:      os.Getenv("DEMO_EMAIL"),
 		DemoPassword:   os.Getenv("DEMO_PASSWORD"),
 		DemoName:       os.Getenv("DEMO_NAME"),
@@ -171,11 +186,13 @@ func FromEnv() Config {
 
 		ScreenerMaxTickers: screenerCap(os.Getenv("SCREENER_MAX_TICKERS")),
 
-		LiveArena: !strings.EqualFold(strings.TrimSpace(os.Getenv("LIVE_ARENA")), "off"),
+		LiveArena: strings.EqualFold(strings.TrimSpace(os.Getenv("LIVE_ARENA")), "on"),
 
 		QuotesRealtimeTWSEYahoo: !offWord(os.Getenv("QUOTES_REALTIME_TWSE_YAHOO")),
 		QuotesRealtimeBase:      strings.TrimSpace(os.Getenv("QUOTES_REALTIME_BASE")),
 	}
+	c.CookieSecure, _ = strconv.ParseBool(strings.TrimSpace(os.Getenv("COOKIE_SECURE")))
+	c.TrustedProxies, _ = prefixes(os.Getenv("TRUSTED_PROXIES"))
 	c.QuotesRealtime, c.QuotesRealtimeUnknown = rtquote.ParseSwitches(os.Getenv("QUOTES_REALTIME"))
 	if from := strings.TrimSpace(os.Getenv("NOTIFY_EMAIL_FROM")); !offWord(from) {
 		c.NotifyEmailFrom = from
@@ -253,6 +270,34 @@ func screenerCap(s string) int {
 		return n
 	}
 	return 0
+}
+
+// prefixes parses a comma list of CIDRs or single addresses; bad is the first
+// entry that is neither (skipped). IPv4-mapped entries are stored as IPv4,
+// since auth's clientIP unmaps the addresses it checks.
+func prefixes(s string) (out []netip.Prefix, bad string) {
+	for _, v := range splitList(s) {
+		if a, err := netip.ParseAddr(v); err == nil {
+			a = a.Unmap()
+			out = append(out, netip.PrefixFrom(a, a.BitLen()))
+		} else if p, err := netip.ParsePrefix(v); err == nil {
+			if a := p.Addr(); a.Is4In6() && p.Bits() >= 96 {
+				p = netip.PrefixFrom(a.Unmap(), p.Bits()-96)
+			}
+			out = append(out, p.Masked())
+		} else if bad == "" {
+			bad = v
+		}
+	}
+	return out, bad
+}
+
+// envCount reads a non-negative integer, falling back to def.
+func envCount(key string, def int) int {
+	if n, err := strconv.Atoi(strings.TrimSpace(os.Getenv(key))); err == nil && n >= 0 {
+		return n
+	}
+	return def
 }
 
 // envInt reads a positive integer, falling back to def.

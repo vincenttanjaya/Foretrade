@@ -45,11 +45,11 @@ func TestRefreshMarket(t *testing.T) {
 	e.PolymarketBase = gammaEvents(t, "largest-company-end-of-december-2026", func() []map[string]any {
 		return []map[string]any{gammaMarket(nvdaQ, "2027-01-01T00:00:00Z", yes, 1.4e6, func(m map[string]any) { m["closed"] = closed })}
 	})
-	deep := nvdaResult() // round 8: the deep research fields are part of the stored result and survive the read-modify-write
+	deep := nvdaResult() // the deep research fields are part of the stored result and survive the read-modify-write
 	deep.Sources = []Source{{ID: "S1", Title: "Nvidia tops $5tn", URL: "https://reuters.com/n", Source: "Reuters"}}
 	deep.Findings = []Finding{{ID: "F1", Claim: "Nvidia's market cap passed $5tn on 1 October.", SourceIDs: []string{"S1"}, AsOf: ptr("2026-10-01"),
 		Angle: "A1", Direction: "Nvidia", Strength: "moderate"},
-		{ID: "F2", Claim: "The user's note ranks Nvidia first.", SourceIDs: []string{"D1"}, Direction: "Nvidia", Strength: "slight", Origin: "material", Ref: "p. 2"}} // round 9
+		{ID: "F2", Claim: "The user's note ranks Nvidia first.", SourceIDs: []string{"D1"}, Direction: "Nvidia", Strength: "slight", Origin: "material", Ref: "p. 2"}}
 	deep.Evidence = []Evidence{{Claim: "The user's note ranks Nvidia first.", Source: "Your material · note.pdf", Stance: "supports", AsOf: "2026-09", MaterialID: "D1"}}
 	deep.Watch = []Watch{{Signal: "Q3 earnings", Detail: "Nvidia reports in November.", Branches: []Branch{{"Beat", "Nvidia firmer", "Nvidia"}}}}
 	deep.Research = Research{Queries: []string{"q"}, Status: "live", Depth: "deep", Rounds: 2, Searches: 17, Candidates: 40,

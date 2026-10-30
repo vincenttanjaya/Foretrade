@@ -89,7 +89,8 @@ export function OrderTicket({
   const op = trig < px ? 'below' : 'above' // a trigger under the mark waits for a dip, over it for a breakout
   const triggerError = limit && px > 0 && !(trig > 0 && trig !== px) ? `Set a trigger price above or below the ${livePrice}.` : undefined
   const fillPx = limit ? (trig > 0 ? trig : 0) : px // the price the order is sized and checked at
-  const posQty = portfolio?.positions.find((p) => p.symbol === symbol)?.qty ?? 0
+  const held = portfolio?.positions.find((p) => p.symbol === symbol)
+  const posQty = held?.qty ?? 0
   const bp = portfolio?.buyingPower ?? 0
   const lev = limit ? 1 : ticket.leverage // limit orders stay 1×
   const margin = parseFloat(ticket.amount)
@@ -100,10 +101,13 @@ export function OrderTicket({
   const liq = lev > 1 && fillPx > 0 && !trims ? liquidation(ticket.side, fillPx, lev) : null
   const stop = optionalNum(ticket.stop)
   const take = optionalNum(ticket.take)
-  // Empty, or past the liquidation price: the order's stop goes at the est. liquidation.
-  const stopAtLiq = liq != null && (stop == null || (ticket.side === 'buy' ? stop < liq : stop > liq))
+  // Empty, or past the liquidation price: the order's stop goes at the est. liquidation. An empty stop on a same-side add
+  // sends none when the position already holds a tighter one, so the engine keeps it.
+  const kept = stop == null && posQty * dir > 0 ? (held?.stopLoss ?? null) : null
+  const keeps = liq != null && kept != null && (ticket.side === 'buy' ? kept >= liq : kept <= liq)
+  const stopAtLiq = liq != null && !keeps && (stop == null || (ticket.side === 'buy' ? stop < liq : stop > liq))
   // A limit order's buying power is checked when it fills, so the ticket doesn't cap it.
-  const errors = checkTicket({ side: ticket.side, amount, price: fillPx, posQty, buyingPower: limit ? Infinity : bp, stop, take })
+  const errors = checkTicket({ side: ticket.side, amount, price: fillPx, posQty, buyingPower: limit ? Infinity : bp, stop, take, leverage: lev })
   const ready = portfolio != null && px > 0 && Object.keys(errors).length === 0 && !triggerError
   const amountError = ticket.amount !== '' ? errors.amount : undefined
   const qty = fillPx > 0 && amount > 0 ? amount / fillPx : NaN
@@ -294,7 +298,7 @@ export function OrderTicket({
           <LevelInput id="ticket-stop" label="Stop loss" value={ticket.stop} error={errors.stop} onChange={(v) => set({ stop: v })} />
           <LevelInput id="ticket-take" label="Take profit" value={ticket.take} error={errors.take} onChange={(v) => set({ take: v })} />
         </div>
-        {liq != null && <p className="-mt-2 text-[12px] text-muted">Empty or past liquidation → the stop is set at the est. liquidation.</p>}
+        {liq != null && <p className="-mt-2 text-[12px] text-muted">Empty or past liquidation → the stop is set at the est. liquidation (a tighter stop you already hold is kept).</p>}
 
         <dl className="space-y-1.5 rounded-lg bg-surface-2 px-3 py-2.5 text-[12.5px]">
           {lev > 1 && <Row label="Position size">{margin > 0 ? `${usd(amount)} (margin ${usd(margin)} × ${lev}×)` : '—'}</Row>}
@@ -321,7 +325,7 @@ export function OrderTicket({
             {limit && trig > 0
               ? `Fills at market (± 2 bps) once ${symbol} trades at or ${op} ${fmtPrice(trig)}, checked every 15 s. Buying power is checked when it fills.`
               : liq != null
-                ? 'Simulated isolated margin: the position closes at the est. liquidation price (0.5% maintenance). No funding accrues. Paper only.'
+                ? 'Simulated leverage: the est. liquidation (0.5% maintenance) is an ordinary stop, checked every 15 s, so a gap can fill past it. No funding accrues. Paper only.'
                 : 'Simulated market order at the latest price ± 2 bps. Nothing reaches a real venue.'}
           </p>
         </div>

@@ -8,7 +8,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/llm/llmtest"
 )
 
-// Round 4 research provenance: with Brave off, a SOL price-rule forecast runs
+// Research provenance: with Brave off, a SOL price-rule forecast runs
 // on the stored SOL headlines (known outlets first, junk hidden), says so in
 // result.research and the knowledge note, and the panel's prompt calls the
 // pack a stored wire, not a live search.

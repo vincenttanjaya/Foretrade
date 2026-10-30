@@ -3,7 +3,7 @@ package market
 import "testing"
 
 // A cited number counts only in its field's form, never as a date, a time,
-// a year or a count (gap round G16).
+// a year or a count.
 func TestNumberInField(t *testing.T) {
 	const s3 = "TSMC third-quarter revenue beats estimates\nPublished Oct 25, 2026. TSMC said third-quarter revenue rose 30.4%.\n" +
 		"HSINCHU, Oct 16, 2026 - TSMC posted revenue of NT$990 billion. Some 35 analysts cover the stock; shares are up 20 times since 2006."

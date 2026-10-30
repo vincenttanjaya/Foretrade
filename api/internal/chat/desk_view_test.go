@@ -45,8 +45,8 @@ func tsmNumeric(t *testing.T, edit func(view map[string]any)) report {
 	return r
 }
 
-// An ordered report whose view leads is cited, leaned and carded by its view
-// (gap round G14), the forecast page's reading, never by its top range.
+// An ordered report whose view leads is cited, leaned and carded by its view,
+// the forecast page's reading, never by its top range.
 func TestDeskStatesTheView(t *testing.T) {
 	r := tsmNumeric(t, nil)
 	ref := r.ref()

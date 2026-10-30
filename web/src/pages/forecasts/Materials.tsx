@@ -1,4 +1,4 @@
-// "Your materials" on a forecast (API contract round 9): each file the user attached and what the desk read from it,
+// "Your materials" on a forecast (API contract): each file the user attached and what the desk read from it,
 // and, on a forecast that can update, the files for the next update. Summaries, findings and excerpts are
 // model-written from the user's files, so they render as plain text only.
 import { useEffect, useState } from 'react'

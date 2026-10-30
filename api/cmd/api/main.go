@@ -129,6 +129,7 @@ func runWithOptions(ctx context.Context, cfg config.Config, ln net.Listener, o r
 	mkt.HyperliquidBase = cfg.HyperliquidBase
 	meter := usage.NewMeter(pool, cfg.AIDailyCredits)
 	authSvc := auth.NewService(pool, meter, cfg.CookieSecure)
+	authSvc.TrustedProxies = cfg.TrustedProxies
 	managed, err := ensureAccounts(ctx, authSvc, cfg)
 	if err != nil {
 		return err
@@ -141,7 +142,8 @@ func runWithOptions(ctx context.Context, cfg config.Config, ln net.Listener, o r
 	meter.OwnerOnly = func() bool { return ai.Settings().Provider == "chatgpt" } // the plan is the owner's alone
 	intel := research.New(research.Config{BraveBase: cfg.BraveBase, DailyLimit: cfg.BraveDailyLimit}, pool, ai)
 	settings := aiconfig.New(pool, cfg, ai, intel)
-	if err := settings.Load(ctx); err != nil { // the provider and the search keys; a bad one is logged, never fatal
+	// puts the stored provider and search keys in force: a bad secret or provider is logged; only a database error stops boot
+	if err := settings.Load(ctx); err != nil {
 		return err
 	}
 	deps := &app.Deps{DB: pool, Market: mkt, LLM: ai, Usage: meter, Paper: engine, Auth: authSvc, Research: intel, Settings: settings,
@@ -315,7 +317,7 @@ func ensureAccounts(ctx context.Context, a *auth.Service, cfg config.Config) ([]
 
 // version is the commit baked in at build time, else the VCS revision Go
 // stamped into the binary, cut to 12 characters, when it is a commit id
-// (7 to 40 lower-case hex digits); else "dev" (gap round G23: "nogit" or a
+// (7 to 40 lower-case hex digits); else "dev" ("nogit" or a
 // stray ldflag never reaches /healthz).
 func version() string {
 	v := commit

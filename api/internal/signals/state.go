@@ -17,7 +17,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/market"
 )
 
-// The refresh state and the read cache (gap round). A refresh that keeps
+// The refresh state and the read cache. A refresh that keeps
 // failing retries on a ceiling, the rationale model is called at most
 // modelCallsPerDay times a UTC day, and both survive a restart in the one
 // signals_refresh row. GET /api/signals computes the shown board, its exits
@@ -34,7 +34,7 @@ var viewTTL = time.Minute
 // validations counts validBoard calls (tests read it).
 var validations atomic.Int64
 
-// memoTTL is how long an older board's validation is reused (gap round G22):
+// memoTTL is how long an older board's validation is reused:
 // the legacy history may lag an older board's invalidation by up to this
 // long. The shown board is validated on every recompute; Forget and a stored
 // refresh clear it.
@@ -217,7 +217,7 @@ func (f *flight) forget() {
 }
 
 // validOlder is validBoard for a board older than the shown one, remembered
-// per board id for memoTTL (gap round G22): before, a cold read re-validated
+// per board id for memoTTL: before, a cold read re-validated
 // every board of the week, each re-reading its briefs (42 boards took 3 s).
 func (f *flight) validOlder(ctx context.Context, db *pgxpool.Pool, b *Board) (bool, error) {
 	f.mu.Lock()
@@ -309,7 +309,7 @@ func computeView(ctx context.Context, d *app.Deps) (*view, error) {
 }
 
 // legacyRemovals is how the picks of the retained boards stored before
-// steady-v1 left (legacyHistory, gap round G22's reasons): never part of the
+// steady-v1 left (legacyHistory, with the reasons they recorded): never part of the
 // ledger or the record. It reads nothing more while no legacy board with a
 // pick is retained older than the shown one (none a week after the switch).
 // The chain is the week's boards up to the shown one that validate: an older

@@ -20,7 +20,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/research"
 )
 
-// Forecast materials (round 9): files the user attaches to a forecast. The run
+// Forecast materials: files the user attaches to a forecast. The run
 // reads each new file once with one digest call (a Converse document or image
 // block), keeps the digest on the row and drops the bytes; the panel sees the
 // digests as sources D1..Dn, user-supplied and unverified like S0. Material

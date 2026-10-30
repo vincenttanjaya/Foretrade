@@ -13,7 +13,7 @@ const stockFiles = Object.keys(import.meta.glob('../../assets/stocks/*.{svg,png}
 const stockPngs = import.meta.glob<string>('../../assets/stocks/*.png', { query: '?inline', import: 'default', eager: true })
 const fileName = (path: string) => path.slice(path.lastIndexOf('/') + 1)
 const fileSymbol = (path: string) => fileName(path).replace(/\.(svg|png)$/i, '')
-// The listed Asian stocks' logo record (LOGO-PLAN §6, generated with the logo files): each listed symbol has a file or a
+// The listed Asian stocks' logo record (generated with the logo files): each listed symbol has a file or a
 // monogram with its reason. Absent until the first listed logo ships.
 type ListedLogo = { file?: string; monogram?: string; checked?: string }
 const listedLogos = Object.values(import.meta.glob<Record<string, ListedLogo>>('../../assets/stocks/listed-logos.json', { eager: true, import: 'default' }))[0] ?? {}
@@ -121,7 +121,7 @@ describe('AssetIcon', () => {
     expect(disc.textContent).toBe('')
   })
 
-  it('reads initials from the company name for a listed stock with no file (LOGO-PLAN §6)', () => {
+  it('reads initials from the company name for a listed stock with no file', () => {
     const cases: [string, string][] = [
       ['SD Guthrie Berhad', 'SD'],
       ['SSI Securities Corporation', 'SSI'],

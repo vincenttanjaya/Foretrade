@@ -552,7 +552,7 @@ function OutlookViewCard({ data, view, symbol, forecastId, sources }: { data: Pr
   )
 }
 
-// Notes the API once wrote for the model, which it now sends only in the tool result (gap round 2): they name a tool
+// Notes the API once wrote for the model, which it now sends only in the tool result: they name a tool
 // parameter, ask for scenarios, or flag a cited number by its parameter ("pe 25 cited [1] not found in [1]: labelled
 // assumption", and the same for a quote or an unknown source id). A card stored before then still carries them.
 const MODEL_HINT = /\bhorizon_(?:days|reason)\b|\bpass scenarios\b|\bcited\b.*: labelled assumption$/
@@ -603,7 +603,7 @@ const quotesUser = (reason: string) => QUOTES_USER.test(reason) && !NO_TIMEFRAME
  * Where the horizon came from, under the header: the user's words as the API quotes them, or, when the question named
  * no timeframe, a "Chosen by the agent" tag before the agent's reason. The API's own line for a horizon given without a
  * reason ("Horizon chosen by the agent: 1,826 days (5 years)") already says so, so it goes untagged. A "user" horizon
- * (gap round 2: the reason quotes the user, in words the parser cannot read) is the user's, and so is a stored
+ * (the reason quotes the user, in words the parser cannot read) is the user's, and so is a stored
  * "chosen" one whose reason quotes the user.
  */
 function HorizonLine({ horizon }: { horizon: OutlookHorizon }) {

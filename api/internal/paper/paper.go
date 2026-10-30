@@ -1,6 +1,7 @@
 // Package paper is the simulated trading ledger. Market orders fill at the
-// latest Binance price ± 2 bps, pay a 0.1% fee, and update signed,
-// average-cost positions in Postgres. Nothing ever reaches a real venue.
+// latest market price (Binance, Hyperliquid or the stock quote feed, in USD)
+// ± 2 bps, pay a 0.1% fee, and update signed, average-cost positions in
+// Postgres. Nothing ever reaches a real venue.
 package paper
 
 import (

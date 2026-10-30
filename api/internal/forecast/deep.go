@@ -17,7 +17,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/research"
 )
 
-// Deep research (round 8, contract "Deep research"): a bounded multi-round
+// Deep research (contract "Deep research"): a bounded multi-round
 // research stage. PLAN splits the question into research angles with typed
 // queries; a round SEARCHes them under the run's Brave cap, SCREENs the
 // candidates for relevance, READs the best pages and EXTRACTs atomic findings
@@ -504,7 +504,7 @@ func (r *deepRun) plan(ctx context.Context) ([][]query, bool) {
 	var out struct {
 		Angles []rawAngle `json:"angles"`
 	}
-	prompt := brief(r.d, r.today, "") + planHint(r.h.frameFor(r.d, r.today, false)) // round 9b: what a long-horizon stock question's methods need
+	prompt := brief(r.d, r.today, "") + planHint(r.h.frameFor(r.d, r.today, false)) // what a long-horizon stock question's methods need
 	if err := r.h.d.LLM.CompleteJSON(pctx, planSystem, prompt, llm.Medium, &out); err != nil {
 		slog.Warn("forecast deep research plan failed; using the quick stage", "err", err)
 		done("failed", 0, 0)

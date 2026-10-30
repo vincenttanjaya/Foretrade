@@ -158,6 +158,10 @@ export function errorCopy(code: string, message: string): { title: string; detai
         detail: "Credits reset at 00:00 UTC. Charts, backtests and paper trading don't use credits.",
         retry: false,
       }
+    case 'ai_off':
+      return { title: "AI isn't set up yet", detail: message, retry: false }
+    case 'unreadable_file':
+      return { title: "This file can't be read here", detail: message, retry: false }
     case 'rate_limited':
       return { title: 'Too many requests', detail: 'Give it a few seconds, then retry.', retry: true }
     case 'upstream':

@@ -158,7 +158,7 @@ func feed(ctx context.Context, db *pgxpool.Pool, userID string) ([]Notification,
 		switch source {
 		case "autopilot":
 			add(source, id, fmt.Sprintf("Autopilot %s %s", strings.ToLower(verb), symbol), note, &sym, "/account", at)
-		case "copy": // the note is "Copy · <agent>" (round 7)
+		case "copy": // the note is "Copy · <agent>"
 			add("copy_order", id, fmt.Sprintf("Copied %s · %s %s", strings.TrimPrefix(note, "Copy · "), strings.ToLower(verb), symbol),
 				fmt.Sprintf("%s at %s", paper.Money(tradeNotional), paper.Money(price)), &sym, "/account", at)
 		default:

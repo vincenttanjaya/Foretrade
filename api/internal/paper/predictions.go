@@ -1,6 +1,6 @@
 package paper
 
-// Prediction-market stakes (round 5): paper positions on a forecast's matched
+// Prediction-market stakes: paper positions on a forecast's matched
 // Polymarket market are bought from cash and paid out when the forecast
 // resolves. The forecast package owns the rows (market_positions); the ledger
 // owns the cash, the realized P&L and the revision.

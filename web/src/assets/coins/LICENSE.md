@@ -110,7 +110,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Round 7 additional instrument artwork
+## Additional instrument artwork
 
 29 locally bundled identifiers. Exact pinned sources, SHA256 hashes and adaptation notes are in [universe-provenance.json](universe-provenance.json). Genuine archive PNGs remain PNGs (MUBARAK, TRUMP, ACE, JTO, SAGA, and NIL; the wide Nillion docs wordmark was replaced with its correctly identified token PNG for badge legibility). The original 40 SVGs are unchanged.
 
@@ -120,4 +120,4 @@ JUP is Solana Jupiter, ZRO is LayerZero protocol. WLFI is the retrieved official
 
 ## Stocks, ETFs and indices
 
-Every stock, ETF and index logo (US and Asia) lives in [`../stocks`](../stocks/LICENSE.md), with its convention, sources, licences and hashes. The stock files that Round 7 and the Asia wave bundled here (NVDA, TSLA, AAPL, MSFT, AMZN, GOOGL, META, SP500, XYZ100, BABA, HYUNDAI, SMSN), their provenance entries and the Font Awesome notice were removed when those were replaced.
+Every stock, ETF and index logo (US and Asia) lives in [`../stocks`](../stocks/LICENSE.md), with its convention, sources, licences and hashes. The stock files once bundled here (NVDA, TSLA, AAPL, MSFT, AMZN, GOOGL, META, SP500, XYZ100, BABA, HYUNDAI, SMSN), their provenance entries and the Font Awesome notice were removed when those were replaced.

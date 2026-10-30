@@ -210,7 +210,7 @@ describe('ForecastDetailPage · desk vs market, context and export', () => {
     expect(market()).not.toHaveTextContent(/Edge on (Yes|No)/)
     first.unmount()
 
-    // Stored before round 3: no thin flag, a lean of yes on $65.70 of volume.
+    // An older result: no thin flag, a lean of yes on $65.70 of volume.
     show(withMarket({ yesPrice: 0.55, volumeUsd: 65.7, signal: 'yes', thin: undefined }))
     const legacy = open()
     await screen.findByRole('heading', { name: 'Desk vs market' })
@@ -302,7 +302,7 @@ describe('ForecastDetailPage · desk vs market, context and export', () => {
   })
 })
 
-describe('ForecastDetailPage · research provenance (round 4)', () => {
+describe('ForecastDetailPage · research provenance', () => {
   const panel = (label: string) => `Panel: 2 specialists + aggregator · research: ${label}` // the fixture's 2 specialists
   const headlines = (n: number) =>
     Array.from({ length: n }, (_, i) => ({ id: `S${i + 1}`, title: `Headline ${i + 1}`, url: `https://news.io/${i}`, source: 'Wire', publishedAt: null, read: false }))
@@ -314,7 +314,7 @@ describe('ForecastDetailPage · research provenance (round 4)', () => {
       [fx.forecast({ result: { ...fx.forecastResult, sources: headlines(5), research: { queries: [], status: 'carried', note: 'Old.' } } }), "previous run's sources · 5"],
       [fx.replayForecast({ result: { ...fx.forecastResult, sources: headlines(7), research: { queries: ['q'], status: 'replay' } } }), 'dated headlines · 7'],
       [fx.forecast({ result: { ...fx.forecastResult, sources: [], research: { queries: [], status: 'none', note: 'Nothing.' } } }), 'none available'],
-      // Stored before round 4: no status, derived.
+      // An older result: no status, derived.
       [fx.forecast({ result: { ...fx.forecastResult, sources: headlines(1).map((s) => ({ ...s, read: true })) } }), 'Brave Search · 1 source · 1 read'],
       [fx.forecast({ result: { ...fx.forecastResult, sources: [], research: { queries: [] } } }), 'none available'],
       [fx.replayForecast({ result: { ...fx.forecastResult, sources: headlines(8) } }), 'dated headlines · 8'],
@@ -359,7 +359,7 @@ describe('ForecastDetailPage · research provenance (round 4)', () => {
   })
 })
 
-describe('ForecastDetailPage · deep research (round 8)', () => {
+describe('ForecastDetailPage · deep research', () => {
   it('shows the evidence base after the specialists, the deep research line and the angles', async () => {
     show(fx.deepForecast())
     const { user } = open('d1234567-cccc')
@@ -525,7 +525,7 @@ describe('ForecastDetailPage · running and failed', () => {
   })
 })
 
-describe('ForecastDetailPage · your materials (round 9)', () => {
+describe('ForecastDetailPage · your materials', () => {
   it('mounts the materials card after the evidence base and links material evidence to its row', async () => {
     show(fx.materialsForecast())
     open('m1234567-dddd')
@@ -737,7 +737,7 @@ describe('ForecastDetailPage · resolution and track record', () => {
     expect(await screen.findByText(/^Server check:/)).toBeInTheDocument()
     kept.unmount()
 
-    // No reference (a question without a price rule, or a result stored before round 8b): nothing.
+    // No reference (a question without a price rule, or an older result): nothing.
     show(fx.forecast())
     open()
     expect(await screen.findByText('Probability estimate · Yes')).toBeInTheDocument()
@@ -948,7 +948,7 @@ describe('ForecastDetailPage · updates and probability history', () => {
   })
 })
 
-describe('ForecastDetailPage · desk view and methods (round 9b)', () => {
+describe('ForecastDetailPage · desk view and methods', () => {
   const tsm = (over: Partial<ForecastResult> = {}) => fx.tsmDeskForecast({ id: 'f1234567-aaaa', result: { ...fx.tsmDeskResult, ...over } })
   const specialist = (name: string) => screen.getByRole('heading', { level: 3, name }).closest('.card') as HTMLElement
 
@@ -1070,7 +1070,7 @@ describe('ForecastDetailPage · desk view and methods (round 9b)', () => {
     expect(within(again).getByText('Independent methods agree')).toBeInTheDocument()
     expect(again.textContent!.match(/Server check/g), 'the note already carries it').toHaveLength(1)
     cleanup()
-    // The volatility floor (API fix round 5), after the pool guard: the API's note says both, once each.
+    // The volatility floor, after the pool guard: the API's note says both, once each.
     const floored = 'We trusted the history. Server check: the final distribution was sharper than the methods support, so it was blended halfway back to the pool. Server check: the final distribution was widened to the measured volatility: no cited input supports a narrower range.'
     show(tsm({ methods: { ...methods, agreement: 'independent_agree', guard: 'volatility', note: floored } }))
     open()
@@ -1175,7 +1175,7 @@ describe('ForecastDetailPage · desk view and methods (round 9b)', () => {
     ])
   })
 
-  it('renders an ordered report stored before round 9b as it always did', async () => {
+  it('renders an older ordered report stored without a view as it always did', async () => {
     show(fx.deepForecast())
     open()
     expect(await screen.findByText('Most likely range')).toBeInTheDocument()

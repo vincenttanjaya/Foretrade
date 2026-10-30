@@ -289,7 +289,7 @@ export const fmtPct = (n: number, p: number) => (n === 0 && p > 0 ? '<1%' : n ==
 export const pct0 = (p: number) => roundPcts([p, 1 - p])[0]
 
 /**
- * A chance as the desk states it, the API's chanceWords (gap round 2): "62%", "≈62%" in an extrapolated tail; one whose
+ * A chance as the desk states it, the API's chanceWords: "62%", "≈62%" in an extrapolated tail; one whose
  * whole percent rounds to 0 or 100 reads "<1%" or ">99%", never a certainty, and takes no "≈" (the bound says it).
  */
 export function fmtChance(p: number, approx = false) {
@@ -337,7 +337,7 @@ export function researchOf(r: Pick<ForecastResult, 'research' | 'sources'>) {
 export type ResearchStatus = NonNullable<ForecastResult['research']['status']>
 const RESEARCH_STATUSES: ResearchStatus[] = ['live', 'wire', 'carried', 'replay', 'none']
 
-/** What research the panel saw. Results stored before round 4 have no status: a replay → replay, any source → live, else none. */
+/** What research the panel saw. Older results have no status: a replay → replay, any source → live, else none. */
 export function researchStatus(r: Pick<ForecastResult, 'research' | 'sources'>, replay: boolean): ResearchStatus {
   const s = r.research?.status
   if (s && RESEARCH_STATUSES.includes(s)) return s
@@ -375,7 +375,7 @@ export function groupFlags(flags: ForecastResult['flags']) {
 }
 
 /**
- * The report's flag banners. Round 8b: when the shrink guard reset the desk, the reference card already says so, so the
+ * The report's flag banners. When the shrink guard reset the desk, the reference card already says so, so the
  * server's own "Server check: …" note is dropped rather than shown twice; every other flag stays.
  */
 export function reportFlags(r: Pick<ForecastResult, 'flags' | 'guard'>) {
@@ -384,14 +384,14 @@ export function reportFlags(r: Pick<ForecastResult, 'flags' | 'guard'>) {
   return groupFlags(r.guard === 'shrink' ? flags.filter((f) => !guardNote(f)) : flags)
 }
 
-// ── Deep research (round 8): the findings ledger, its groups and the live step copy ─────────────
+// ── Deep research: the findings ledger, its groups and the live step copy ─────────────
 
 export const STRENGTHS: ForecastFinding['strength'][] = ['strong', 'moderate', 'slight', 'minimal']
 
 /**
  * The run's findings ledger, read defensively: malformed items are dropped, a sourceId that is not in the pack is
  * dropped (so it is never linked), and a finding with no source left goes. Older results have no ledger: [].
- * A material finding (round 9, `origin: "material"`) keeps only the ids of `materials` the desk read.
+ * A material finding (`origin: "material"`) keeps only the ids of `materials` the desk read.
  */
 export function findingsOf(r: Pick<ForecastResult, 'findings' | 'sources'>, materials: ForecastMaterial[] = []): ForecastFinding[] {
   const known = new Set((Array.isArray(r.sources) ? r.sources : []).filter((s) => s && typeof s.id === 'string').map((s) => s.id))
@@ -417,7 +417,7 @@ export function findingsOf(r: Pick<ForecastResult, 'findings' | 'sources'>, mate
   return out
 }
 
-// ── Materials (round 9): the user's files, read once into a digest ─────────────
+// ── Materials: the user's files, read once into a digest ─────────────
 
 export const MAX_MATERIALS = 5 // files and images per forecast, reused ones included
 export const CREDITS_PER_MATERIAL = 1
@@ -625,11 +625,6 @@ export function stepText(s: ResearchStepLog): string {
   }
 }
 
-// ── Context files (S0) ──────────────────────────────────────────────────────
-
-export const MAX_CONTEXT_FILE = 1_000_000 // bytes
-export const CONTEXT_FILE_ACCEPT = '.txt,.csv,.md,text/plain,text/csv,text/markdown'
-
 /**
  * The files in a context: each `File: <name>` header (at the start or after a blank line) opens a block that runs to
  * the next header or the end. `start` includes the blank line before it; `chars` counts the file's text.
@@ -656,7 +651,7 @@ export const fmtChars = (n: number) => (n >= 1000 ? `${+(n / 1000).toFixed(1)}k 
 
 /**
  * Where an evidence item links: its URL, labelled with the matching research source's title when there is one; or,
- * for a claim from the user's material (round 9 `materialId`), that material's row on this page (`internal`).
+ * for a claim from the user's material (`materialId`), that material's row on this page (`internal`).
  */
 export function evidenceLink(e: { url?: string | null; source: string; materialId?: string }, sources: ForecastSource[], materials: ForecastMaterial[] = []) {
   const material = typeof e.materialId === 'string' ? materials.find((m) => m.id === e.materialId) : undefined
@@ -677,7 +672,7 @@ export const fmtEv = (x: number) => `${x > 0 ? '+' : x < 0 ? '−' : '±'}$${Mat
 
 export const SIGNAL_LABEL = { yes: 'Edge on Yes', no: 'Edge on No', wait: 'Wait' } as const // vs the market, not the desk's own lean
 
-/** Under $1,000 traded (or unknown) is too thin to read an edge from. Results stored before round 3 have no `thin`. */
+/** Under $1,000 traded (or unknown) is too thin to read an edge from. Older results have no `thin`. */
 export const isThin = (m: Pick<MarketOdds, 'thin' | 'volumeUsd'>) => m.thin ?? (m.volumeUsd == null || m.volumeUsd < 1000)
 
 /**
@@ -695,10 +690,7 @@ export function specialistSpread(specialists: Specialist[], top: string) {
   return { pts, level: pts < 10 ? 'low' : pts < 25 ? 'moderate' : 'high' }
 }
 
-/** A resolved binary call's Brier score, (p − o)². */
-export const brierOf = (pYes: number, outcome: string) => (pYes - (outcome === 'Yes' ? 1 : 0)) ** 2
-
-// ── Desk view (round 9b): the numbers a numeric report leads with ─────────────
+// ── Desk view: the numbers a numeric report leads with ─────────────
 // The API derives these from the final buckets (contract "Desk view and methods"); the page reads them defensively and
 // ports two pieces of the maths: the bucket parser (bucketBoundsTs, for the % chips on a draft) and the bucket
 // distribution (quantileOf, for a specialist's tool anchor and the pool's median, which the API does not summarize).
@@ -942,7 +934,7 @@ export function measuredOf(r: { measured?: unknown }): DeskMeasured | null {
   }
 }
 
-/** A specialist's numbers (round 9b), or null when it has none or they are not numbers. */
+/** A specialist's numbers, or null when it has none or they are not numbers. */
 export function statsOf(s: { stats?: unknown }): SpecialistStats | null {
   const st = s.stats as Partial<SpecialistStats> | null | undefined
   const [median, p10, p90] = [st?.median, st?.p10, st?.p90].map(qOf)

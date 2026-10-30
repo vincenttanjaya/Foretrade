@@ -51,11 +51,11 @@ go run ./cmd/api          # listens on :8080
 `api/.env.example` is the short local version. The Docker settings, with comments, are in the root
 [`.env.example`](../.env.example); every variable the API reads is in the contract's §5.
 
-At boot the API runs its migrations and ensures the bootstrap admin (`ADMIN_EMAIL`, `ADMIN_PASSWORD`, 12+ characters)
+At boot the API runs its migrations and ensures the bootstrap admin (`ADMIN_EMAIL`, `ADMIN_PASSWORD`, 12 to 72 characters)
 and, when `DEMO_EMAIL` and `DEMO_PASSWORD` are set, the demo user. AI stays off until a provider is configured, in
 the admin console's Settings page or through the `AI_*` variables. News and web search need a Brave Search key;
-without one the AI answers without them. Keep `LIVE_ARENA=off` unless you want the shared live arena making model
-calls every four hours.
+without one the AI answers without them. The shared live arena, which makes model calls every four hours, runs only
+with `LIVE_ARENA=on`.
 
 ## Tests
 
@@ -63,6 +63,7 @@ From `api/`, with the database above:
 
 ```sh
 gofmt -l . && go vet ./...
+go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...             # known vulnerabilities, as CI checks
 go test ./...                                                     # pure logic; database tests skip
 docker exec foretrade-db createdb -U trade trade_test
 export DATABASE_URL_TEST='postgres://trade@localhost:55432/trade_test?sslmode=disable'

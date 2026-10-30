@@ -99,7 +99,7 @@ test('a new ledger says nothing is scored yet, and a board stored before steady-
   await expectAccessible(page)
 
   // A board stored before steady-v1, still shown until the first steady refresh: no invalidation, never scored, and
-  // its chain's removals with the reasons those boards recorded (gap round G22), outside the empty ledger's record.
+  // its chain's removals with the reasons those boards recorded, outside the empty ledger's record.
   await boardState(page, 'legacy')
   await page.reload()
   const btc = page.getByRole('article', { name: 'BTC bullish pick' })

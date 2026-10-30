@@ -199,7 +199,7 @@ describe('AccountPage · history origins and the calm equity chart', () => {
   })
 })
 
-describe('AccountPage · prediction markets (round 5)', () => {
+describe('AccountPage · prediction markets', () => {
   const position = (over: Partial<MarketPosition>): MarketPosition => ({
     id: 'p1', forecastId: 'f1234567-aaaa', forecastQuestion: 'Will the Fed cut rates in December 2026?',
     question: 'Fed decreases interest rates after the December 2026 meeting?', url: 'https://polymarket.com/event/fed-december-2026',

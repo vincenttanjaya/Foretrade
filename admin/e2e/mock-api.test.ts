@@ -9,7 +9,7 @@ let server: Server
 let base = ''
 beforeAll(async () => {
   server = await startMockApi(0)
-  base = `http://localhost:${portOf(server)}`
+  base = `http://127.0.0.1:${portOf(server)}`
 })
 afterAll(() => new Promise<void>((resolve) => server.close(() => resolve())))
 
@@ -30,6 +30,10 @@ async function signIn(who = ADMIN) {
 }
 
 describe('mock API: auth and access', () => {
+  it('listens on loopback only, like the web mock', () => {
+    expect(server.address()).toMatchObject({ address: '127.0.0.1' })
+  })
+
   it('signs in, answers /api/me, and rejects wrong or missing credentials', async () => {
     const cookie = await signIn()
     expect((await call('GET', '/api/me', { cookie })).body.user).toEqual({ id: SEED.admin, email: ADMIN.email, name: 'Admin', role: 'admin' })

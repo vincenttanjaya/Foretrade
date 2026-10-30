@@ -445,7 +445,7 @@ func TestQuoteFeedVenueSessions(t *testing.T) {
 func approxEq(a, b float64) bool { return a == b || a-b < 1e-9*max(1, b) && b-a < 1e-9*max(1, b) }
 
 // Past 4 days a quote stays current while its venue's verified calendar says
-// no regular session has been open 30 minutes since (gap round G4): KRX's
+// no regular session has been open 30 minutes since: KRX's
 // year-end closure and HKEX's Lunar New Year run past 4 days. A venue with no
 // calendar keeps the 4-day rule, and the silent rule is unchanged.
 func TestQuoteFeedHolidayStale(t *testing.T) {
@@ -500,7 +500,7 @@ func TestQuoteFeedHolidayStale(t *testing.T) {
 }
 
 // A quote feed's outlook σ is measured over calendar days, as Analyze's
-// realized volatility is (gap round G15): weekday bars no longer annualize
+// realized volatility is: weekday bars no longer annualize
 // with √365 as if every bar were a day. A 24/7 outlook is unchanged.
 func TestQuoteFeedOutlookCalendarVol(t *testing.T) {
 	c, f := feedClient(t)

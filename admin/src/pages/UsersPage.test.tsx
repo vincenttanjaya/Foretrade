@@ -142,7 +142,7 @@ describe('New user', () => {
     expect(dialog).toHaveTextContent('Admins can sign in to this console')
     await user.click(within(dialog).getByRole('button', { name: 'Create user' }))
 
-    expect(create).toHaveBeenCalledWith({ email: 'Ann@Example.com', name: 'Ann Lee', role: 'admin', seedFrom: 'demo@example.com' })
+    expect(create).toHaveBeenCalledWith({ email: 'Ann@Example.com', name: 'Ann Lee', role: 'admin' })
     expect(await screen.findByRole('dialog', { name: 'Account created.' })).toHaveTextContent('Shown once.')
     expect(screen.getByLabelText('Temporary password')).toHaveValue('ABCDEFGHJKMNPQRSTVWXYZ2345')
     expect(screen.getByText('Created ann@example.com.')).toBeInTheDocument()
@@ -172,7 +172,6 @@ describe('New user', () => {
       role: 'user',
       creditLimit: 100,
       password: 'correct horse battery',
-      seedFrom: 'demo@example.com',
     })
     expect(await screen.findByText('detail page')).toBeInTheDocument()
   })
@@ -183,13 +182,12 @@ describe('New user', () => {
     const create = vi.spyOn(api, 'createUser').mockResolvedValue({ user: created, seeded })
     const { user } = open()
     const dialog = await fill(user, { password: 'correct horse battery' })
-    expect(within(dialog).getByLabelText('Start with showcase content')).toBeChecked()
+    await user.click(within(dialog).getByLabelText('Start with showcase content'))
     expect(within(dialog).getByText(/^Copies that account's showcase content/)).toHaveTextContent(
       "Copies that account's showcase content: its 3 newest forecasts with their update history plus up to 2 resolved ones, AI portfolios that beat their saved benchmark (up to 2), strategies with Sharpe above 0.5 that beat buy-and-hold (up to 3) and its best arena run vs BTC. Winners first; when none qualifies, the single best one. Never its chats or trades.",
     )
     const from = within(dialog).getByLabelText('Copy from')
-    expect(from).toHaveValue('demo@example.com')
-    await user.clear(from)
+    expect(from).toHaveValue('') // no default source: a fresh install has no demo account
     await user.type(from, 'showcase@example.com')
     await user.click(within(dialog).getByRole('button', { name: 'Create user' }))
     expect(create).toHaveBeenLastCalledWith(expect.objectContaining({ seedFrom: 'showcase@example.com' }))
@@ -201,6 +199,8 @@ describe('New user', () => {
     vi.spyOn(api, 'createUser').mockResolvedValue({ user: created, seeded: { forecasts: 3, portfolios: 0, strategies: 0, arenaRuns: 1 } })
     const { user } = open()
     const dialog = await fill(user, { password: 'correct horse battery' })
+    await user.click(within(dialog).getByLabelText('Start with showcase content'))
+    await user.type(within(dialog).getByLabelText('Copy from'), 'demo@example.com')
     await user.click(within(dialog).getByRole('button', { name: 'Create user' }))
     expect(
       await screen.findByText(
@@ -209,12 +209,12 @@ describe('New user', () => {
     ).toBeInTheDocument()
   })
 
-  it('skips the showcase content when unchecked', async () => {
+  it('skips the showcase content by default', async () => {
     stubList()
     const create = vi.spyOn(api, 'createUser').mockResolvedValue({ user: created })
     const { user } = open()
     const dialog = await fill(user, { password: 'correct horse battery' })
-    await user.click(within(dialog).getByLabelText('Start with showcase content'))
+    expect(within(dialog).getByLabelText('Start with showcase content')).not.toBeChecked()
     expect(within(dialog).queryByLabelText('Copy from')).toBeNull()
     await user.click(within(dialog).getByRole('button', { name: 'Create user' }))
     expect(create.mock.lastCall![0]).not.toHaveProperty('seedFrom')

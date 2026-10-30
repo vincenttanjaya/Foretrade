@@ -1,4 +1,4 @@
-// "What has to happen" (API contract round 9b): the valuation and tail scenarios behind a numeric report. Levels and
+// "What has to happen" (API contract): the valuation and tail scenarios behind a numeric report. Levels and
 // inputs come from the tools' own records, odds from the desk's final distribution over each scenario's range, so a
 // scenario can never contradict the scored buckets; the model's own weight shows only when it differs. Thesis and
 // conditions are model-written: plain text, and only ids that resolve in this run become links.

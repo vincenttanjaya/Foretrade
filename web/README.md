@@ -11,7 +11,7 @@ contract is in [`docs/API-CONTRACT.md`](../docs/API-CONTRACT.md); layout and des
 
 ## Run locally
 
-Node 20 (`.node-version`).
+Node 24 (`.node-version`).
 
 ```sh
 npm ci
@@ -55,9 +55,9 @@ the network.
 
 `npm run e2e` builds the app as production does (into `dist-e2e/`, with `VITE_API_URL=http://localhost:4010`), serves
 it with `vite preview` on port 4180 and drives it with Playwright (Chromium) at 1440 px; tests tagged `@mobile` run
-again at 375 px. First time: `npx playwright install chromium`. The backend is `e2e/mock-api.ts`, a small Node server
-that follows the API contract and is typed with the client's own signatures, so a contract change the mock does not
-follow fails `npm run typecheck`. Every test fails on a console error and blocks requests that leave localhost.
+again at 375 px. First time: `npx playwright install chromium`. The backend is `e2e/mock-api.ts`, a Node stand-in for
+the API (about 3k lines, with its own paper engine) that follows the API contract and is typed with the client's own
+signatures, so a contract change the mock does not follow fails `npm run typecheck`. Every test fails on a console error and blocks requests that leave localhost.
 
 ## Layout
 

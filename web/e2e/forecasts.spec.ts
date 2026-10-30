@@ -373,7 +373,7 @@ test('a report stored before deep research renders as it always did @mobile', as
   await expectNoHorizontalScroll(page)
 })
 
-// ── Round 9b: a numeric report leads with the desk's view ──
+// ── A numeric report leads with the desk's view ──
 for (const theme of ['light', 'dark'] as const) {
   test(`a numeric report leads with the desk's median, its ranges and what has to happen, in ${theme} @mobile`, async ({ page }, info) => {
     await page.addInitScript((t) => localStorage.setItem('theme', t), theme)

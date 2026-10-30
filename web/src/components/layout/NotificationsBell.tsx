@@ -27,7 +27,7 @@ const ICONS: Record<NotificationKind, [ComponentType<{ size?: number }>, string]
   alert_order: [IconCheck, 'text-up'],
   alert_failed: [IconAlert, 'text-down'],
   odds_alert: [IconSignal, 'text-accent-ink'], // Polymarket moved past an odds trigger's level
-  drawdown_alert: [IconArrowDown, 'text-accent-ink'], // a drawdown trigger fired (wave 3)
+  drawdown_alert: [IconArrowDown, 'text-accent-ink'], // a drawdown trigger fired
   drawdown_order: [IconCheck, 'text-up'],
   drawdown_failed: [IconAlert, 'text-down'],
   workflow: [IconBolt, 'text-accent-ink'],

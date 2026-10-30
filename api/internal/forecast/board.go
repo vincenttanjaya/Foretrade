@@ -1,6 +1,6 @@
 package forecast
 
-// Prediction markets board (round 7): live Polymarket markets on crypto and
+// Prediction markets board: live Polymarket markets on crypto and
 // macro from Gamma's event listing, each with its crowd odds, a volatility-
 // model estimate for price questions ("Will the price of Bitcoin be above
 // $86,000 on October 6?") and the caller's own desk read where one of their

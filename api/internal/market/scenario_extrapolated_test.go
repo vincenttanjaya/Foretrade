@@ -3,7 +3,7 @@ package market
 import "testing"
 
 // A median time to target past twice a scenario view's horizon says it is
-// extrapolated, as its rows there do (gap round G19); a drift view never is.
+// extrapolated, as its rows there do; a drift view never is.
 func TestMedianExtrapolated(t *testing.T) {
 	five := NewMixture(100, 5, 0.4, []ScenarioLevel{{Name: "bear", Kind: "bear", P: 0.25, Level: 70}, {Name: "base", Kind: "base", P: 0.5, Level: 180},
 		{Name: "bull", Kind: "bull", P: 0.25, Level: 350}})

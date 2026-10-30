@@ -505,7 +505,12 @@ func (h handler) stream(w http.ResponseWriter, r *http.Request) {
 	case ctx.Err() != nil || s.failed: // client went away; nothing left to tell it
 	case err != nil:
 		code, msg := "internal", "Something went wrong."
-		if upstream {
+		switch {
+		case errors.Is(err, llm.ErrNotConfigured):
+			code, msg = "ai_off", app.AIOffMsg
+		case errors.Is(err, llm.ErrUnreadableDoc):
+			code, msg = "unreadable_file", "The AI on this server can't read this file. Paste the text, or attach a DOCX, CSV or screenshot instead."
+		case upstream:
 			code, msg = "upstream", "The AI model is unavailable right now. Try again shortly."
 		}
 		s.send("error", map[string]string{"code": code, "message": msg})

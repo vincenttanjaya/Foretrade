@@ -423,7 +423,7 @@ function withStatus(s: State, c: Chat['messages'][number]['cards'][number], sinc
   return { ...c, data: { ...c.data, status: trade ? ('filled' as const) : ('open' as const), trade } }
 }
 
-/** An ordered report's view in brief (ForecastSummary.view), which the chat's cards carry (contract, gap round 2). */
+/** An ordered report's view in brief (ForecastSummary.view), which the chat's cards carry (contract). */
 function viewBriefOf(f?: Forecast) {
   const v = f?.shape === 'ordered' ? f.result?.view : undefined
   return v ? { view: { median: v.median, p10: v.p10, p90: v.p90, pAbove: v.pAbove, unit: v.unit, flat: v.flat, headline: v.headline, basis: v.basis.kind } } : {}
@@ -479,7 +479,7 @@ function agentTurn(chatId: string, title: string, s: State, forecast?: Forecast)
   ]
 }
 
-// ── Agent desk actions (round 2, P1): scripted forecast_draft / build_action turns ── begin
+// ── Agent desk actions: scripted forecast_draft / build_action turns ── begin
 /**
  * A message starting "Forecast …" gets a forecast-desk draft card (1 credit); one naming a "basket" an AI portfolio
  * card. (Not any "forecast": the report handoff's prompt mentions the forecast desk and wants the trade turn.)
@@ -520,7 +520,7 @@ function actionTurn(chatId: string, title: string, s: State, message: string, al
 }
 // ── Agent desk actions ── end
 
-// ── Agent sources (round 3, P1): an answer citing only [2] of four sources ── begin
+// ── Agent sources: an answer citing only [2] of four sources ── begin
 export const SOURCED_ANSWER = 'SOL leads the majors as DEX volumes hit a record [2]. **View:** bullish while $180 holds.'
 const MORE_SOURCES = [
   ...SOURCES,
@@ -542,7 +542,7 @@ function sourcedTurn(chatId: string, title: string, s: State, message: string): 
 }
 // ── Agent sources ── end
 
-// ── Long-horizon outlook (hotfix C): a 10x or multi-year question gets the 10-year price_outlook card ── begin
+// ── Long-horizon outlook: a 10x or multi-year question gets the 10-year price_outlook card ── begin
 export const LONG_OUTLOOK_ANSWER = "Yes, it's possible, but only if BTC keeps compounding for years, and realistically over the full decade, not months. " +
   'The volatility model puts a 24% chance on touching 10× within 10 years and 12% on ending there; the drift case is an assumption.'
 
@@ -561,7 +561,7 @@ function outlookTurn(chatId: string, title: string, s: State, message: string): 
 }
 // ── Long-horizon outlook ── end
 
-// ── Price outlook view (round 9a): "can TSMC 10x, by when" gets the scenario view card with time to target ── begin
+// ── Price outlook view: "can TSMC 10x, by when" gets the scenario view card with time to target ── begin
 export const TSM_VIEW_ANSWER = "Yes, it's possible, but only if the AI-supercycle case plays out: about 20% EPS growth a year with the multiple near 25× [1]; " +
   'on that path 10× takes about 11 years. Under our weighted view the chance is about 12% within 10 years and about a third within 20 (extrapolated).'
 
@@ -598,7 +598,7 @@ function btcShortViewTurn(chatId: string, title: string, s: State, message: stri
 }
 export const BTC_SHORT_ANSWER = 'Over the next 3 months the halved historical drift puts the median near $101,800, a 58% chance above today; that drift is an assumption.'
 
-// Slice 1 fix round: the owner's "NVDA 10 years outlook" is 10 years, and a drift-only headline is capped.
+// The owner's "NVDA 10 years outlook" is 10 years, and a drift-only headline is capped.
 export const NVDA_DRIFT_ANSWER = 'Over 10 years, without scenarios of our own, the card leans on NVDA’s historical drift, capped at the S&P 500’s long-run return + 2 points: ' +
   'a median near $592 and a 70% chance above today. That is a backward-looking assumption, not a forecast; a real view needs scenarios with cited inputs.'
 
@@ -616,7 +616,7 @@ function nvdaDriftTurn(chatId: string, title: string, s: State, message: string)
   ]
 }
 
-// Gap round: "Where could SOL go?" names no timeframe and the model gives horizon_days 1095 without a reason: the API
+// "Where could SOL go?" names no timeframe and the model gives horizon_days 1095 without a reason: the API
 // says "Horizon chosen by the agent" (fx.solAgentView).
 export const SOL_AGENT_ANSWER = 'You named no timeframe, so this looks 3 years out: the halved drift puts the median near $247, an assumption, not a forecast.'
 function solAgentTurn(chatId: string, title: string, s: State, message: string): ChatStreamEvent[] | undefined {
@@ -633,7 +633,7 @@ function solAgentTurn(chatId: string, title: string, s: State, message: string):
 }
 // ── Price outlook view ── end
 
-// ── Agent scenario memo (wave 3): get_stock_quote, then a memo with labelled subjective odds ── begin
+// ── Agent scenario memo: get_stock_quote, then a memo with labelled subjective odds ── begin
 export const MEMO_ANSWER = '**Bottom line:** possible but unlikely; about 5% odds of a 10x within 3–5 years (my subjective scenario weights, not measured odds).\n\n' +
   '| Scenario | Probability | Implied price | Return |\n|---|---|---|---|\n| Bear | 30% | $5 | −50% |\n| Base | 45% | $12 | +20% |\n| Bull | 20% | $30 | +200% |\n| Moonshot | 5% | $100 | +900% |\n\n' +
   'P(gain) 70%, P(loss) 30%; probability-weighted multiple 2.0×. **View:** neutral; a re-rating above $30 would change it.'
@@ -651,7 +651,7 @@ function memoTurn(chatId: string, title: string, s: State, message: string): Cha
 }
 // ── Agent scenario memo ── end
 
-// ── Agent answer still running (round 4, P1): a chat whose client left mid-stream ── begin
+// ── Agent answer still running: a chat whose client left mid-stream ── begin
 export const PENDING_CHAT = 'c-pending' // not in the history list: open /chat/c-pending
 export const PENDING_ANSWER = 'AVAX stays on the bullish board: score 44 and 3.1% from its target. **View:** bullish while $24 holds.'
 const PENDING_POLLS = 2 // GET /api/chats/c-pending reads pending: true this many times per session, then has the answer
@@ -1031,7 +1031,7 @@ on('POST', '/api/portfolio/close', ({ s, body }): Res<'closePosition'> => {
   const trade = placeOrder(s, { symbol: body.symbol, side: lot.qty > 0 ? 'sell' : 'buy', qty: Math.abs(lot.qty), source: 'manual' })
   return { trade, portfolio: portfolioOf(s) }
 })
-// ── Trade desk (round 2, p2-trade): protection edits, perps context, trade refs, invested state ── begin
+// ── Trade desk: protection edits, perps context, trade refs, invested state ── begin
 /** The chat whose stored message holds the trade card with this proposalId. */
 function chatRef(s: State, proposalId: string): TradeRef | null {
   for (const c of s.chats.values())
@@ -1261,7 +1261,7 @@ export function predictionBoardOf(s: State, category = 'all', sort = 'edge'): Pr
 on('GET', '/api/predictions/markets', ({ s, q }): Res<'predictionMarkets'> => predictionBoardOf(s, q.get('category') ?? 'all', q.get('sort') ?? 'edge'))
 on('GET', '/api/predictions/markets/:id/draft', ({ id }): Res<'predictionDraft'> => predictionDraftOf(id))
 
-// ── Forecast materials (round 9): files read once into a digest; the mock "reads" them when the run completes ── begin
+// ── Forecast materials: files read once into a digest; the mock "reads" them when the run completes ── begin
 type MaterialsBody = { attachments?: unknown; reuseMaterials?: { forecastId?: unknown; ids?: unknown }; keepMaterials?: unknown }
 const readDigests = (list: ForecastMaterial[]) => list.filter((m) => m.status === 'read')
 /** The run's materials, checked before any credit is spent: kept or reused digests first (free), then the new files. */
@@ -1362,7 +1362,7 @@ on('POST', '/api/forecasts/draft', ({ s, body }): Res<'draftForecast'> => {
     priceRule: /\bBTC\b/i.test(idea) ? { symbol: 'BTC', op: 'above', threshold: 150_000, mode: 'by_date' } : null,
     context: '',
   }
-  // round 9b: a long-horizon stock idea gets ranges cut at multiples of today's level, and that level, as the API's draft does.
+  // A long-horizon stock idea gets ranges cut at multiples of today's level, and that level, as the API's draft does.
   if (/\bTSM\b/i.test(idea) && /\byears?\b|\b20[3-9]\d\b/i.test(idea)) return { ...TSM_DRAFT, credits: spend(s, 1) }
   return { draft, credits: spend(s, 1) }
 })
@@ -1375,7 +1375,7 @@ on(
   201,
 )
 
-// The shared historical replay (contract "Track record"): read-only rows every session sees. Round 8b: each carries
+// The shared historical replay (contract "Track record"): read-only rows every session sees. Each carries
 // the volatility-only reference (= its anchorP); the BTC row's desk hedged toward 50% uncited, so the guard reset it.
 const GUARD_NOTE =
   "Server check: the desk moved toward 50% from the volatility-only reference without citing evidence, so the final probability is the reference's."
@@ -1417,7 +1417,7 @@ const summaryOf = (f: Forecast): ForecastSummary => ({
     ? { view: (({ median, p10, p90, pAbove, unit, flat, headline, basis }) => ({ median, p10, p90, pAbove, unit, flat, headline, basis: basis.kind }))(f.result.view) }
     : {}),
 })
-// ── Forecast updates (round 3, P2): a lineage is a run and the runs that update it ── begin
+// ── Forecast updates: a lineage is a run and the runs that update it ── begin
 /** The lineage's completed runs, oldest first: from the root down (Map order puts every parent before its updates). */
 function lineage(s: State, f: Forecast): ForecastPoint[] {
   let root = f
@@ -1479,7 +1479,7 @@ on('POST', '/api/forecasts/:id/resolve', ({ s, id, body }): Res<'resolveForecast
   f.resolution = outcome === null ? null : { outcome, resolvedAt: now(), by: 'manual' }
   return { forecast: f }
 })
-// ── Research provenance (round 4, P2-research): a report the stored news wire fed (live search was off) ── begin
+// ── Research provenance: a report the stored news wire fed (live search was off) ── begin
 export const WIRE_FORECAST = 'f-wire'
 on('GET', `/api/forecasts/${WIRE_FORECAST}`, (): Res<'forecast'> => ({
   forecast: {
@@ -1820,7 +1820,7 @@ on('POST', '/api/ai-portfolios/:id/invest', ({ s, id, body }): Res<'investPortfo
 // "first" has never had one. "failing" has failed 3 refreshes in a row and waits 40 min for the next, under a 9 h old
 // board; "failing-empty" is the same with no board that validates. "new-ledger" is the first steady-v1 board: no exit
 // or score yet. "legacy" still shows a board stored before steady-v1 (picks with invalidation 0; the first steady
-// refresh replaces it): an empty ledger, and the history its board chain gives (legacy rows, gap round G22's reasons).
+// refresh replaces it): an empty ledger, and the history its board chain gives (legacy rows, with the reasons their boards recorded).
 // "switch" is 30 h after the switch: the ledger's first exit, then the legacy rows of the week's older boards.
 const SIGNALS_FIXTURES = ['ready', 'refreshing', 'empty', 'first', 'failing', 'failing-empty', 'legacy', 'new-ledger', 'switch'] as const
 export type SignalsFixture = (typeof SIGNALS_FIXTURES)[number]
@@ -2012,7 +2012,7 @@ function overlapIn(s: State, p: AIPortfolio): AIPortfolio {
 }
 on('GET', '/api/portfolio/review', ({ s }): Res<'portfolioReview'> => reviewOf(s))
 
-// ── Automations (round 3, p3): alerts and the bell. The mock never fires an alert; the bell serves fixed items. ──
+// ── Automations: alerts and the bell. The mock never fires an alert; the bell serves fixed items. ──
 const alertsOf = new WeakMap<State, Alert[]>() // newest first
 const myAlerts = (s: State) => alertsOf.get(s) ?? (alertsOf.set(s, []), alertsOf.get(s)!)
 const bellSeen = new WeakSet<State>()
@@ -2029,9 +2029,9 @@ on(
   ({ s, body }): Res<'createAlert'> => {
     const r = body as AlertRequest
     if (r.action === 'research' && r.trigger !== 'schedule') throw new Fail(400, 'bad_request', 'Research is a schedule-only action.')
-    if (r.trigger === 'schedule') return createSchedule(s, r) // round 4
-    if (r.trigger === 'odds') return createOddsAlert(s, r) // round6:P3
-    if (r.trigger === 'drawdown') return createDrawdown(s, r) // wave3:s2
+    if (r.trigger === 'schedule') return createSchedule(s, r)
+    if (r.trigger === 'odds') return createOddsAlert(s, r)
+    if (r.trigger === 'drawdown') return createDrawdown(s, r)
     let px = mark(r.symbol ?? '') // unknown → 400
     const action = r.action ?? 'notify'
     const price = r.price ?? 0
@@ -2119,7 +2119,7 @@ on('POST', '/api/notifications/channels/test', ({ s }): Res<'testNotificationCha
   return { email: c.email.enabled ? 'sent' : 'off', lark: c.lark.enabled ? 'sent' : 'off' }
 })
 
-// wave3:s2 ── All-time-high drawdown triggers. The mock high is a fixed 1.6 × the fixture price on Jan 19, 2025 (test
+// ── All-time-high drawdown triggers. The mock high is a fixed 1.6 × the fixture price on Jan 19, 2025 (test
 // data, labelled like the API's sources); the mock never fires a trigger. A quote feed's high and price are its
 // listing's, in the listing's currency (basis "listing"). HSDT's high is 10,000,000 × its price, standing in for the
 // reverse-split case: a Yahoo high over 100× the price is refused with 400, as the API does. ── begin
@@ -2236,7 +2236,7 @@ function drawdownTurn(chatId: string, title: string, s: State, message: string):
     { event: 'done', data: { messageId: randomUUID(), credits: s.credits } },
   ]
 }
-// wave3:s2 ── Drawdown triggers ── end
+// ── Drawdown triggers ── end
 
 // ── Workflows: only authenticated test controls advance slots; there are no jobs or models. ──
 const priceTrigger = { trigger: 'price', every: null, at: null, weekday: null, nextRunAt: null, lastRun: null,
@@ -2481,7 +2481,7 @@ function researchProposalTurn(chatId: string, title: string, s: State, message: 
 }
 // ── Workflows ── end
 
-// ── Showcase desk (round 4, P3): forecast-driven holdings, a Copilot plan with a limit entry ── begin
+// ── Showcase desk: forecast-driven holdings, a Copilot plan with a limit entry ── begin
 /** Puts a wrapper in front of an earlier route (the first match wins): it runs the original, then edits its body. */
 function around<K extends keyof Api>(method: string, path: string, edit: (out: Res<K>, c: Ctx) => Res<K>) {
   const base = routes.find((r) => r.method === method && r.re.test(path))!
@@ -2506,7 +2506,7 @@ around<'copilotPlan'>('POST', '/api/copilot/plan', (out, { body }) => {
 })
 // ── Showcase desk ── end
 
-// ── round 5: D trade/autopilot ── begin
+// ── Trade and autopilot ── begin
 /** Deploy takes stop / target / trailing overrides of the spec, refuses an autopilot without a stop and a target, and echoes the levels. */
 {
   const base = routes.find((r) => r.method === 'POST' && r.re.test('/api/autopilots'))!
@@ -2530,9 +2530,9 @@ around<'copilotPlan'>('POST', '/api/copilot/plan', (out, { body }) => {
     },
   })
 }
-// ── round 5: D trade/autopilot ── end
+// ── Trade and autopilot ── end
 
-// ── round 5: C progress ── begin
+// ── Live run progress ── begin
 /** A categorical run frozen mid-pipeline: research done, one specialist in, one thinking, one dropped. Never changes, so polls cannot race. */
 export const RUNNING_FORECAST = 'f-running'
 on('GET', `/api/forecasts/${RUNNING_FORECAST}`, (): Res<'forecast'> => ({
@@ -2555,9 +2555,9 @@ on('GET', `/api/forecasts/${RUNNING_FORECAST}`, (): Res<'forecast'> => ({
   },
 }))
 routes.unshift(routes.pop()!) // ahead of the generic GET /api/forecasts/:id
-// ── round 5: C progress ── end
+// ── Live run progress ── end
 
-// ── round 5: A prediction markets ── begin
+// ── Prediction markets ── begin
 type MarketPosition = import('../src/lib/types').MarketPosition
 /** A completed binary report matched to Polymarket (Yes 55¢ against the desk's 62%), added to a session on first use. */
 export const MARKET_FORECAST = 'f-market'
@@ -2649,9 +2649,9 @@ for (const r of routes) {
     return { ...out, portfolio: { ...p, equity, totalPnl: equity - START, totalPnlPct: ((equity - START) / START) * 100, buyingPower: Math.max(0, 2 * equity - p.grossExposure), predictionStakes: staked } }
   }
 }
-// ── round 5: A prediction markets ── end
+// ── Prediction markets ── end
 
-// round6:P2 ── Desk vs market by strike: a completed ordered report with a Polymarket ladder (fixed, so no 5 s poll) ── begin
+// ── Desk vs market by strike: a completed ordered report with a Polymarket ladder (fixed, so no 5 s poll) ── begin
 export const LADDER_FORECAST = 'f-ladder'
 routes.unshift({
   method: 'GET',
@@ -2659,10 +2659,10 @@ routes.unshift({
   status: 200,
   handler: (): Res<'forecast'> => ({ forecast: { ...fx.ladderForecast({ createdAt: hoursAgo(2), completedAt: hoursAgo(2) }), parentId: null, history: [] } }),
 })
-// round6:P2 ── end
+// ── Desk vs market by strike ── end
 
-// ── round 8: deep research ── begin
-// A completed deep report with a 30-finding ledger over 22 sources, the same question stored before round 8 (no ledger,
+// ── Deep research ── begin
+// A completed deep report with a 30-finding ledger over 22 sources, the same question stored before deep research (no ledger,
 // no depth: it must render as it always did), and a deep run frozen mid-research. All fixed, so no poll races a test.
 type Finding = import('../src/lib/types').ForecastFinding
 const deepSource = (id: string, title: string, source: string, day: string | null, read = false) =>
@@ -2727,7 +2727,7 @@ const deepResult: ForecastResult = {
   },
   knowledgeNote: `Deep web research via Brave Search (2 rounds, 18 searches, ${DEEP_SOURCES.length} sources, ${DEEP_SOURCES.filter((x) => x.read).length} articles read, ${DEEP_FINDINGS.length} findings) + model knowledge (training data) as of ${now().slice(0, 16).replace('T', ' ')} UTC.`,
 }
-// What the same report looked like before round 8: one-shot research, 8 sources, no ledger, depth or watch list.
+// What the same report looked like before deep research: one-shot research, 8 sources, no ledger, depth or watch list.
 const { findings: _f, watch: _w, ...legacyBase } = fx.deepForecastResult
 const legacyResult: ForecastResult = {
   ...legacyBase,
@@ -2745,7 +2745,7 @@ deepRoute(DEEP_FORECAST, () => fx.deepForecast({ id: DEEP_FORECAST, result: deep
 deepRoute(LEGACY_FORECAST, () => fx.deepForecast({ id: LEGACY_FORECAST, result: legacyResult, createdAt: hoursAgo(30), completedAt: hoursAgo(30) }))
 deepRoute(RUNNING_DEEP_FORECAST, () =>
   fx.deepForecast({ id: RUNNING_DEEP_FORECAST, status: 'running', result: null, completedAt: null, createdAt: hoursAgo(0), progress: { ...fx.deepProgress, updatedAt: now() } }))
-// round 9: the deep report with three of the user's files (one reused, one unread), and a run still reading them.
+// The deep report with three of the user's files (one reused, one unread), and a run still reading them.
 export const MATERIALS_FORECAST = 'f-materials'
 export const RUNNING_MATERIALS_FORECAST = 'f-running-materials'
 const materialsResult: ForecastResult = {
@@ -2761,11 +2761,11 @@ deepRoute(RUNNING_MATERIALS_FORECAST, () =>
     materials: fx.materials.map((m) => (m.reusedFrom ? m : { ...m, status: 'pending', error: undefined, summary: '', relevance: undefined, findings: [], excerpt: '', readAt: null })),
     progress: { ...fx.materialsProgress, materials: { status: 'running', total: 3, reused: 1, read: 1, failed: 0 }, updatedAt: now() },
   }))
-// ── round 8: deep research ── end
+// ── Deep research ── end
 
-// ── round 9b: desk view and methods ── begin
+// ── Desk view and methods ── begin
 // The TSM question re-run with three methods (view, scenarios, methods, measured history) and the same question stored
-// before round 9b, whose view GET derives from the old buckets. Fixed, so no poll races a test.
+// before desk views, whose view GET derives from the old buckets. Fixed, so no poll races a test.
 export const VIEW_FORECAST = 'f-view'
 export const DERIVED_FORECAST = 'f-view-derived'
 deepRoute(VIEW_FORECAST, () => fx.tsmDeskForecast({ id: VIEW_FORECAST, createdAt: hoursAgo(1), completedAt: hoursAgo(1) }))
@@ -2784,9 +2784,9 @@ const TSM_DRAFT = {
   },
   reference: fx.tsmDraftReference,
 }
-// ── round 9b ── end
+// ── Desk view and methods ── end
 
-// round6:P4 ── Community strategies (publish / star / copy) and an invested portfolio's actual vs BTC ── begin
+// ── Community strategies (publish / star / copy) and an invested portfolio's actual vs BTC ── begin
 type Community = NonNullable<Strategy['community']>
 /** Two strategies other users published: the board's fixtures. Stars are per session, like everything else here. */
 export const COMMUNITY = { eth: 'c-eth-breakout', btc: 'c-btc-dip', sol: 'c-sol-rsi' }
@@ -2902,7 +2902,7 @@ around<'aiPortfolio'>('GET', '/api/ai-portfolios/x', (out, { s, id }) => {
   const benchmarkSeries = inv.benchmarkReturnPct == null ? null : ts.map((t) => ({ t, v: 100 }))
   return { portfolio: { ...out.portfolio, invested: { ...inv, series: ts.map((t) => ({ t, v })), benchmarkSeries, btcSeries: inv.benchmarkSymbol === 'BTC' ? benchmarkSeries : null, windowStart: ts[0], windowEnd: ts.at(-1)!, bars: ts.length } } }
 })
-// round6:P4 ── end
+// ── Community strategies ── end
 
 // ── Server ──────────────────────────────────────────────────────────────────
 
@@ -2931,7 +2931,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
 
   let raw = ''
   let size = 0
-  // The upload cap (chat messages, forecast runs and updates: round 9 materials) is the API's 32 MiB.
+  // The upload cap (chat messages, forecast runs and updates with materials) is the API's 32 MiB.
   const bodyLimit = url.pathname === '/api/chat/stream' || url.pathname === '/api/forecasts' || /^\/api\/forecasts\/[^/]+\/update$/.test(url.pathname) ? 33_554_432 : 65_536
   for await (const chunk of req) {
     size += Buffer.byteLength(chunk)
@@ -2993,7 +2993,7 @@ export default async function globalSetup() {
   return () => new Promise<void>((resolve) => server.close(() => resolve()))
 }
 
-// round6:P3 ── Prediction-market odds triggers: checked against the session's report and its stored market; the mock never
+// ── Prediction-market odds triggers: checked against the session's report and its stored market; the mock never
 // re-prices or fires one. ── begin
 export function createOddsAlert(s: State, r: AlertRequest): Res<'createAlert'> {
   if (!!r.forecastId === !!r.marketSlug) throw new Fail(400, 'bad_request', 'Provide exactly one odds alert target.')
@@ -3229,4 +3229,4 @@ export function seedAccountFixture(s: State, scenario: 'ledger' | 'references' |
   if (scenario === 'unavailable') accountUnavailable.add(s)
 }
 on('POST', '/__e2e/account-fixture', ({ s, body }) => { seedAccountFixture(s, body.scenario); return { revision: s.revision } })
-// round6:P3 ── end
+// ── Prediction-market odds triggers ── end

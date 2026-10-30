@@ -276,7 +276,7 @@ func TestVersion(t *testing.T) {
 	if v := version(); v != "dev" && len(v) != 12 {
 		t.Fatalf("fallback: %q", v)
 	}
-	// Only a commit id reaches /healthz (gap round G23).
+	// Only a commit id reaches /healthz.
 	for in, want := range map[string]string{"nogit": "dev", "0123456789AB": "dev", "abc12": "dev", "abc1234": "abc1234", "0123456789abcdef0123456789abcdef01234567": "0123456789ab",
 		"0123456789abcdef0123456789abcdef012345678": "dev", "deadbeef-dirty": "dev"} {
 		if commit = in; version() != want {
@@ -285,7 +285,7 @@ func TestVersion(t *testing.T) {
 	}
 }
 
-// GET /healthz says which commit is serving (gap round G23): the header is
+// GET /healthz says which commit is serving: the header is
 // the boot version, the body stays "ok".
 func TestHealthzCommit(t *testing.T) {
 	h := handler([]string{origin}, &app.Deps{Auth: auth.NewService(nil, nil, false), Market: market.NewClient("http://127.0.0.1:1")})

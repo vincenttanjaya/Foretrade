@@ -26,8 +26,10 @@ const FEATURES = [
 
 function loginError(err: unknown) {
   if (err instanceof ApiError) {
-    if (err.code === 'invalid_credentials') return "That email and password don't match. Check the demo credentials and try again."
+    if (err.code === 'invalid_credentials') return "That email and password don't match."
     if (err.code === 'rate_limited') return 'Too many sign-in attempts. Wait a few minutes, then try again.'
+    // The API's origin check (ALLOWED_ORIGINS): e.g. the app opened at a LAN IP the server doesn't list.
+    if (err.code === 'forbidden') return "Sign-in isn't allowed from this address. Open the app at the address your administrator set up."
     if (err.status === 0) return err.message
   }
   return 'Something went wrong while signing in. Please try again.'
@@ -107,7 +109,7 @@ export function LoginPage() {
         </header>
 
         <div className="relative max-w-xl py-10 sm:py-14 lg:my-auto lg:py-10">
-          <div className="font-mono text-[10.5px] font-medium tracking-[0.18em] text-[#E0B252]">AI TRADING DESK · DEMO</div>
+          <div className="font-mono text-[10.5px] font-medium tracking-[0.18em] text-[#E0B252]">AI TRADING DESK · PAPER</div>
           <h1 className="mt-5 font-display text-[44px] leading-[0.98] font-normal tracking-[-0.025em] text-balance sm:text-[58px] lg:text-[68px]">
             Trade with an <em className="text-[#E0B252]">AI desk.</em>
           </h1>
@@ -140,9 +142,9 @@ export function LoginPage() {
           <ThemeToggle />
         </div>
         <div className="m-auto w-full max-w-[380px] animate-fade-up py-8">
-          <div className="label">Demo access</div>
+          <div className="label">Welcome back</div>
           <h2 className="mt-3 font-display text-[36px] leading-tight font-medium tracking-[-0.015em]">Sign in</h2>
-          <p className="mt-2 text-[14.5px] leading-relaxed text-muted">Use the demo account set up by whoever runs this instance.</p>
+          <p className="mt-2 text-[14.5px] leading-relaxed text-muted">Use the account your administrator gave you.</p>
 
           <form className="mt-8 space-y-5" onSubmit={onSubmit}>
             <div>

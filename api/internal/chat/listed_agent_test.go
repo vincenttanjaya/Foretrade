@@ -15,7 +15,7 @@ import (
 )
 
 // mainPromptAndSchemas is the system prompt plus every tool's name,
-// description and schema in bytes at main 1d332e8 (measured on that tree,
+// description and schema in bytes before the listed rows (measured
 // 2026-10-13): the listed rows may add at most 1 KB a turn.
 const mainPromptAndSchemas = 79924
 

@@ -15,7 +15,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/market/markettest"
 )
 
-// Wave 2's twelve US stocks and seven Asian perps follow the first 19 perps;
+// The second batch's twelve US stocks and seven Asian perps follow the first 19 perps;
 // nothing before them moves, and each carries its listing and Yahoo ticker.
 func TestWave2Catalog(t *testing.T) {
 	want := []struct {

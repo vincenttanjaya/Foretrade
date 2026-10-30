@@ -207,7 +207,7 @@ const SINCE = 'Since invest'
 type View = Range | typeof SINCE
 
 function Backtest({ p }: { p: AIPortfolio }) {
-  // Once invested (round 6), the detail carries the actual paper series since the first buy: shown first.
+  // Once invested, the detail carries the actual paper series since the first buy: shown first.
   const inv = p.invested
   const selected = comparison(p.backtest)
   const actualBenchmark = inv?.benchmarkSeries !== undefined ? inv.benchmarkSeries : comparison(inv ?? undefined).symbol === 'BTC' ? inv?.btcSeries : null

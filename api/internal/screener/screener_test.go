@@ -150,7 +150,7 @@ func TestAsiaFilters(t *testing.T) {
 	if p := get(t, e, url.Values{"q": {"straits times"}}); p.Total != 30 {
 		t.Fatalf("index search: %d", p.Total)
 	}
-	// A country finds its market's rows (gap round G9): by its name, or exactly by its code.
+	// A country finds its market's rows: by its name, or exactly by its code.
 	per := map[string]int{}
 	for _, m := range all.Markets {
 		per[m.Code] = m.Count

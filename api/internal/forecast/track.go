@@ -247,10 +247,10 @@ type TrackRecord struct {
 	BrierCI90      *[2]float64 `json:"brierCi90"`      // bootstrap 90% interval of the mean Brier; null when n < 5
 	AnchorDiffCI90 *[2]float64 `json:"anchorDiffCi90"` // paired bootstrap 90% interval of mean(Brier − anchor Brier) over the anchored rows; null when anchorN < 5
 
-	AnchorN     int      `json:"anchorN"`     // round 8b: the binary rows with an anchor (replay seed rows; live runs with R1)
-	AnchorSkill *float64 `json:"anchorSkill"` // round 8b: 1 − (the desk's mean Brier on those rows)/anchorBrier; null when anchorN = 0
+	AnchorN     int      `json:"anchorN"`     // the binary rows with an anchor (replay seed rows; live runs with R1)
+	AnchorSkill *float64 `json:"anchorSkill"` // 1 − (the desk's mean Brier on those rows)/anchorBrier; null when anchorN = 0
 
-	Claim Claim `json:"claim"` // round 8b: what the product may say about this record; the fields above stay for compatibility and admin use
+	Claim Claim `json:"claim"` // what the product may say about this record; the fields above stay for compatibility and admin use
 }
 
 // claimMinN is the resolved questions a score claim needs: fewer cannot

@@ -156,8 +156,8 @@ func TestReplayRun(t *testing.T) {
 	}, true)})
 	var searches func() []string
 	e.PolymarketBase, searches = gamma(t, nil)
-	e.ForecastDeepResearch = true // round 8: a replay never runs deep research (panel fails any plan call)
-	e.ForecastMethods = true      // round 9b: a replay keeps round 8b's frame, prompts and output
+	e.ForecastDeepResearch = true // a replay never runs deep research (panel fails any plan call)
+	e.ForecastMethods = true      // a replay keeps the event frame, prompts and output
 	ctx := context.Background()
 	qs, err := ReplayQuestions(ctx, e.Market, e.LLM.KnowledgeCutoff(), time.Now())
 	if err != nil {
@@ -167,14 +167,14 @@ func TestReplayRun(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if res.Summary != "We stay close to the ensemble. We put it at a third." || res.View != nil || res.Methods != nil { // round 9b: no lint, no view
-		t.Fatalf("a replay's output is round 8b's: %q %+v", res.Summary, res.View)
+	if res.Summary != "We stay close to the ensemble. We put it at a third." || res.View != nil || res.Methods != nil { // no lint, no view
+		t.Fatalf("a replay's output is the event frame's: %q %+v", res.Summary, res.View)
 	}
 	if res.Market != nil || len(searches()) != 0 { // an as-of run must not see today's market
 		t.Fatalf("replay with market odds: %+v, searches %q", res.Market, searches())
 	}
 	if slices.ContainsFunc(res.Evidence, func(e Evidence) bool { return e.MaterialID != "" }) || strings.Contains(res.KnowledgeNote, "your materials") {
-		t.Fatalf("a replay never has materials: %+v", res.Evidence) // round 9
+		t.Fatalf("a replay never has materials: %+v", res.Evidence)
 	}
 	if res.Findings == nil || len(res.Findings) != 0 || res.Research.Depth != "" || res.Research.Searches != 0 || res.Research.Angles != nil {
 		t.Fatalf("a replay has no ledger and no depth: %+v %+v", res.Findings, res.Research)

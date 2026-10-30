@@ -254,7 +254,7 @@ func TestVerifyInput(t *testing.T) {
 		{"growthPct", -18, "H1", "assumption", "assumption", false}, // "2009-12-18", a date
 		{"pe", 13.5, "H1", "assumption", "assumption", false},       // a lognormal share on the ranges, "13.5%"
 		{"eps", 21.33, "S7", "assumption", "assumption", false},
-		{"pe", 22, "F1", "assumption", "assumption", false}, // a number in a field's form only (G16): F1 states no P/E
+		{"pe", 22, "F1", "assumption", "assumption", false}, // a number in a field's form only: F1 states no P/E
 		{"pe", 21.33, "F1", "assumption", "assumption", false},
 		{"growthPct", 21.33, "F1", "assumption", "assumption", false},
 		{"pe", 20, "model knowledge, as of 2025-06", "model knowledge, as of 2025-06", "model_knowledge", false},
@@ -265,7 +265,7 @@ func TestVerifyInput(t *testing.T) {
 			t.Errorf("%s %v cited %q: %+v", c.field, c.value, c.basis, got)
 		}
 	}
-	// The review's probe (gap round G16): a source whose dates and counts held 25, 35, 20 and 16.
+	// The review's probe: a source whose dates and counts held 25, 35, 20 and 16.
 	probe := &deskKit{sources: []Source{{ID: "S3", Title: "TSMC third-quarter revenue beats estimates", Read: true,
 		text: "Published Oct 25, 2026. TSMC said third-quarter revenue rose 30.4%.",
 		page: "HSINCHU, Oct 16, 2026 - TSMC posted revenue of NT$990 billion. Some 35 analysts cover the stock; shares are up 20 times since 2006."}}}
@@ -342,7 +342,7 @@ func TestMethodTool(t *testing.T) {
 	}
 }
 
-// "Cited" means cited (gap round G16): a TSM run whose only cited inputs are
+// "Cited" means cited: a TSM run whose only cited inputs are
 // a source's dates and counts ("Oct 25", "35 analysts", "20 times since
 // 2006", "Oct 16") labels them assumptions, so its view rests on the capped
 // drift, not on the scenarios.

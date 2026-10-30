@@ -13,8 +13,8 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/research"
 )
 
-// A cold read with a warm memo validates only the shown board (gap round
-// G22): a week of 42 boards shaped like refresh's (124 inputs and a brief
+// A cold read with a warm memo validates only the shown board:
+// a week of 42 boards shaped like refresh's (124 inputs and a brief
 // snapshot each) used to be re-validated on every recompute, 3 s at 42.
 // Forget, as a stored refresh does, validates every board again.
 func TestColdRecomputeMemo(t *testing.T) {
@@ -125,7 +125,7 @@ func TestColdRecomputeMemo(t *testing.T) {
 }
 
 // The legacy history (boards stored before steady-v1) reads enough 1h bars to
-// reach back to its oldest pick (gap round G22): a target hit 5 h after a pick 216 h ago reads target_hit, where the
+// reach back to its oldest pick: a target hit 5 h after a pick 216 h ago reads target_hit, where the
 // 200 newest bars cut those hours off and read expired.
 func TestHistoryWindowReachesEarlyTargetHit(t *testing.T) {
 	clock := time.Now().Truncate(time.Hour)
@@ -161,8 +161,8 @@ func TestHistoryWindowReachesEarlyTargetHit(t *testing.T) {
 	}
 }
 
-// A legacy board a gap-round-2 build stored records why each pick of the
-// board before it left (gap round G22): LINK still scored above 20 but four
+// A legacy board the last pre-steady build stored records why each pick of the
+// board before it left: LINK still scored above 20 but four
 // stronger picks took the side (outranked), SOL's score fell under the
 // threshold (score_fell), ETH had no fresh bar (no_data). The legacy history
 // reads the recorded reason; target_hit and expired win, and a board that

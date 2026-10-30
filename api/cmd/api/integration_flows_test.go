@@ -150,10 +150,11 @@ func TestIntegrationAuth(t *testing.T) {
 	}
 
 	// Login rate limit: 10 attempts per 10 minutes per client IP. The peer is
-	// loopback (the local proxy's place), so the IP is X-Forwarded-For's first hop.
+	// loopback (the local proxy's place), so the IP is X-Forwarded-For's last hop,
+	// the one the proxy appended; the client wrote the hop before it.
 	attempt := func(ip string, body any) int {
 		req := anon.request("POST", "/api/auth/login", body)
-		req.Header.Set("X-Forwarded-For", ip+", 10.0.0.1")
+		req.Header.Set("X-Forwarded-For", "10.0.0.1, "+ip)
 		resp, _ := anon.send(req)
 		return resp.StatusCode
 	}
@@ -694,7 +695,7 @@ func TestIntegrationForecast(t *testing.T) {
 	shape(t, f, "forecast.result.research", "queries status depth searches")
 	r := "forecast.result."
 	if str(t, f, r+"research.depth") != "quick" || num(t, f, r+"research.searches") != 3 || len(list(t, f, r+"findings")) != 0 {
-		t.Fatalf("quick research (round 8): %v findings %v", at(t, f, r+"research"), at(t, f, r+"findings"))
+		t.Fatalf("quick research: %v findings %v", at(t, f, r+"research"), at(t, f, r+"findings"))
 	}
 	sources := list(t, f, r+"sources")
 	if str(t, f, "forecast.status") != "completed" || !isNull(t, f, "forecast.error") || num(t, f, r+"probabilities.0.p") != 0.27 ||
@@ -948,7 +949,7 @@ func TestIntegrationNews(t *testing.T) {
 		c.fail("GET", "/api/news"+q, nil, 400, "bad_request")
 	}
 
-	shape(t, brief, "brief", briefKeys+" sources") // GET /api/news/brief adds the cited rows (gap round)
+	shape(t, brief, "brief", briefKeys+" sources") // GET /api/news/brief adds the cited rows
 	shapeAll(t, brief, "brief.bullets", "text symbols sources")
 	shapeAll(t, brief, "brief.sources", "id title url source publishedAt")
 	if got := list(t, brief, "brief.sources"); len(got) != 3 || str(t, got[0], "id") != ids[0] {

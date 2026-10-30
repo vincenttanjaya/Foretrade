@@ -12,7 +12,7 @@ import (
 	"github.com/vincenttanjaya/Foretrade/api/internal/market"
 )
 
-// oldTSM is the stored TSM report as round 9 left it: flat buckets, three
+// oldTSM is the stored TSM report from before desk views: flat buckets, three
 // members, no view.
 func oldTSM() (Draft, Result) {
 	d := tsmDraft()
@@ -21,7 +21,7 @@ func oldTSM() (Draft, Result) {
 		Specialists: []Specialist{{Role: "base_rate", Name: "Base-rate statistician", Probabilities: probs}, {Role: "quant", Name: "Market & quant analyst", Probabilities: probs}}}
 }
 
-// anchoredTSM is a round 9b result: a view on the measured basis, with its
+// anchoredTSM is a desk-view result: a view on the measured basis, with its
 // scenarios, methods and measured history.
 func anchoredTSM() (Draft, Result) {
 	d, r := oldTSM()
@@ -37,7 +37,7 @@ func anchoredTSM() (Draft, Result) {
 	return d, r
 }
 
-// TestGetDerivedView: an ordered row stored before round 9b reads with a
+// TestGetDerivedView: an older ordered row stored without a view reads with a
 // derived view (no reference, no median claimed: §4.8's numbers on its
 // ranges) and its members' stats; nothing is stored; a binary row has no
 // view; the list's rows carry the view's brief, the stored one when present.
@@ -93,7 +93,7 @@ func TestGetDerivedView(t *testing.T) {
 	}
 }
 
-// TestFlooredViewServed (the live check's P9): a run's final on the capped
+// TestFlooredViewServed: a run's final on the capped
 // drift narrower than H1's σ, NVDA at ten years at half of it, is stored as
 // the volatility floor widened it, and every readout comes from that stored
 // final: GET's probabilities, view, lead and label, the list row's brief
@@ -138,7 +138,7 @@ func TestFlooredViewServed(t *testing.T) {
 	}
 }
 
-// TestHeldChanceServed (the live check's P8, now the backstop): a view on
+// TestHeldChanceServed (now the backstop): a view on
 // the capped drift stored with its chance held, NVDA at ten years with a
 // final at half H1's σ as written (it reads 85% at or above today, the
 // drift's lognormal 69.6%), is served as stored: GET's view and lead, and
@@ -183,7 +183,7 @@ func fmtDate(date string) string {
 }
 
 // TestRefreshKeepsDeskFields: POST /market rewrites the stored result; the
-// round 9b fields survive it, and an older row's derived view is not stored.
+// desk fields survive it, and an older row's derived view is not stored.
 func TestRefreshKeepsDeskFields(t *testing.T) {
 	e := apptest.New(t, Register, apptest.Options{})
 	d, r := anchoredTSM()
@@ -203,7 +203,7 @@ func TestRefreshKeepsDeskFields(t *testing.T) {
 	a, _ := json.Marshal([]any{r.View, r.Scenarios, r.Methods, r.Measured, r.Specialists})
 	b, _ := json.Marshal([]any{res.View, res.Scenarios, res.Methods, res.Measured, res.Specialists})
 	if string(a) != string(b) || res.MarketCheckedAt == nil {
-		t.Fatalf("the refresh lost round 9b fields:\n%s\n%s", a, b)
+		t.Fatalf("the refresh lost desk fields:\n%s\n%s", a, b)
 	}
 	var raw string
 	if err := e.DB.QueryRow(context.Background(), `select result::text from forecasts where id = $1`, old).Scan(&raw); err != nil || strings.Contains(raw, `"view"`) ||
@@ -257,7 +257,7 @@ func mustJSON(v any) string {
 	return string(b)
 }
 
-// The track record scores only the stored probabilities: the round 9b
+// The track record scores only the stored probabilities: the desk
 // fields change nothing.
 func TestTrackRecordIgnoresDeskFields(t *testing.T) {
 	e := apptest.New(t, Register, apptest.Options{})

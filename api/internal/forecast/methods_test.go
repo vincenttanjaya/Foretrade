@@ -390,7 +390,7 @@ func TestNumericRunLevel(t *testing.T) {
 		*r.Specialists[0].Stats.StatedMedian != 2.4 || r.Methods.Agreement != "duplicate" {
 		t.Fatalf("level: %+v %+v", r.Methods, r.View)
 	}
-	// A level frame gives its members no tools by design: the flag says so, not that they skipped their tools (gap round G21).
+	// A level frame gives its members no tools by design: the flag says so, not that they skipped their tools.
 	want := "Base-rate statistician, Market & quant analyst and Narrative & macro skeptic gave near-identical numbers from the same research, " +
 		"with no model of their own, so they count as one view (largest gap 0 points)."
 	if !slices.ContainsFunc(r.Flags, func(f Flag) bool { return f.Type == "duplicate" && f.Note == want }) {
@@ -400,7 +400,7 @@ func TestNumericRunLevel(t *testing.T) {
 
 func yahooDown(sym string) error { return &yahoo.UnavailableError{Symbol: sym, Reason: "HTTP 503"} }
 
-// An update's change numbers come from the server (gap round G20): a numeric
+// An update's change numbers come from the server: a numeric
 // changeNote loses the sentence that states levels (written before the
 // server's checks), and viewChange reads the change off the two stored views.
 func TestUpdateViewChange(t *testing.T) {
@@ -437,7 +437,7 @@ func TestUpdateViewChange(t *testing.T) {
 	}
 }
 
-// The change line and the changeNote lint (gap round G20).
+// The change line and the changeNote lint.
 func TestViewChangeWords(t *testing.T) {
 	prev := deskView(tsmDraft(), probsAt(tsmOutcomes, .20, .19, .17, .16, .14, .14), tsmRef, 1825, ViewBasis{Kind: "capped_drift", Label: "x"})
 	next := deskView(tsmDraft(), probsAt(tsmOutcomes, .17, .17, .15, .16, .15, .20), tsmRef, 1825, ViewBasis{Kind: "capped_drift", Label: "x"})

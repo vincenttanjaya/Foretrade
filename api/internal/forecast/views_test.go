@@ -568,7 +568,7 @@ func (c liveLadder) desk(t *testing.T) (*deskKit, Draft, []string, [][2]float64,
 	return ladderDesk(t, c.prefix, c.spot, c.vol, c.mu, c.days, c.edges)
 }
 
-// TestDriftPrecision (the live check's P7): on its 22 live ladders, the
+// TestDriftPrecision: on the live check's 22 ladders, the
 // capped drift's lognormal written the way the desk's finals are written
 // keeps its median: H1's own column copied verbatim (0.1 point a range),
 // whole percents each rounded (normalize rescales the sum), whole percents by
@@ -678,7 +678,7 @@ func TestDriftPrecision(t *testing.T) {
 	}
 }
 
-// TestDriftChance (the live check's P8): the mass rule reads a final at one
+// TestDriftChance: the mass rule reads a final at one
 // point, the drift's own median, so a final with the drift's centre and a
 // narrower spread than H1's passes it with more of its probability between
 // today and that median. Its view then stated a far higher chance of a gain
@@ -693,7 +693,7 @@ func TestDriftPrecision(t *testing.T) {
 // chance"); it is the backstop now. A run's final reaches the view widened
 // by the volatility floor, and states its own chance (70.05% for NVDA at ten
 // years at half H1's σ: widened to H1's σ at the final's own median, a hair
-// under the drift's; 70.07% toward the drift's own lognormal in round 5)
+// under the drift's; 70.07% under the earlier floor, toward the drift's own lognormal)
 // beside a 50% range that starts below today.
 func TestDriftChance(t *testing.T) {
 	ladders := map[string]liveLadder{}
@@ -706,7 +706,7 @@ func TestDriftChance(t *testing.T) {
 		scale   float64 // the final's σ, a share of H1's, at the drift's centre
 		lead    string  // the chance the lead stated before: the final's own reading
 		drift   float64 // the drift's lognormal P(≥ today), %
-		widened float64 // the run's view now (P9): the chance of the final the floor widened, %
+		widened float64 // the run's view now: the chance of the final the floor widened, %
 	}{
 		{"NVDA 10y", 0.5, "85%", 69.6, 70.05},
 		{"NVDA 10y", 0.6, "80%", 69.6, 70.01},
@@ -864,7 +864,7 @@ func TestDriftChanceBound(t *testing.T) {
 	t.Logf("%d views on the drift, %d of them with the chance held; %d on cited scenarios, %d on nothing; %d finals normalize refused", kept, held, cited, none, skipped)
 }
 
-// "Independent methods agree" only across inputs (gap round G20): the history
+// "Independent methods agree" only across inputs: the history
 // and regime anchors both rest on H1, so a TSM 10y panel whose only agreeing
 // anchors are those two is diverse and the guard runs; a fundamentals member
 // that agrees makes it independent. A volatility member whose σ came from

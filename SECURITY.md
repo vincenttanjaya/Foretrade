@@ -54,13 +54,15 @@ a VPN or an authenticating reverse proxy.
 
 - `SECRET_KEY` must be 64 hex characters (`openssl rand -hex 32`). Without a valid key, the API still starts but
   refuses to save provider keys or the ChatGPT sign-in.
-- `ADMIN_PASSWORD` must be at least 12 characters; the API refuses to start otherwise. Use a long random one.
+- `ADMIN_PASSWORD` must be 12 to 72 characters (bcrypt's limit is 72 bytes); the API refuses to start otherwise. Use
+  a long random one.
 - Never commit `.env`. It is in `.gitignore`.
 
 **Serve over HTTPS on a public host.** Put a TLS-terminating reverse proxy in front of the web port, then set
 `COOKIE_SECURE=true` so the session cookie is only sent over HTTPS. The cookie is already `HttpOnly` and
 `SameSite=Lax`. Set `ALLOWED_ORIGINS` and `APP_URL` to your real origin. State-changing requests must be JSON and,
-when they carry an `Origin`, come from an allowed origin.
+when they carry an `Origin`, come from an allowed origin. Set `TRUSTED_PROXIES` to the proxy's address as the API sees
+it (`172.16.0.0/12` for a proxy on the Docker host), or every sign-in shares one rate limit.
 
 **Provider keys are encrypted and never returned.** Keys and tokens saved in the admin console (AI provider key,
 Brave key, crawl4ai token, ChatGPT sign-in) are stored in Postgres encrypted with AES-256-GCM under `SECRET_KEY`.
@@ -88,4 +90,6 @@ non-public addresses. A `CRAWL_TOKEN` from the environment is sent only to `CRAW
 together with `.env`: the backup is useless for stored secrets without `SECRET_KEY`.
 
 **Rate limits.** Sign-in is limited to 10 attempts per client IP per 10 minutes, and admin changes to 60 per admin
-per 10 minutes. The counters live in memory, per process.
+per 10 minutes. The counters live in memory, per process. The client IP is the TCP peer; behind a trusted proxy
+(loopback or `TRUSTED_PROXIES`) it is the rightmost `X-Forwarded-For` address that is not a trusted proxy, so a
+client cannot pick its own by sending the header.

@@ -145,7 +145,7 @@ export type PriceOutlook = {
   // Additive, long-horizon outlook (contract "price_outlook"): older cards and the Copilot plan may omit both.
   volBasis?: OutlookVolBasis // the daily closes volAnnPct came from
   longHorizon?: OutlookLongHorizon // only when horizonDays > 365
-  // Additive, round 9a ("Price outlook view"): the fields above are the zero-drift volatility-only baseline; these
+  // Additive ("Price outlook view"): the fields above are the zero-drift volatility-only baseline; these
   // carry the headline view. Cards stored before it lack every one of them.
   horizon?: OutlookHorizon
   history?: OutlookHistory | null
@@ -160,8 +160,8 @@ export type OutlookVolBasis = { window: '90d' | 'long-run'; days: number; since:
 
 /**
  * Where the horizon came from: the user's words, a "by when" question (days null: no at-horizon panel), the agent's
- * choice with its reason ("chosen"), or the agent's choice with none given ("agent", slice 1 fix round: the API accepts
- * it instead of a round trip and the reason says the agent chose it). "user" (gap round 2): the reason quotes the
+ * choice with its reason ("chosen"), or the agent's choice with none given ("agent": the API accepts
+ * it instead of a round trip and the reason says the agent chose it). "user": the reason quotes the
  * user's timeframe in words the parser does not read, shown as given.
  */
 export type OutlookHorizon = { days: number | null; basis: 'explicit' | 'by_when' | 'chosen' | 'agent' | 'user'; reason: string }
@@ -189,14 +189,14 @@ export type OutlookView = {
   kind: 'scenarios' | 'historical_drift' | 'none'
   label: string
   muAnnPct: number | null // historical_drift only: the log drift the view uses (halved, then capped), ×100
-  driftCap?: OutlookDriftCap // historical_drift only (slice 1 fix round)
+  driftCap?: OutlookDriftCap // historical_drift only
   median: number
   p5: number
   p25: number
   p75: number
   p95: number
   pAbove: number // P(price at the horizon ≥ today): the card's gain chance, each scenario's spread included
-  pAboveByWeights?: number // gap round 2: the share of scenario weight above today (for the agent's labelled weight sums)
+  pAboveByWeights?: number // the share of scenario weight above today (for the agent's labelled weight sums)
   changePct: number // median vs spot
   annualPct: number | null // horizons of a year or more
   buckets?: { label: string; lo: number | null; hi: number | null; p: number; pBaseline: number }[] // cut at multiples of spot; absent without a horizon
@@ -225,7 +225,7 @@ export type ScenarioInput = {
   field: 'eps' | 'growthPct' | 'pe' | 'level' | 'cagrPct' | (string & {})
   value: number
   year?: number // eps: the EPS year; growthPct: the exit year the growth runs to
-  basis: string // chat: "[2]" | "quote"; desk (round 9b): "F3" | "S4" | "H1"; both: "model knowledge, as of 2025-06" | "assumption"
+  basis: string // chat: "[2]" | "quote"; desk: "F3" | "S4" | "H1"; both: "model knowledge, as of 2025-06" | "assumption"
   kind: 'source' | 'model_knowledge' | 'assumption'
   verified: boolean
 }
@@ -246,7 +246,7 @@ export type TimeToTarget = {
   target: number
   rows: { years: number; pEnd: number; pTouch: number; baselinePEnd: number; baselinePTouch: number; extrapolated: boolean }[]
   medianYears: number | null // null: not within 30 years
-  // gap round 2: the median lies past twice the scenarios' horizon, so it assumes their returns continue; absent before
+  // The median lies past twice the scenarios' horizon, so it assumes their returns continue; absent on older cards
   medianExtrapolated?: boolean
   byScenario: { name: string; kind: string; annualPct: number; years: number | null }[]
   requiredCagr: { years: number; pct: number }[]
@@ -292,7 +292,7 @@ export type Portfolio = {
   buyingPower: number // 2*equity - grossExposure, floored at 0
   positions: Position[]
   revision?: number // bumps on every committed account change; absent from APIs that predate it
-  predictionStakes?: number // round 5: Σ cost of open paper prediction positions; in equity at cost (absent before round 5)
+  predictionStakes?: number // Σ cost of open paper prediction positions; in equity at cost (absent on older accounts)
 }
 
 export type Trade = {
@@ -345,7 +345,7 @@ export type TradeProposal = {
   rationale: string
   proposalId?: string // absent on cards stored before proposal ids
   // The forecast-desk report behind it (outcome/p = its headline: binary Yes and P(Yes)). stance: how the desk reads this
-  // side, from a price rule on the card's symbol (null without one; absent on older cards). view (gap round 2): an
+  // side, from a price rule on the card's symbol (null without one; absent on older cards). view: an
   // ordered report's view in brief, which the card states instead of the top range when it leads (viewReading).
   forecast?: {
     id: string
@@ -399,7 +399,7 @@ export type Card =
   | { type: 'trade_proposal'; data: TradeProposal }
   | { type: 'price_outlook'; data: PriceOutlook }
   | { type: 'sources'; data: { items: SourceRef[] } } // numbered like the [n] citations in the answer text
-  // view (gap round 2): an ordered report's view in brief (ForecastSummary.view); absent on other shapes and older cards.
+  // view: an ordered report's view in brief (ForecastSummary.view); absent on other shapes and older cards.
   | {
       type: 'forecast'
       data: { id: string; question: string; shape: ForecastShape; headline: { outcome: string; p: number }; resolutionDate: string; view?: ForecastSummary['view'] }
@@ -408,7 +408,7 @@ export type Card =
   | { type: 'protection'; data: ProtectionProposal } // new stop / target for a held position; Confirm sends the PATCH
   | { type: 'price_alert'; data: PriceAlertProposal } // an automation; Set alert sends POST /api/alerts with its proposalId
   // Tap-to-run actions. Stored chats fill forecast / result with what the user started from the card.
-  // forecast.view (gap round 2): the completed run's view in brief; viewHeadline the API's reading of it (ViewHeadline).
+  // forecast.view: the completed run's view in brief; viewHeadline the API's reading of it (ViewHeadline).
   | { type: 'forecast_draft'; data: { draft: ForecastDraft; forecast: DraftRun | null } }
   | {
       type: 'build_action'
@@ -453,7 +453,7 @@ export type ChatAttachmentMetadata = ChatImageMetadata | ChatDocumentMetadata
 export type ChatImageInput = Omit<ChatImageMetadata, 'size'> & { data: string }
 export type ChatDocumentInput = Omit<ChatDocumentMetadata, 'size' | 'pages'> & { data: string }
 export type ChatAttachmentInput = ChatImageInput | ChatDocumentInput
-/** A file sent with a forecast run or update (round 9): the chat attachment input, the same limits and checks. */
+/** A file sent with a forecast run or update: the chat attachment input, the same limits and checks. */
 export type AttachmentInput = ChatAttachmentInput
 export type ChatStreamRequest = { chatId?: string; message: string; mode?: ChatMode; lens?: ChatLens; context?: { symbol?: string; forecastId?: string }; attachments?: ChatAttachmentInput[] }
 
@@ -603,7 +603,7 @@ export type ForecastSummary = {
   resolvedOutcome: string | null // the outcome that happened; null = unresolved
   replay: boolean // a shared historical-replay row
   parentId?: string | null // the run this one updates (an update); null for a first run
-  // Round 9b: an ordered row's desk view in brief; absent for other shapes and unparseable buckets.
+  // An ordered row's desk view in brief; absent for other shapes and unparseable buckets.
   // `basis` is the view's DeskViewBasis kind: a row states its median only when it is not "none".
   view?: {
     median: DeskQ
@@ -626,17 +626,17 @@ export type Specialist = {
   reasoning: string
   keyFactors: string[]
   confidence: Level
-  // Round 9b ("Desk view and methods"): numeric questions only; absent on binary/categorical runs and older results.
+  // "Desk view and methods": numeric questions only; absent on binary/categorical runs and older results.
   method?: SpecialistMethod // set by the server from the tool calls that actually ran
   anchor?: OutcomeP[] // its method's tool distribution over the outcomes, where it started
   stats?: SpecialistStats
   model?: ModelScenario[] // the quant's valuation scenarios as the tool computed them
 }
 
-/** Round 9b: the method a specialist actually used. judgment: it never called its tool; fallback: every call failed. */
+/** The method a specialist actually used. judgment: it never called its tool; fallback: every call failed. */
 export type SpecialistMethod = 'history' | 'fundamentals' | 'volatility' | 'regime' | 'judgment' | 'fallback'
 
-/** Round 9b: a quantile of a bucket distribution; approx when it falls in an open-ended range (an extrapolated tail). */
+/** A quantile of a bucket distribution; approx when it falls in an open-ended range (an extrapolated tail). */
 export type DeskQ = { value: number; approx?: boolean }
 
 /** A specialist's own distribution, read as numbers; statedMedian is the median it wrote (null when it gave none). */
@@ -651,7 +651,7 @@ export type ForecastResult = {
   specialists: Specialist[]
   summary: string
   drivers: { factor: string; direction: 'up' | 'down'; weight: Level }[] // "up" raises the top outcome
-  // materialId (round 9): the user's material ("D2") this claim comes from; its url is then null
+  // materialId: the user's material ("D2") this claim comes from; its url is then null
   evidence: { claim: string; source: string; stance: 'supports' | 'opposes' | 'neutral'; asOf: string; url: string | null; materialId?: string }[]
   flags: { type: 'conflict' | 'stale' | 'duplicate' | 'low_information'; note: string }[]
   whatWouldChange: string[]
@@ -660,32 +660,32 @@ export type ForecastResult = {
   sources: ForecastSource[] // web research pack the specialists saw ([] when search was unavailable; deep: up to S1..S24)
   research: {
     queries: string[] // every query searched, in order (deep: round 1 then round 2)
-    // Round 4: what research the panel actually saw. Absent on results stored before round 4 (derive: replay row → replay,
+    // What research the panel actually saw. Absent on older results (derive: replay row → replay,
     // ≥ 1 source → live, else none).
     status?: 'live' | 'wire' | 'carried' | 'replay' | 'none'
     note?: string // absent for live
-    // Round 8 (deep research): absent on older results, replays and when search was disabled.
+    // Deep research: absent on older results, replays and when search was disabled.
     depth?: 'deep' | 'quick'
     angles?: ResearchAngle[] // deep only
     rounds?: number // deep only: 1 | 2
     searches?: number // Brave calls the run spent
     candidates?: number // deep only: unique results screened
   }
-  // Round 8: the research ledger, F1..Fn in ledger order. The API always sends an array ([] for quick, wire, none and
+  // The research ledger, F1..Fn in ledger order. The API always sends an array ([] for quick, wire, none and
   // replay runs); optional here because fixtures and cached older results may lack it.
   findings?: ForecastFinding[]
-  watch?: WatchItem[] // round 8: 0..4 pending signals; absent when none
+  watch?: WatchItem[] // 0..4 pending signals; absent when none
   market?: MarketOdds | null // the matching Polymarket market (binary live runs; null when none or for replays)
   changeNote?: string // updates only: what moved the estimate since the previous run (numeric runs: the reasons, in words)
-  // Gap round 2, numeric updates whose prior and new runs both have a view: the change, written by the server from the
+  // Numeric updates whose prior and new runs both have a view: the change, written by the server from the
   // two stored views ("Median $570 → $611 (+7.2%) · chance at or above today 58% → 62%"); absent otherwise.
   viewChange?: string
-  marketCheckedAt?: string // round 5: when POST /market last searched Polymarket (absent until a search)
-  ladder?: MarketOdds[] // round 6: ordered live runs, Polymarket's strike ladder, ascending, 2..8 rows; absent when none
-  // Round 8b: the volatility-only reference P(Yes) for binary price-rule runs, as of the run; null or absent otherwise.
+  marketCheckedAt?: string // when POST /market last searched Polymarket (absent until a search)
+  ladder?: MarketOdds[] // ordered live runs, Polymarket's strike ladder, ascending, 2..8 rows; absent when none
+  // The volatility-only reference P(Yes) for binary price-rule runs, as of the run; null or absent otherwise.
   reference?: VolatilityReference | null
-  guard?: 'shrink' | null // round 8b: the server reset the desk's P(Yes) to the reference (moved toward 50% uncited)
-  // Round 9b ("Desk view and methods"): ordered questions whose buckets parse. Older ordered rows get a derived view on
+  guard?: 'shrink' | null // the server reset the desk's P(Yes) to the reference (moved toward 50% uncited)
+  // "Desk view and methods": ordered questions whose buckets parse. Older ordered rows get a derived view on
   // GET (no reference); binary and categorical results and unparseable buckets have none of these.
   view?: DeskView
   scenarios?: DeskScenario[] // 2..5, low → high
@@ -694,7 +694,7 @@ export type ForecastResult = {
 }
 
 /**
- * Round 9b: the desk's distribution read as numbers: median, 50% and 80% ranges and P(at or above today), interpolated
+ * The desk's distribution read as numbers: median, 50% and 80% ranges and P(at or above today), interpolated
  * from the final buckets (uniform within a range, exponential tails, so a quantile in an open range is approx). Percents
  * are ×100; pAbove is 0..1. `lead` is the server's one-sentence statement of these numbers.
  */
@@ -717,7 +717,7 @@ export type DeskView = {
   edges: { value: number; vsRefPct: number | null }[] // the finite range edges, low → high
   lead: string
   basis: DeskViewBasis
-  derived?: boolean // computed on read from a result stored before round 9b
+  derived?: boolean // computed on read from an older result stored without a view
 }
 
 /**
@@ -735,7 +735,7 @@ export type DeskUnit = { prefix: string; suffix: string }
 export type DeskReference = { value: number; label: string; asOf: string; source: string }
 
 /**
- * Round 9b: one valuation or tail scenario. Its level and inputs come from the tools; p is the desk's final
+ * One valuation or tail scenario. Its level and inputs come from the tools; p is the desk's final
  * probability over the scenario's range [lo, hi) (so it cannot contradict the buckets), modelP the tool's own weight.
  */
 export type DeskScenario = {
@@ -754,7 +754,7 @@ export type DeskScenario = {
   sourceIds: string[] // F/S/H ids the thesis and conditions cite that exist in this run
 }
 
-/** Round 9b: how the specialists' methods were weighed into the final distribution. */
+/** How the specialists' methods were weighed into the final distribution. */
 export type DeskMethods = {
   plan: 'long_stock' | 'long_crypto' | 'short' | 'long_level' | (string & {})
   weights: { role: Specialist['role']; method: string; weight: number; why: string | null }[]
@@ -768,7 +768,7 @@ export type DeskMethods = {
   note: string // the desk's method note, plus each server check's sentence
 }
 
-/** Round 9b: the subject's measured daily history (H1). Percents ×100 (drawdown negative); window multiples are ×. */
+/** The subject's measured daily history (H1). Percents ×100 (drawdown negative); window multiples are ×. */
 export type DeskMeasured = {
   symbol: string
   name: string
@@ -784,7 +784,7 @@ export type DeskMeasured = {
   url: string | null // the listing's history page; null for crypto
 }
 
-/** Round 8b: a zero-drift lognormal outlook over 90-day realized volatility; by_date rules use first passage. */
+/** A zero-drift lognormal outlook over 90-day realized volatility; by_date rules use first passage. */
 export type VolatilityReference = {
   kind: 'volatility'
   pYes: number
@@ -807,14 +807,14 @@ export type MarketOdds = {
   evYes: number // EV per $1 Yes contract bought at yesPrice
   evNo: number // per $1 No contract
   signal: 'yes' | 'no' | 'wait'
-  thin?: boolean // volumeUsd null or < 1,000: signal is then 'wait'. Absent on results stored before round 3 (derive it from volumeUsd)
+  thin?: boolean // volumeUsd null or < 1,000: signal is then 'wait'. Absent on older results (derive it from volumeUsd)
   outcome?: string // categorical: the option this market prices ("Nvidia"); the desk side is that option's P
-  strike?: number // round 6, ladder rows only: yesPrice = P(close above strike), edgePp = (desk P(above) − yesPrice) × 100
+  strike?: number // ladder rows only: yesPrice = P(close above strike), edgePp = (desk P(above) − yesPrice) × 100
   asOf: string
   linkStatus?: 'current' | 'changed' | 'unavailable' | 'legacy'
 }
 
-/** A paper YES/NO position on a forecast's matched Polymarket market (round 5); settled by the forecast's resolution. */
+/** A paper YES/NO position on a forecast's matched Polymarket market; settled by the forecast's resolution. */
 export type MarketPosition = {
   id: string
   forecastId: string
@@ -837,7 +837,7 @@ export type MarketPosition = {
 
 export type ForecastSource = { id: string /* "S1".. */; title: string; url: string; source: string; publishedAt: string | null; read: boolean }
 
-/** Round 8: one atomic, dated claim from the research, with the sources that state it. Model-written: plain text only. */
+/** One atomic, dated claim from the research, with the sources that state it. Model-written: plain text only. */
 export type ForecastFinding = {
   id: string // "F1".., in ledger order
   claim: string // ≤ 300 chars, no URLs
@@ -847,11 +847,11 @@ export type ForecastFinding = {
   // binary: yes | no | context; ordered: higher | lower | center | tail | context; categorical: an exact outcome or context
   direction: string
   strength: 'strong' | 'moderate' | 'slight' | 'minimal'
-  origin?: 'material' // round 9: from the user's attached files (numbered after the web ledger); absent for web research
+  origin?: 'material' // from the user's attached files (numbered after the web ledger); absent for web research
   ref?: string // material findings: where in the file ("p. 4", "Sheet Revenue"); may be ""
 }
 
-/** Round 9: one finding the desk read from a material, in the question's direction vocabulary. Plain text only. */
+/** One finding the desk read from a material, in the question's direction vocabulary. Plain text only. */
 export type MaterialFinding = {
   claim: string
   ref: string // "p. 4", "Sheet Revenue", "" when unknown
@@ -861,7 +861,7 @@ export type MaterialFinding = {
 }
 
 /**
- * Round 9: a file the user attached to a forecast and what the desk read from it (D1..D5). The bytes are never
+ * A file the user attached to a forecast and what the desk read from it (D1..D5). The bytes are never
  * stored: only this digest. Summary, findings and excerpt are model-written from the user's file: plain text only.
  */
 export type ForecastMaterial = {
@@ -882,7 +882,7 @@ export type ForecastMaterial = {
   reusedFrom?: string // the forecast whose digest this copies
 }
 
-/** Round 9: the digest stage in the live trace; null when the run has no materials. */
+/** The digest stage in the live trace; null when the run has no materials. */
 export type MaterialsStep = {
   status: 'pending' | 'running' | 'done'
   total: number // materials on the run (reused + new)
@@ -893,13 +893,13 @@ export type MaterialsStep = {
 
 export type ResearchAngleKind = 'comparables' | 'primary' | 'catalysts' | 'resolution' | 'drivers' | 'sentiment' | 'other'
 
-/** Round 8: one line of the research plan and what it yielded. */
+/** One line of the research plan and what it yielded. */
 export type ResearchAngle = { id: string /* "A1".. */; kind: ResearchAngleKind; label: string; queries: string[]; findings: number }
 
-/** Round 8: a pending signal to watch before the resolution date; branch directions use the findings' vocabulary. */
+/** A pending signal to watch before the resolution date; branch directions use the findings' vocabulary. */
 export type WatchItem = { signal: string; detail: string; branches: { if: string; then: string; direction: string }[] }
 
-/** Round 8: one phase of the deep research stage in the live trace (append-only, in order). */
+/** One phase of the deep research stage in the live trace (append-only, in order). */
 export type ResearchStepLog = {
   phase: 'plan' | 'search' | 'screen' | 'read' | 'extract' | 'gap'
   round: number // 0 for plan, 1 or 2 otherwise
@@ -920,11 +920,11 @@ export type Forecast = ForecastDraft & {
   replay: { asOf: string /* YYYY-MM-DD */; anchorP: number /* P(Yes), as-of lognormal outlook */ } | null
   parentId?: string | null // the run this one updates; null for a first run
   history?: ForecastPoint[] // the lineage's completed runs, oldest → newest (this one included when completed); [] for a replay
-  progress?: ForecastProgress | null // the run's live trace (round 5); null before its first write, for older runs and replays
-  materials?: ForecastMaterial[] // round 9: the user's attached files (digests only); [] or absent when none
+  progress?: ForecastProgress | null // the run's live trace; null before its first write, for older runs and replays
+  materials?: ForecastMaterial[] // the user's attached files (digests only); [] or absent when none
 }
 
-/** A run's live pipeline trace (round 5), written as each stage moves. */
+/** A run's live pipeline trace, written as each stage moves. */
 export type ForecastProgress = {
   research: {
     status: 'pending' | 'running' | 'done'
@@ -932,7 +932,7 @@ export type ForecastProgress = {
     found: number
     read: number
     mode: 'live' | 'wire' | 'carried' | 'none' | null // set once done
-    // Round 8: optional because traces stored before it lack them.
+    // Optional because traces stored before it lack them.
     depth?: 'deep' | 'quick' | null // null until the stage picks one
     angles?: string[] // angle labels once planned
     searches?: number // Brave calls so far
@@ -942,12 +942,12 @@ export type ForecastProgress = {
   specialists: { role: Specialist['role']; status: 'pending' | 'running' | 'done' | 'failed'; top: OutcomeP | null /* binary: Yes; else the highest */ }[]
   aggregator: { status: 'pending' | 'running' | 'done' }
   market: { status: 'pending' | 'done' | 'skipped'; matched: boolean }
-  materials?: MaterialsStep | null // round 9: absent on older traces
+  materials?: MaterialsStep | null // absent on older traces
   updatedAt: string
 }
 
 /** One completed run in a forecast's probability history: its headline outcome (binary: Yes) and p. */
-export type ForecastPoint = { id: string; outcome: string; p: number; at: string /* completedAt */; median?: number /* round 9b: the run's desk median, only where its view stated one */ }
+export type ForecastPoint = { id: string; outcome: string; p: number; at: string /* completedAt */; median?: number /* the run's desk median, only where its view stated one */ }
 
 /** Scored resolved forecasts. Numbers are null when n = 0; the anchor fields cover the rows with a volatility reference. */
 export type TrackRecord = {
@@ -961,14 +961,14 @@ export type TrackRecord = {
   skill?: number | null // 1 − brier / baselineBrier; null when n = 0
   brierCi90?: [number, number] | null // bootstrap 90% interval of the mean Brier; null when n < 5
   anchorDiffCi90?: [number, number] | null // 90% interval of mean(panel Brier − anchor Brier) over the paired rows; null when anchorN < 5
-  // Round 8b: absent on older payloads (replay-only anchor, every row paired).
+  // Absent on older payloads (replay-only anchor, every row paired).
   anchorN?: number // rows with an anchor
   anchorSkill?: number | null // 1 − mean(panel Brier on the paired rows) / anchorBrier
-  claim?: TrackClaim // round 8b: what the product may claim; absent on older payloads (read as too_few)
+  claim?: TrackClaim // what the product may claim; absent on older payloads (read as too_few)
 }
 
 /**
- * Round 8b: the score claim the server backs. basis "formula" needs minN paired rows, "uniform" minN rows and none
+ * The score claim the server backs. basis "formula" needs minN paired rows, "uniform" minN rows and none
  * anchored; null is too_few. status is ahead or behind only when the whole 90% range is on one side; skill only when ahead.
  */
 export type TrackClaim = {
@@ -1025,7 +1025,7 @@ export type Metrics = {
   startT: number
   endT: number
   bars: number
-  // Gap round 2: quote-feed runs only, the bars a year their ratios are annualized with (their own trading sessions,
+  // Quote-feed runs only, the bars a year their ratios are annualized with (their own trading sessions,
   // (bars − 1) × 365 days / (endT − startT)); absent on crypto and perp runs, which annualize 24/7 bars.
   barsPerYear?: number
 }
@@ -1058,7 +1058,7 @@ export type Strategy = {
   explanation: string
   shortSample: boolean // window under 180 days or fewer than 10 trades
   createdAt: string
-  community?: CommunityInfo | null // round 6: null for built-in Labs (optional for older fixtures)
+  community?: CommunityInfo | null // null for built-in Labs (optional for older fixtures)
   forward?: StrategyForward | null // every API body; optional/null only for legacy fixtures
 }
 
@@ -1072,12 +1072,12 @@ export type StrategySummary = {
   sparkline: number[] // ≤ 60 equity values
   shortSample: boolean // window under 180 days or fewer than 10 trades: ranked after full samples on Top strategies
   createdAt: string
-  community?: CommunityInfo | null // round 6: set for scope=mine and scope=community, null for top
+  community?: CommunityInfo | null // set for scope=mine and scope=community, null for top
   forward?: ForwardSummary | null // every scope; optional/null only for legacy fixtures
 }
 
 /**
- * Round 7: the live-forward (out-of-sample) run, the same rules on every bar after they were fixed. `since` is the
+ * The live-forward (out-of-sample) run, the same rules on every bar after they were fixed. `since` is the
  * publish (basis "published"), the save of an own unpublished one ("saved") or the Labs launch ("launch").
  */
 export type ForwardSummary = {
@@ -1096,7 +1096,7 @@ export type StrategyForward = ForwardSummary & {
   trades: BacktestTrade[] // last 100
 }
 
-/** Round 6: a saved strategy's standing in the community (publish / star / copy). */
+/** A saved strategy's standing in the community (publish / star / copy). */
 export type CommunityInfo = {
   published: boolean
   publishedAt: string | null
@@ -1241,7 +1241,7 @@ export type Autopilot = {
   log: AutopilotLogEntry[] // newest first
   startedAt: string
   stoppedAt: string | null
-  // The snapshot's risk levels in percent (round 5); null = none.
+  // The snapshot's risk levels in percent; null = none.
   stopLossPct?: number | null
   takeProfitPct?: number | null
   trailingStopPct?: number | null
@@ -1251,7 +1251,7 @@ export type DeployAutopilotRequest = {
   strategyId: string
   allocationUsd: number
   maxDrawdownPct: number
-  // Override the spec's levels (round 5); every deploy needs a stop (or trailing stop) and a target.
+  // Override the spec's levels; every deploy needs a stop (or trailing stop) and a target.
   stopLossPct?: number
   takeProfitPct?: number
   trailingStopPct?: number
@@ -1263,7 +1263,7 @@ export type AIPortfolio = {
   name: string
   thesis: string
   prompt: string
-  holdings: { symbol: string; weight: number; rationale: string; driver?: HoldingDriver | null }[] // driver null before round 4 (optional for older fixtures)
+  holdings: { symbol: string; weight: number; rationale: string; driver?: HoldingDriver | null }[] // driver null on older portfolios (optional for older fixtures)
   backtest: {
     benchmarkSymbol: 'BTC' | 'SP500'
     benchmarkLabel: string
@@ -1484,7 +1484,7 @@ export type SignalRecord = {
   }
 }
 
-// ── Asia screener (wave 3): GET /api/screener/asia, recomputed weekly ──────────
+// ── Asia screener: GET /api/screener/asia, recomputed weekly ──────────
 export type ScreenerFilter = 'all' | 'below' | 'deep' | 'distressed' | 'approaching' | 'oversold'
 export type ScreenerMarket = 'JP' | 'KR' | 'TW' | 'HK' | 'SG' | 'ID' | 'TH' | 'MY' | 'PH' | 'VN'
 export type ScreenerSortKey =
@@ -1607,7 +1607,7 @@ export type SourcePnl = {
   totalPnl: number
 }
 
-// ── Portfolio health (round 7) ───────────────────────────────────────────────
+// ── Portfolio health ───────────────────────────────────────────────
 export type ConcentrationLevel = 'low' | 'medium' | 'high'
 export type ReviewHolding = {
   symbol: string
@@ -1650,7 +1650,7 @@ export type PortfolioReview = {
   notes: string[] // server-written facts
 }
 
-// ── Signals history & strategy optimizer (round 2) ──────────────────────────
+// ── Signals history & strategy optimizer ──────────────────────────
 /**
  * A pick that left the board (GET /api/signals `history`: at most 12, newest removedAt first): a ledger exit (steady-v1)
  * or, while a board stored before steady-v1 is retained (7 days after the switch), a legacy row (`legacy: true`).
@@ -1674,10 +1674,10 @@ export type RemovedPick = {
   result72Pct?: number | null // null until scoredAt; absent on a legacy row
   random72Pct?: number | null
   scoredAt?: string | null
-  // A ledger exit: target_hit | invalidated | expired. A legacy row (gap round G22's reasons, read from the board stored
+  // A ledger exit: target_hit | invalidated | expired. A legacy row (the reasons read from the board stored
   // before steady-v1): target_hit | expired, else what the next board's refresh recorded: outranked (still above the
   // threshold, pushed out by stronger picks), score_fell, no_data (no fresh analysis or bar), or left (none recorded:
-  // boards stored before gap round 2, and the switch to steady-v1).
+  // boards stored before reasons were recorded, and the switch to steady-v1).
   reason: 'target_hit' | 'invalidated' | 'expired' | 'score_fell' | 'outranked' | 'no_data' | 'left'
   legacy?: true // a pick of a board stored before steady-v1: never in the ledger, never scored, never in `record`
 }
@@ -1693,14 +1693,14 @@ export type OptimizeCell = {
 }
 export type OptimizeResult = { grid: OptimizeCell[]; best: OptimizeCell[]; current: OptimizeCell } // grid: 5 stops × 5 targets, stops outer
 
-// ── Automations (round 3): price alerts, paper limit / stop-entry orders, the notifications bell ──
+// ── Automations: price alerts, paper limit / stop-entry orders, the notifications bell ──
 export type AlertOp = 'above' | 'below'
 export type AlertAction = 'notify' | 'buy' | 'sell' | 'research'
 export type NotifyWhen = 'always' | 'changed' | 'invalidated'
 export type Thesis = { statement: string; invalidation: string }
 export type ResearchVerdict = 'holds' | 'weakened' | 'invalidated' | 'unknown'
 export type AlertStatus = 'active' | 'fired' | 'failed' | 'cancelled' | 'paused'
-export type AlertTrigger = 'price' | 'schedule' | 'odds' | 'drawdown' // round 4: schedules; round 6: odds on a forecast's Polymarket market (notify only); wave 3: all-time-high drawdowns
+export type AlertTrigger = 'price' | 'schedule' | 'odds' | 'drawdown' // schedules; odds on a forecast's Polymarket market (notify only); all-time-high drawdowns
 export type AlertEvery = 'day' | 'weekdays' | 'week' // weekdays: Monday to Friday
 export type AlertRun = {
   id: string; at: string; status: 'ok' | 'failed' | 'running' | 'interrupted' | 'cancelled'
@@ -1742,12 +1742,12 @@ export type Alert = {
   marketSlug?: string | null // direct odds: unique leaf, never event slug
   marketId?: string | null
   linkedMarket?: LinkedMarket | null
-  drawdown?: Drawdown | null // drawdown triggers only (wave 3); the API sends null otherwise
+  drawdown?: Drawdown | null // drawdown triggers only; the API sends null otherwise
   currency?: string | null // price triggers: the level's currency when not USD (price and firedPrice in it); null is USD
 }
 
 /**
- * What a drawdown trigger measures from (wave 3, GET /api/alerts/ath): the instrument's all-time high, where it came
+ * What a drawdown trigger measures from (GET /api/alerts/ath): the instrument's all-time high, where it came
  * from and what it covers. Binance daily highs since listing (crypto), the listing's Yahoo lifetime high (USD stocks,
  * ADRs and ETFs, quote feeds) or the perp's own history ("perp history since …, not the listing's lifetime high").
  */
@@ -1776,7 +1776,7 @@ export type Drawdown = AllTimeHigh & {
   fromAthPct: number | null
 }
 
-/** An odds trigger's market (round 6): the forecast's result.market as the alert list reads it. */
+/** An odds trigger's market: the forecast's result.market as the alert list reads it. */
 export type OddsAlertMarket = { question: string; url: string; outcome: string | null; yesPrice: number; asOf: string }
 
 /** POST /api/alerts. Not crossed yet: an above alert needs price > mark, a below one price < mark. */
@@ -1813,7 +1813,7 @@ export type PriceAlertProposal = {
   prompt?: string
   thesis?: Thesis
   notifyWhen?: NotifyWhen
-  trigger?: AlertTrigger // absent = price (cards stored before round 4)
+  trigger?: AlertTrigger // absent = price (older cards)
   op: AlertOp | null // null for a schedule, as are price, markPrice and distancePct
   price: number | null
   markPrice: number | null
@@ -1827,9 +1827,9 @@ export type PriceAlertProposal = {
   stopLoss: number | null
   takeProfit: number | null
   note: string
-  forecastId?: string // odds cards (round 6): symbol '', price the Yes level, markPrice the market's stored Yes price
+  forecastId?: string // odds cards: symbol '', price the Yes level, markPrice the market's stored Yes price
   market?: { question: string; url: string; outcome: string | null }
-  // drawdown cards (wave 3, set_drawdown_alert): op and price null, markPrice the current price, distancePct its
+  // drawdown cards (set_drawdown_alert): op and price null, markPrice the current price, distancePct its
   // distance to the threshold
   drawdownPct?: number
   sellPct?: number
@@ -1842,8 +1842,8 @@ export type NotificationKind =
   | 'alert'
   | 'alert_order'
   | 'alert_failed'
-  | 'odds_alert' // round 6: a fired prediction-market odds trigger, linking to its forecast
-  | 'drawdown_alert' // wave 3: a drawdown trigger fired (notify, or nothing to sell)
+  | 'odds_alert' // a fired prediction-market odds trigger, linking to its forecast
+  | 'drawdown_alert' // a drawdown trigger fired (notify, or nothing to sell)
   | 'drawdown_order' // its sale of the paper long filled
   | 'drawdown_failed' // its sale was refused
   | 'workflow' // a schedule's brief

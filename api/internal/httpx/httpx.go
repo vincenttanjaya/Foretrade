@@ -19,6 +19,7 @@ const maxBody = 64 << 10
 
 func JSON(w http.ResponseWriter, status int, v any) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("X-Content-Type-Options", "nosniff") // the body echoes user text
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(v)
 }
@@ -203,7 +204,8 @@ func CORS(allowed []string, next http.Handler) http.Handler {
 
 // CSRF requires every state-changing request to be application/json (a type
 // a cross-site form cannot send without a preflight) and, when an Origin is
-// present, to come from an allowed origin.
+// present, to come from an allowed origin. An unlisted origin is logged: it is
+// usually the operator's own new host, missing from ALLOWED_ORIGINS.
 func CSRF(allowed []string, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
@@ -213,7 +215,11 @@ func CSRF(allowed []string, next http.Handler) http.Handler {
 		}
 		mt, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
 		origin := r.Header.Get("Origin")
-		if mt != "application/json" || (origin != "" && !slices.Contains(allowed, origin)) {
+		badOrigin := origin != "" && !slices.Contains(allowed, origin)
+		if badOrigin {
+			slog.Warn("cross-site request rejected: origin not in ALLOWED_ORIGINS", "origin", origin, "path", r.URL.Path)
+		}
+		if mt != "application/json" || badOrigin {
 			Error(w, http.StatusForbidden, "forbidden", "Cross-site request rejected.")
 			return
 		}

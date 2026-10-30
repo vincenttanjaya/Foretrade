@@ -1,6 +1,6 @@
 package forecast
 
-// The numeric frames' method tools (round 9b): history_stats (measured
+// The numeric frames' method tools: history_stats (measured
 // history and its rolling windows, for the base rate), scenario_model (EPS ×
 // P/E or level scenarios priced as a variance-matched mixture, for the
 // quant) and stress_mix (priced regime and tail events on the measured base,
@@ -801,7 +801,7 @@ func (k *deskKit) stressTool(log *toolLog) llm.Tool {
 // longOutlookTool is the quant's price_outlook in numeric frames: LongOutlook
 // up to market.MaxOutlookDays. Its longHorizon.driftCase is dropped: that
 // drift is the uncapped halved CAGR, and the desk shows no drift past a year
-// but slice 1's capped one (H1, history_stats).
+// but the capped one (H1, history_stats).
 func (k *deskKit) longOutlookTool(log *toolLog) llm.Tool {
 	t := k.h.quantTools(nil)[0]
 	t.Description = "Zero-drift lognormal price distribution for one crypto asset at a horizon up to 20 years: the live spot, with volatility from the last 90 daily closes up to a year and from the longest daily history beyond. Returns the live spot, 7 price buckets with probabilities, p5/p50/p95, past a year the odds of 0.5x/2x/5x/10x, and for the thresholds you pass, P(price below) at each threshold plus the probability of every range between consecutive thresholds: the neutral volatility-only baseline, not a forecast of direction."

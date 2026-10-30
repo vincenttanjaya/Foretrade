@@ -77,7 +77,7 @@ var (
 	isoRe          = regexp.MustCompile(`\b(20[2-9]\d)-(\d\d)-(\d\d)\b`)
 	periodRe       = regexp.MustCompile(`(?i)\b(?:by\s+)?(?:the\s+)?(end\s+of\s+(?:the\s+|this\s+)?year|year[- ]end|next\s+year|this\s+year|this\s+quarter|end\s+of\s+(?:the\s+|this\s+)?quarter|next\s+quarter|this\s+week|next\s+week|end\s+of\s+(?:the\s+|this\s+)?month|this\s+month|next\s+month|today|tomorrow)\b`)
 
-	// gap round G18: what the user wrote, read to its end
+	// What the user wrote, read to its end
 	// "within a year or two", "a month or two", "in 2 years or 3": a span's far end (a unit after M is enumRe's)
 	orMoreRe = regexp.MustCompile(`(?i)^\s+or\s+` + numWord + `\b`)
 	unitNext = regexp.MustCompile(`(?i)^\s*-?\s*` + enumUnit + `\b`)
@@ -618,8 +618,7 @@ var sentenceStop = regexp.MustCompile(`[.!?;](?:\s|$)`)
 // no past word there, an outlook word or the end of the text right after it
 // ("SOL in March?", "TSM Q4 outlook"). Otherwise it is read as behind and
 // names no horizon: "What happened to TSM in March", "I bought ETH on 15 Oct"
-// and "Since Dec 31" would each read as the next such day, months ahead (gap
-// round 2 review).
+// and "Since Dec 31" would each read as the next such day, months ahead.
 func ahead(before, after string) bool {
 	if locs := sentenceStop.FindAllStringIndex(before, -1); len(locs) > 0 {
 		before = before[locs[len(locs)-1][1]:]

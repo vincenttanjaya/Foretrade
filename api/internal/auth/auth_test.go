@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"net/netip"
 	"os"
 	"strings"
 	"testing"
@@ -45,21 +46,43 @@ func TestLimiter(t *testing.T) {
 	}
 }
 
+// clientIP reads X-Forwarded-For only from a trusted proxy, and then its
+// rightmost hop that is not a proxy: the hops left of it are the client's own.
 func TestClientIP(t *testing.T) {
-	for _, tc := range []struct{ remote, xff, want string }{
-		{"127.0.0.1:5000", "203.0.113.9, 10.0.0.1", "203.0.113.9"},
-		{"[::1]:5000", "203.0.113.9", "203.0.113.9"},
-		{"127.0.0.1:5000", "", "127.0.0.1"},
-		{"198.51.100.7:5000", "203.0.113.9", "198.51.100.7"}, // spoofed header from a non-proxy peer
+	bridge := []netip.Prefix{netip.MustParsePrefix("172.16.0.0/12")}
+	for _, tc := range []struct {
+		remote, xff string
+		trusted     []netip.Prefix
+		want        string
+	}{
+		{"127.0.0.1:5000", "203.0.113.9, 10.0.0.1", nil, "10.0.0.1"},
+		{"127.0.0.1:5000", "6.6.6.6, 203.0.113.9", nil, "203.0.113.9"}, // a client-chosen first hop is ignored
+		{"[::1]:5000", "203.0.113.9", nil, "203.0.113.9"},
+		{"127.0.0.1:5000", "", nil, "127.0.0.1"},
+		{"127.0.0.1:5000", "garbage", nil, "127.0.0.1"},
+		{"198.51.100.7:5000", "203.0.113.9", nil, "198.51.100.7"}, // spoofed header from a non-proxy peer
+		{"172.18.0.1:5000", "203.0.113.9", nil, "172.18.0.1"},     // a host proxy via the Docker bridge, untrusted
+		{"172.18.0.1:5000", "203.0.113.9", bridge, "203.0.113.9"}, // ... and trusted
+		{"172.18.0.1:5000", "6.6.6.6, 203.0.113.9, 172.18.0.5", bridge, "203.0.113.9"},
+		{"172.18.0.1:5000", "172.18.0.5", bridge, "172.18.0.1"}, // every hop a proxy
+		{"198.51.100.7:5000", "203.0.113.9", bridge, "198.51.100.7"},
 	} {
 		r := httptest.NewRequest("POST", "/", nil)
 		r.RemoteAddr = tc.remote
 		if tc.xff != "" {
 			r.Header.Set("X-Forwarded-For", tc.xff)
 		}
-		if got := clientIP(r); got != tc.want {
-			t.Errorf("clientIP(%s, %q) = %s, want %s", tc.remote, tc.xff, got, tc.want)
+		if got := clientIP(r, tc.trusted); got != tc.want {
+			t.Errorf("clientIP(%s, %q, %v) = %s, want %s", tc.remote, tc.xff, tc.trusted, got, tc.want)
 		}
+	}
+	// A second header line is the proxy's: it counts as the rightmost hops.
+	r := httptest.NewRequest("POST", "/", nil)
+	r.RemoteAddr = "127.0.0.1:5000"
+	r.Header.Add("X-Forwarded-For", "6.6.6.6")
+	r.Header.Add("X-Forwarded-For", "203.0.113.9")
+	if got := clientIP(r, nil); got != "203.0.113.9" {
+		t.Errorf("two header lines: %s", got)
 	}
 }
 
@@ -146,7 +169,7 @@ func TestLimiterPrunesExpiredWindows(t *testing.T) {
 func TestClientIPWithoutPort(t *testing.T) {
 	r := httptest.NewRequest("POST", "/", nil)
 	r.RemoteAddr = "192.0.2.1"
-	if got := clientIP(r); got != "192.0.2.1" {
+	if got := clientIP(r, nil); got != "192.0.2.1" {
 		t.Fatalf("clientIP = %q", got)
 	}
 }

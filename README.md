@@ -48,7 +48,7 @@ You need git and Docker with the Compose plugin. On Windows, run the commands in
 git clone https://github.com/vincenttanjaya/Foretrade.git
 cd Foretrade
 ./scripts/setup.sh
-docker compose up -d --build --wait
+docker compose up -d --build --wait --wait-timeout 180
 ```
 
 `scripts/setup.sh` copies `.env.example` to `.env` and fills in the required values: a Postgres password, a
@@ -57,6 +57,13 @@ login when it is done. Running it again never changes a value that is already se
 
 From a source checkout, always pass `--build`. Without it, compose reuses an image it already has, which may not
 match your code.
+
+If the wait times out, read `docker compose logs app`. The usual causes:
+
+- `ADMIN_PASSWORD` in `.env` is shorter than 12 characters.
+- The `foretrade_db` volume is left from an earlier install with a different `POSTGRES_PASSWORD`. Restore that
+  install's `.env`, or delete the old data with `docker compose down -v`.
+- Port 8080 or 8081 is already in use. Set `WEB_PORT` or `ADMIN_PORT` in `.env`.
 
 Then:
 
@@ -88,6 +95,8 @@ docker compose up -d          # apply changes to .env
 docker compose logs -f app    # follow the server log
 docker compose down           # stop (the data volume stays)
 docker compose down -v        # stop and delete all data
+git pull && docker compose up -d --build --wait --wait-timeout 180   # update (migrations run at boot)
+docker compose exec -T db pg_dump -U trade trade > foretrade.sql     # back up; keep .env with it
 ```
 
 ## AI providers
@@ -161,7 +170,7 @@ reachable from the internet.
 |---|---|---|
 | `POSTGRES_PASSWORD` | set by `setup.sh` | Fixed when the database volume is first created. |
 | `SECRET_KEY` | set by `setup.sh` | 64 hex characters. Encrypts stored keys and the ChatGPT sign-in. If it changes, re-enter them. |
-| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | `admin@example.com` / random | The bootstrap admin. The password must be 12 characters or more. |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | `admin@example.com` / random | The bootstrap admin. The password must be 12 to 72 characters. |
 | `AI_PROVIDER`, `AI_MODEL`, `AI_API_KEY`, ... | unset | Set to configure AI from the environment (see above). |
 | `WEB_PORT` | `8080` | Host port of the web app, on every interface. |
 | `ADMIN_PORT` | `8081` | Host port of the admin console, on 127.0.0.1 only. |
@@ -169,7 +178,8 @@ reachable from the internet.
 | `ADMIN_ORIGINS` | localhost and 127.0.0.1 on `ADMIN_PORT` | The only origins the admin API answers. |
 | `APP_URL` | `http://localhost:<WEB_PORT>` | Public URL of the web app. Built into the admin image: run `docker compose up -d --build` after changing it or `WEB_PORT`. |
 | `COOKIE_SECURE` | `false` | Set `true` once the app is served over HTTPS. |
-| `AI_DAILY_CREDITS` | `500` | AI credits per user per day. The admin can override it per user. |
+| `TRUSTED_PROXIES` | unset (loopback only) | Your reverse proxy's address as the container sees it, so sign-in limits apply per client. `172.16.0.0/12` for a proxy on the Docker host. |
+| `AI_DAILY_CREDITS` | `500` | AI credits per user per day. The admin can override it per user. `0` turns AI off for users without their own limit. |
 | `BRAVE_API_KEY` | unset | Brave Search key for news and web search. Without it, search is off. |
 | `CRAWL_BASE` / `CRAWL_TOKEN` | unset | A crawl4ai server and its API token for reading web pages; both are required. Without them, pages are fetched directly. |
 | `LIVE_ARENA` | `off` | `on` runs the live arena, which calls the model on a schedule. |
@@ -185,15 +195,15 @@ allow automated use. Check them and decide for yourself before you turn one on. 
 delayed Yahoo Finance quotes.
 
 Outside Docker, a few defaults differ (see `api/internal/config/config.go`): `ALLOWED_ORIGINS` defaults to the two
-dev servers (`http://localhost:5173,http://localhost:5174`), `ADMIN_ORIGINS` to `http://localhost:5174`, and
-`LIVE_ARENA` is on unless set to `off`.
+dev servers (`http://localhost:5173,http://localhost:5174`) and `ADMIN_ORIGINS` to `http://localhost:5174`.
 
 ## Local development
 
 Prerequisites:
 
 - Go 1.27 (`api/go.mod`)
-- Node 20.20.2 (`web/.node-version`, `admin/.node-version`)
+- Node 24.22.2 (`web/.node-version`, `admin/.node-version`). The root `.tool-versions` pins Go and Node for asdf
+  or mise.
 - Postgres (compose and CI use 18). The commands below run it in Docker.
 
 **1. Postgres** on 127.0.0.1:55432, the address `api/.env.example` uses. Trust auth is fine here because the port
@@ -281,6 +291,8 @@ api/
   internal/...          features: paper, market, research, chat, copilot, forecast, strategy,
                         arena, aipf, autopilot, alerts, signals, screener, admin, auth, usage
   internal/store/       Postgres pool and embedded migrations
+  ci/                   CI's Go test-result checker (REQUIRED_TESTS)
+  scripts/              smoke.sh, seed-demo.py, eval-outlook.sh
 web/                    the trading app
 admin/                  the admin console
 docs/                   API contract and code layout
@@ -291,6 +303,7 @@ Dockerfile, compose.yaml
 
 More detail:
 
+- [api/README.md](api/README.md): running and testing the API on its own
 - [docs/API-CONTRACT.md](docs/API-CONTRACT.md): the HTTP API, the data model and every environment variable
 - [docs/BACKEND-LAYOUT.md](docs/BACKEND-LAYOUT.md): the Go packages
 - [docs/FRONTEND-LAYOUT.md](docs/FRONTEND-LAYOUT.md): the SPAs' layout and design tokens

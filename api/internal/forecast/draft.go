@@ -64,7 +64,7 @@ func (h *handler) draft(ctx context.Context, idea string, today time.Time) (Draf
 // draftTimeout bounds the live price and history a draft reads for its subject (both cached).
 const draftTimeout = 6 * time.Second
 
-// draftWith is draft plus, with the methods on (round 9b), the idea's one
+// draftWith is draft plus, with the methods on, the idea's one
 // subject: a listed stock's live price goes in the prompt, and a long-horizon
 // ordered draft gets ranges cut at multiples of today's level (logBuckets),
 // whose reference it returns (nil otherwise).

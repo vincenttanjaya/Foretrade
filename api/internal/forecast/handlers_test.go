@@ -11,6 +11,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/vincenttanjaya/Foretrade/api/internal/app"
 	"github.com/vincenttanjaya/Foretrade/api/internal/app/apptest"
 	"github.com/vincenttanjaya/Foretrade/api/internal/llm"
 	"github.com/vincenttanjaya/Foretrade/api/internal/llm/llmtest"
@@ -296,10 +297,10 @@ func TestCreateAndRun(t *testing.T) {
 	}
 	if w := e.Do("GET", "/api/forecasts/"+old, nil); w.Code != 200 || !strings.Contains(w.Body.String(), `"sources":[]`) ||
 		!strings.Contains(w.Body.String(), `"research":{"queries":[]},"findings":[]`) || strings.Contains(w.Body.String(), `"watch"`) {
-		t.Fatalf("pre-research result: %d %s", w.Code, w.Body) // round 8: findings reads as [], no watch, no depth
+		t.Fatalf("pre-research result: %d %s", w.Code, w.Body) // findings reads as [], no watch, no depth
 	}
 
-	// A market stored before round 3 has no thin flag: a $65.70 market reads thin, and its old "yes" lean as wait.
+	// An older market has no thin flag: a $65.70 market reads thin, and its old "yes" lean as wait.
 	var legacy string
 	if err := e.DB.QueryRow(ctx, `insert into forecasts (user_id, shape, question, outcomes, resolution_date, status, result, completed_at)
 		values ($1, 'binary', 'Legacy?', '["Yes","No"]', '2030-01-01', 'completed',
@@ -444,6 +445,7 @@ func TestRunError(t *testing.T) {
 	for err, want := range map[error]string{
 		fmt.Errorf("specialists: %w", context.DeadlineExceeded): "The forecast timed out. Try again.",
 		fmt.Errorf("%w: throttled", llm.ErrUpstream):            "The AI model is unavailable right now. Try again shortly.",
+		fmt.Errorf("specialists: %w", llm.ErrNotConfigured):     app.AIOffMsg,
 		errors.New("panic: nil map"):                            "The forecast could not be completed.",
 	} {
 		if got := runError(err); got != want {
@@ -575,7 +577,7 @@ func TestUpdate(t *testing.T) {
 		t.Fatalf("refused updates spend nothing: %d", credits(t, e))
 	}
 
-	// Round 8: an update with nothing fresh carries the parent's deep ledger onto the renumbered sources.
+	// An update with nothing fresh carries the parent's deep ledger onto the renumbered sources.
 	at := time.Now().UTC().Add(-48 * time.Hour)
 	deep := Result{Probabilities: ps("Yes", 0.3, "No", 0.7), Sources: []Source{
 		{ID: "S1", Title: "FOMC calendar", URL: "https://federalreserve.gov/c", Source: "federalreserve.gov"},
@@ -606,7 +608,7 @@ func TestUpdate(t *testing.T) {
 	}
 }
 
-// An ordered report's strike ladder (round 6): POST /market re-prices it at 0
+// An ordered report's strike ladder: POST /market re-prices it at 0
 // credits; with no ladder it searches (slug first, no model call) under the
 // 10-minute guard; a paper stake on it is refused for now.
 func TestOrderedMarket(t *testing.T) {

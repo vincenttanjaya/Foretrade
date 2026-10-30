@@ -5,7 +5,7 @@ package arena
 // stepped by a server job under a Postgres advisory lock. It reuses the arena
 // agent (turn, tools, fills, metrics); only the clock, the prices and the news
 // source differ. No user credits: the spend is bounded by the cadence (3 agents
-// × 6 bars a day), the bench rule and the LIVE_ARENA kill switch.
+// × 6 bars a day), the bench rule and the opt-in LIVE_ARENA switch.
 
 import (
 	"context"
@@ -186,10 +186,10 @@ func nextBarClose(now time.Time) time.Time {
 }
 
 // RunLive steps the live desk every 30 s until ctx ends; main starts it once
-// at boot. LIVE_ARENA=off (Deps.LiveArena) makes it a no-op: the kill switch.
+// at boot. It is a no-op unless LIVE_ARENA=on (Deps.LiveArena).
 func RunLive(ctx context.Context, d *app.Deps) {
 	if !d.LiveArena {
-		slog.Info("live arena off (LIVE_ARENA=off)")
+		slog.Info("live arena off (LIVE_ARENA is not on)")
 		return
 	}
 	t := time.NewTicker(liveTick)

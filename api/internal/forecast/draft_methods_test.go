@@ -108,7 +108,7 @@ func TestLogBuckets(t *testing.T) {
 	}
 
 	// The ladder is in won (the listing's own price), so its σ is the won
-	// closes', not the dollar series the gap round measures a USD level on: at
+	// closes', not the dollar series the chat's outlook card measures a USD level on: at
 	// four years the won's own swings would move it to the widest row.
 	fx := make([]float64, 26*261)
 	for i := range fx {

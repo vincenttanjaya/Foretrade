@@ -16,7 +16,7 @@ listed symbol without one is recorded there as a monogram with its reason (secti
 listed security, and imply no endorsement, affiliation or index-provider licence. The
 licences below cover the drawings, not the marks.
 
-## Convention (for every wave that adds a stock)
+## Convention (for every change that adds a stock)
 
 - **File:** `{ID}.svg` (preferred) or `{ID}.png`; `ID` is the universe symbol,
   upper-case. A PNG preserves its source proportions, with a longest side of at least
@@ -98,9 +98,9 @@ are removed and the viewBox is set tight to the mark. The CC0 text is in
 | `EWJ.svg` | `bfea80baf9989383dc4bf7ca594ed95be0df0ff125bfc88d0bfa878eb0198022` | `afb1e5e93917045a553eb8144537f306dae8d9d0a7467d13da9b05a04bcba3a0` |
 | `EWY.svg` | `7a6cd5b51d0e2841ed8b79b1147ad8a66cf3c09f6344d4a63b5e4413ffa5d15b` | `5a49b473584fcfd532e419158da25d1d38b23cacc0c48d36a2d4cf0ce823084b` |
 
-## Wave 3 files
+## Second-batch perps and quote-feed stocks
 
-The 19 wave-2 perps (PLTR … KSTR) and the 138 quote-feed stocks (HSDT, the US-listed Asian
+The 19 second-batch perps (PLTR … KSTR) and the 138 quote-feed stocks (HSDT, the US-listed Asian
 companies, the Asian local listings and the Singapore, Taiwan and Korea rows), fetched and checked
 2026-10-06 under the convention above. Where a company publishes no separate emblem the
 wordmark is used (noted per row). A public keyless logo CDN is the source only where no
@@ -266,7 +266,7 @@ openly licensed, Commons or official file could be read; those rows say so.
 | `KT.svg` | KT Corporation | Official site https://cfm.kt.com/images/v2/layout/gnb-ktlogo.svg (header logo of https://www.kt.com/); Commons https://commons.wikimedia.org/wiki/File:KT_Corp_2D_logo.svg exists, but upload.wikimedia.org answered HTTP 429 to every attempt from this host, so it was not used | Company trademark artwork from its official website; no licence claimed (used only to identify the listed security) | none; black "kt" with the red stroke; viewBox trimmed |
 | `LPL.svg` | LG Display | Simple Icons lg (package/icons/lg.svg), the LG symbol subpaths only; LG Display's own logo https://www.lgdisplay.com/images/common/logo_en_v2.png (183x70) carries the same symbol; Commons https://commons.wikimedia.org/wiki/File:LG_Display_logo_(english).svg exists, but upload.wikimedia.org answered HTTP 429 to every attempt from this host, so it was not used | CC0-1.0 (Simple Icons 16.34.0, npm simple-icons-16.34.0.tgz sha256 25887ddf96a084a82f9181dc3a7e99750d6b5ac4339fe9321d0e2bf14669dc65); trademark of the owner | fill #A50034 (Simple Icons brand hex); LG symbol only, "LG" letters dropped. Shared LG group symbol (also 051910.KS, 066570.KS); the row label carries the identity |
 
-### Wave 3 SHA256 (bundled files)
+### Second-batch and quote-feed SHA256 (bundled files)
 
 | File | Bundled file |
 | --- | --- |
@@ -851,11 +851,11 @@ instruments and failed image loads, rather than an intentionally omitted catalog
 | `AKRA.JK.png` | `9c4e70e4e0406f6be4488526f37e051b2142444c520188fd591c3184814c1626` | `5790fec597d3fe091dcb42dedcaea00c34bd534d70d764be35b20ad4d3e5004c` |
 <!-- listed-logos:end -->
 
-## Earlier waves (superseded)
+## Earlier logos (superseded)
 
-Round 7 bundled NVDA, TSLA, AAPL, GOOGL and META as Simple Icons marks and MSFT and AMZN
+The first stock logos bundled NVDA, TSLA, AAPL, GOOGL and META as Simple Icons marks and MSFT and AMZN
 as monochrome Font Awesome (CC BY 4.0) drawings, each pre-composed on its own white
-disc, and SP500 and XYZ100 as original glyphs. The Asia wave added BABA,
+disc, and SP500 and XYZ100 as original glyphs. The first Asia logos added BABA,
 HYUNDAI and SMSN the same way (SMSN on a blue disc) under `src/assets/coins`. Its note
 that Simple Icons has no Zhipu icon was wrong (`zdotai` is Z.ai, Zhipu's international
 brand), and it left TSM, SKHX, SOFTBANK, MINIMAX, ZHIPU, EWJ and EWY on a monogram. All

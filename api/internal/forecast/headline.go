@@ -63,7 +63,7 @@ func ViewLean(v *DeskView) string {
 func (v *DeskView) Brief() *ViewBrief { return v.brief() }
 
 // viewChange is an update's change read off the previous and the new stored
-// views (gap round G20): "Median $570 → $611 (+7.2%) · chance at or above
+// views: "Median $570 → $611 (+7.2%) · chance at or above
 // today 58% → 62%" when both state a median, else "80% range $356–$917 →
 // $380–$950". "" without both views.
 func viewChange(prev, next *DeskView) string {
@@ -93,7 +93,7 @@ var (
 )
 
 // changeWords is a numeric update's changeNote with every sentence that
-// states a number dropped (gap round G20): a level in the question's unit
+// states a number dropped: a level in the question's unit
 // ("$650", "S$62", "2.5%"), a percentage or a bp figure. The model writes
 // changeNote before the server's checks, so its numbers can be ones the
 // stored view no longer says; viewChange states them. "" when none remain.

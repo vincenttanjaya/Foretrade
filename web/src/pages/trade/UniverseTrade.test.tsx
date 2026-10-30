@@ -199,7 +199,7 @@ describe('Asia stock presentation', () => {
   })
 })
 
-describe('wave 2 stock perps', () => {
+describe('second-batch stock perps', () => {
   const cxmt = { ...stock, symbol: 'CXMT', pair: 'xyz:CXMT', name: 'CXMT (ChangXin Memory)', price: 8.4, session: 'closed', region: 'asia', sessionVenue: 'SSE', underlying: 'SSE STAR 688825 A-share, CNY→USD; early bars are pre-IPO implied prices', localCurrency: 'CNY' } as Asset
   const pltr = { ...stock, symbol: 'PLTR', pair: 'xyz:PLTR', name: 'Palantir', price: 190, region: 'us', sessionVenue: 'NYSE', underlying: 'Nasdaq: PLTR Class A common share', localCurrency: 'USD' } as Asset
   const kioxia = { ...stock, symbol: 'KIOXIA', pair: 'xyz:KIOXIA', name: 'Kioxia Holdings', price: 119, region: 'asia', sessionVenue: 'TSE', underlying: 'TSE 285A ordinary share, JPY→USD; bars before the 2026-09-28 3-for-1 split are divided by 3', localCurrency: 'JPY' } as Asset

@@ -11,7 +11,7 @@ import (
 
 // Progress is a running forecast's live trace (contract ForecastProgress):
 // what the pipeline has done so far, written as each stage moves. Null for
-// runs stored before round 5 and for replays.
+// older runs and for replays.
 type Progress struct {
 	Research    ResearchStep     `json:"research"`
 	Specialists []SpecialistStep `json:"specialists"`
@@ -19,7 +19,7 @@ type Progress struct {
 		Status string `json:"status"` // pending | running | done
 	} `json:"aggregator"`
 	Market    MarketStep     `json:"market"`
-	Materials *MaterialsStep `json:"materials"` // round 9: null when the run has no materials (and on older traces)
+	Materials *MaterialsStep `json:"materials"` // null when the run has no materials (and on older traces)
 	UpdatedAt time.Time      `json:"updatedAt"`
 }
 
@@ -39,7 +39,7 @@ type ResearchStep struct {
 	Read    int      `json:"read"`    // of them read in full
 	Mode    *string  `json:"mode"`    // live | wire | carried | none once done, else null
 
-	// Round 8 (deep research).
+	// Deep research.
 	Depth    *string       `json:"depth"`    // deep | quick once the stage picks one; null with search off
 	Angles   []string      `json:"angles"`   // the research angles' labels once planned
 	Searches int           `json:"searches"` // Brave calls so far

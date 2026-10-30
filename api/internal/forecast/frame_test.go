@@ -370,7 +370,7 @@ func TestH1DollarSeries(t *testing.T) {
 }
 
 // TestCapInDriftCurrency: a dollar listing of an Asian company (TSM) has its
-// drift capped by its home index in dollars, as the gap round's outlook card
+// drift capped by its home index in dollars, as the chat's outlook card
 // (the Taiwan dollar here falls 4% a year, so TWII in dollars returned less
 // than in TWD and its cap binds lower), on H1 and in history_stats; TWII read
 // in a $ question is in dollars too. With the FX history down the ceiling
@@ -447,7 +447,7 @@ func TestWindowScale(t *testing.T) {
 	}
 }
 
-// TestPrompts: event frames keep round 8b's prompts byte for byte (the
+// TestPrompts: event frames keep the base prompts byte for byte (the
 // goldens are main's); numeric frames carry their methods; the plan hint
 // goes only to the PLAN prompt.
 func TestPrompts(t *testing.T) {
@@ -468,7 +468,7 @@ func TestPrompts(t *testing.T) {
 			t.Fatal(err)
 		}
 		if got != string(want) {
-			t.Errorf("%s differs from round 8b's prompt", name)
+			t.Errorf("%s differs from the base prompt", name)
 		}
 	}
 	h, _ := measureEnv(t)

@@ -358,7 +358,7 @@ func TestHandler(t *testing.T) {
 // hour is the start of an hourly candle n hours after now.
 func hour(n int) int64 { return now.Add(time.Duration(n) * time.Hour).Unix() }
 
-// The picks that left boards stored before steady-v1 (gap round G22's
+// The picks that left boards stored before steady-v1 (the recorded
 // reasons, from their candles): never through the ledger, so they are marked
 // legacy and carry no 72 h score.
 func TestLegacyHistory(t *testing.T) {
@@ -372,7 +372,7 @@ func TestLegacyHistory(t *testing.T) {
 	eth := pick("ETH", "bearish", 100, 90, 4*time.Hour)   // never reaches 90; removed once its validity ended
 	sol := pick("SOL", "bullish", 100, 120, 72*time.Hour) // drops off early
 	link := pick("LINK", "bullish", 100, 130, 72*time.Hour)
-	fell := board(4*time.Hour, []Pick{btc, link}, []Pick{eth}) // SOL removed: its score fell, as its refresh recorded (gap round G22)
+	fell := board(4*time.Hour, []Pick{btc, link}, []Pick{eth}) // SOL removed: its score fell, as its refresh recorded
 	fell.dropped = []droppedPick{{Symbol: "SOL", Side: "bullish", Reason: "score_fell", Score: new(12)}}
 	boards := []Board{
 		board(0, []Pick{btc, sol, link}, []Pick{eth}),
@@ -456,8 +456,8 @@ func TestLegacyHistory(t *testing.T) {
 }
 
 // GET /api/signals while boards stored before steady-v1 are retained: the
-// ledger's exits first, then the legacy picks that left those boards (gap
-// round G22's reasons, marked legacy, never in the record). With market data
+// ledger's exits first, then the legacy picks that left those boards (the
+// recorded reasons, marked legacy, never in the record). With market data
 // down the legacy part is unavailable as a whole (said so) and the ledger's
 // exits still show.
 func TestHandlerLegacyHistory(t *testing.T) {
@@ -550,8 +550,8 @@ func TestLatest(t *testing.T) {
 	pick := Pick{Symbol: "BTC", Side: "bullish", Score: 30, Headlines: []Headline{
 		{"Claim the Bitcoin airdrop", "https://airdropalert.com/bitcoin", "AirdropAlert"},
 		{"Solana DEX volumes hit a record", "https://www.theblock.co/sol", "The Block"},
-		{"1 BTC to USD: Today's Exchange Rate", "https://rates.example/btc-usd", "Rates"},       // a converter page (round 7)
-		{"Bitcoin odds for the Super Bowl", "https://sbs.example/odds", "Sports Betting Stats"}, // a gambling source (round 7)
+		{"1 BTC to USD: Today's Exchange Rate", "https://rates.example/btc-usd", "Rates"},       // a converter page
+		{"Bitcoin odds for the Super Bowl", "https://sbs.example/odds", "Sports Betting Stats"}, // a gambling source
 		{"Bitcoin ETF inflows top $1bn", "https://www.coindesk.com/btc-etf", "CoinDesk"},
 	}}
 	raw, _ := json.Marshal(Board{Bullish: []Pick{pick}, Bearish: []Pick{}})

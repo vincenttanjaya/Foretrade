@@ -1,6 +1,6 @@
 package forecast
 
-// Paper prediction positions (round 5): YES or NO on a completed report's
+// Paper prediction positions: YES or NO on a completed report's
 // matched Polymarket market, bought from paper cash at the live price + 1¢
 // and settled when the forecast resolves (track.go → paper.SettleTx).
 // 0 credits; nothing is sent to Polymarket.

@@ -108,7 +108,7 @@ for (const theme of ['light', 'dark'] as const) {
     await page.screenshot({ path: info.outputPath(`asia-tsm-${theme}.png`), fullPage: true })
   })
 
-  test(`Universe ${theme}: wave-2 perps group by region and CXMT names its SSE session and yuan note @mobile`, async ({ page }, info) => {
+  test(`Universe ${theme}: second-batch perps group by region and CXMT names its SSE session and yuan note @mobile`, async ({ page }, info) => {
     await page.addInitScript((saved) => localStorage.setItem('theme', saved), theme)
     await page.goto('/trade/CXMT')
     await expect(page.getByRole('heading', { level: 1, name: 'CXMT (ChangXin Memory)' })).toBeVisible()
@@ -117,7 +117,7 @@ for (const theme of ['light', 'dark'] as const) {
     await page.getByRole('button', { name: 'Manual', exact: true }).click()
     await expect(page.getByText(/trade\.xyz's oracle converts the CNY listing to USD at the offshore USD\/CNH rate\./)).toBeVisible()
     await expectNoHorizontalScroll(page)
-    await page.screenshot({ path: info.outputPath(`wave2-cxmt-${theme}.png`), fullPage: true })
+    await page.screenshot({ path: info.outputPath(`second-batch-cxmt-${theme}.png`), fullPage: true })
     if (info.project.name === 'mobile') {
       await page.getByRole('button', { name: /^Switch market: / }).click()
       const picker = page.getByRole('dialog', { name: 'Switch market' })
